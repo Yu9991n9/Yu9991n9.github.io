@@ -1,5 +1,5 @@
 
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html><html lang="zh-CN">
 
 <head>
   <meta charset="utf-8">
@@ -26,10 +26,10 @@
 <meta property="og:url" content="https://yu9991n9.github.io/2026/01/25/polar%E4%B8%AD%E7%AD%89/">
 <meta property="og:site_name" content="Yu9991n9的博客">
 <meta property="og:description" content="到底给不给flag呢进入题目看见源码  这里有变量覆盖漏洞，直接漏洞利用 这里有个条件，flag的传参get和post不能都不传参，不热就会退出 这里的get的变量覆盖就比如?b&#x3D;a 那么就会变成：$B&#x3D;$a 利用这个变量漏洞，一开始我传的?flag&#x3D;a&amp;a&#x3D;flag但是这个顺序是错的，foreach循环按照传参先后顺序来，也就是说第一遍时变成了$f">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yu9991n9.github.io/images/avatar.jpg">
 <meta property="article:published_time" content="2026-01-25T11:24:00.000Z">
-<meta property="article:modified_time" content="2026-08-20T17:10:29.010Z">
+<meta property="article:modified_time" content="2026-08-21T03:24:44.879Z">
 <meta property="article:author" content="Yu9991n9">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://yu9991n9.github.io/images/avatar.jpg">
@@ -48,7 +48,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2026-01-25T19:24:00+08:00","dateModified":"2026-08-21T01:10:29+08:00","datePublished":"2026-01-25T19:24:00+08:00","description":"","headline":"Polar中等","mainEntityOfPage":{"@type":"WebPage","@id":"https://yu9991n9.github.io/2026/01/25/polar%E4%B8%AD%E7%AD%89/"},"publisher":{"@type":"Organization","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"https://yu9991n9.github.io/2026/01/25/polar%E4%B8%AD%E7%AD%89/","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2026-01-25T19:24:00+08:00","dateModified":"2026-08-21T11:24:44+08:00","datePublished":"2026-01-25T19:24:00+08:00","description":"","headline":"Polar中等","mainEntityOfPage":{"@type":"WebPage","@id":"https://yu9991n9.github.io/2026/01/25/polar%E4%B8%AD%E7%AD%89/"},"publisher":{"@type":"Organization","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"https://yu9991n9.github.io/2026/01/25/polar%E4%B8%AD%E7%AD%89/","image":[]}</script>
   
 </head>
 <body>
@@ -63,11 +63,11 @@
 <nav class="menu dis-select"></nav>
 </div>
 <div class="widgets">
-<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="Search"></form><div id="search-result"></div><div class="search-no-result">No Results!</div></div>
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
 
 
-<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">Recent Update</span></div><div class="widget-body fs14"><a class="item title" href="/2026/03/26/polar%E5%9B%B0%E9%9A%BE/"><span class="title">Polar困难</span></a><a class="item title" href="/2026/01/25/polar%E4%B8%AD%E7%AD%89/"><span class="title">Polar中等</span></a><a class="item title" href="/2026/03/12/%E5%90%84%E7%89%88%E6%9C%AC%E7%BB%95%E8%BF%87-wakeup/"><span class="title">各版本绕过_wakeup()</span></a><a class="item title" href="/2026/03/08/session%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"><span class="title">session 文件包含</span></a><a class="item title" href="/2026/03/02/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/"><span class="title">[CISCN2019 华北赛区 Day1 Web1]Dropbox</span></a><a class="item title" href="/2026/03/02/hello-world/"><span class="title">Hello World</span></a></div></widget>
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/03/12/%E5%90%84%E7%89%88%E6%9C%AC%E7%BB%95%E8%BF%87-wakeup/"><span class="title">各版本绕过_wakeup()</span></a><a class="item title" href="/2026/03/08/session%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"><span class="title">session 文件包含</span></a><a class="item title" href="/2026/01/25/polar%E4%B8%AD%E7%AD%89/"><span class="title">Polar中等</span></a><a class="item title" href="/2026/03/26/polar%E5%9B%B0%E9%9A%BE/"><span class="title">Polar困难</span></a><a class="item title" href="/2026/03/02/hello-world/"><span class="title">Hello World</span></a><a class="item title" href="/2026/03/02/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/"><span class="title">[CISCN2019 华北赛区 Day1 Web1]Dropbox</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
@@ -78,9 +78,9 @@
 
 <div class="article banner top">
   <div class="content">
-    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">Home</a>
-<span class="sep"></span><a class="cap breadcrumb" href="/">Blog</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">Posted on: <time datetime="2026-01-25T11:24:00.000Z">2026-01-25</time></span><span class="sep updated"></span><span class="text updated">Updated on: <time datetime="2026-08-20T17:10:29.010Z">2026-08-21</time></span></div></div></div>
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/ctf/">CTF</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-01-25T11:24:00.000Z">2026-01-25</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-08-21T03:24:44.879Z">2026-08-21</time></span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -734,7 +734,7 @@ echo $final_payload; // 输出的序列化字符串，和反射法得到的完�
 </article>
 <div class="article-footer">
     <section id="license">
-      <div class="header"><span>License</span></div>
+      <div class="header"><span>许可协议</span></div>
       <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
 </div>
     </section>
@@ -742,7 +742,7 @@ echo $final_payload; // 输出的序列化字符串，和反射法得到的完�
 
 </div>
 
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">Newer</div><a href="/2026/03/02/hello-world/">Hello World</a></div><div class="item" id="next"></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2026/03/02/hello-world/">Hello World</a></div><div class="item" id="next"></div></section></div>
 
 
 
@@ -756,7 +756,7 @@ echo $final_payload; // 输出的序列化字符串，和反射法得到的完�
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">On This Page</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%B0%E5%BA%95%E7%BB%99%E4%B8%8D%E7%BB%99flag%E5%91%A2"><span class="toc-text">到底给不给flag呢</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%99shell"><span class="toc-text">写shell</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5"><span class="toc-text">注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%90%E4%B8%AA%E5%87%BD%E6%95%B0%E7%9A%84%E5%A4%8D%E4%BB%87"><span class="toc-text">某个函数的复仇</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XXe"><span class="toc-text">XXe</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">反序列化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#blackmagic"><span class="toc-text">blackmagic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%8D%E6%9D%A5ping%E4%B8%80%E6%B3%A2%E5%95%8A"><span class="toc-text">再来ping一波啊</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A11%EF%BC%88php%E5%8E%9F%E7%94%9F%E7%B1%BB%EF%BC%89"><span class="toc-text">代码审计1（php原生类）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%A0%E7%9A%84%E9%A9%AC%E5%91%A2"><span class="toc-text">你的马呢</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ezphp"><span class="toc-text">ezphp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#phpurl"><span class="toc-text">phpurl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E5%80%BC-%E5%8F%96%E5%9D%80%E8%B5%8B%E5%80%BC"><span class="toc-text">随机值(取址赋值)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#file"><span class="toc-text">file</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#search"><span class="toc-text">search</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#play-game"><span class="toc-text">play game</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%8C%E7%8E%8B"><span class="toc-text">赌王</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#coke%E7%9A%84%E7%99%BB%E5%BD%95"><span class="toc-text">coke的登录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bllbl-rce"><span class="toc-text">bllbl rce</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9C%9F%E5%81%87rce"><span class="toc-text">真假rce</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nukaka-ser2"><span class="toc-text">nukaka_ser2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%A0%E4%B9%9F%E7%8E%A9%E9%93%B2%E5%90%97"><span class="toc-text">你也玩铲吗</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#polarcms"><span class="toc-text">polarcms</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Squirtle%E7%9A%84%E8%AE%BA%E5%9D%9B"><span class="toc-text">Squirtle的论坛</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text"></span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%BB%91%E7%8B%97%E5%AD%90%E7%9A%84%E8%88%94%E7%8B%97%E6%97%A5%E8%AE%B0"><span class="toc-text">黑狗子的舔狗日记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#polar%E5%BF%AB%E9%80%92"><span class="toc-text">polar快递</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8B%97%E9%BB%91%E5%AD%90%E7%9A%84%E8%B7%B3%E8%BD%AC"><span class="toc-text">狗黑子的跳转</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#aa"><span class="toc-text">aa</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#polar-shop"><span class="toc-text">polar shop</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%91%E5%B8%81%E5%A4%A7%E6%8C%91%E6%88%98"><span class="toc-text">金币大挑战</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>Scroll to Top</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%B0%E5%BA%95%E7%BB%99%E4%B8%8D%E7%BB%99flag%E5%91%A2"><span class="toc-text">到底给不给flag呢</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%99shell"><span class="toc-text">写shell</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5"><span class="toc-text">注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%90%E4%B8%AA%E5%87%BD%E6%95%B0%E7%9A%84%E5%A4%8D%E4%BB%87"><span class="toc-text">某个函数的复仇</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XXe"><span class="toc-text">XXe</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">反序列化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#blackmagic"><span class="toc-text">blackmagic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%8D%E6%9D%A5ping%E4%B8%80%E6%B3%A2%E5%95%8A"><span class="toc-text">再来ping一波啊</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A11%EF%BC%88php%E5%8E%9F%E7%94%9F%E7%B1%BB%EF%BC%89"><span class="toc-text">代码审计1（php原生类）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%A0%E7%9A%84%E9%A9%AC%E5%91%A2"><span class="toc-text">你的马呢</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ezphp"><span class="toc-text">ezphp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#phpurl"><span class="toc-text">phpurl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E5%80%BC-%E5%8F%96%E5%9D%80%E8%B5%8B%E5%80%BC"><span class="toc-text">随机值(取址赋值)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#file"><span class="toc-text">file</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#search"><span class="toc-text">search</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#play-game"><span class="toc-text">play game</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%8C%E7%8E%8B"><span class="toc-text">赌王</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#coke%E7%9A%84%E7%99%BB%E5%BD%95"><span class="toc-text">coke的登录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bllbl-rce"><span class="toc-text">bllbl rce</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9C%9F%E5%81%87rce"><span class="toc-text">真假rce</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nukaka-ser2"><span class="toc-text">nukaka_ser2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%A0%E4%B9%9F%E7%8E%A9%E9%93%B2%E5%90%97"><span class="toc-text">你也玩铲吗</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#polarcms"><span class="toc-text">polarcms</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Squirtle%E7%9A%84%E8%AE%BA%E5%9D%9B"><span class="toc-text">Squirtle的论坛</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text"></span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%BB%91%E7%8B%97%E5%AD%90%E7%9A%84%E8%88%94%E7%8B%97%E6%97%A5%E8%AE%B0"><span class="toc-text">黑狗子的舔狗日记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#polar%E5%BF%AB%E9%80%92"><span class="toc-text">polar快递</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8B%97%E9%BB%91%E5%AD%90%E7%9A%84%E8%B7%B3%E8%BD%AC"><span class="toc-text">狗黑子的跳转</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#aa"><span class="toc-text">aa</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#polar-shop"><span class="toc-text">polar shop</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%91%E5%B8%81%E5%A4%A7%E6%8C%91%E6%88%98"><span class="toc-text">金币大挑战</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -772,10 +772,10 @@ echo $final_payload; // 输出的序列化字符串，和反射法得到的完�
   window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
   const ctx = {
     date_suffix: {
-      just: `Just`,
-      min: `minutes ago`,
-      hour: `hours ago`,
-      day: `days ago`,
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
     },
     root : `/`,
     tag_plugins: {
@@ -1230,9 +1230,9 @@ echo $final_payload; // 输出的序列化字符串，和反射法得到的完�
     utils.dark.method.toggle.start();
 
     const messages = {
-      light: `Switched to Light Mode`,
-      dark: `Switched to Dark Mode`,
-      auto: `Switched to Auto Mode`,
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
     }
     hud?.toast?.(messages[newTheme])
   }
