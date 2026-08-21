@@ -17,19 +17,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
-  <title>Hello World - Yu9991n9的博客</title>
+  <title>无列名注入 - Yu9991n9的博客</title>
 
   
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+    <meta name="description" content="基础知识众所周知，information_schema作为一个记录了mysql中所有表的数据库，我们经常都会用它来查询信息，在部分题目里面，information_schema是会被ban掉的，那么这个时候我们就要考虑如何去绕过了 我们想要得到表名其实可以使用其他方法： innoDbmysql 5.5.8之后开始使用InnoDb作为默认引擎，mysql 5.6的InnoDb增加了innodb_in">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://yu9991n9.github.io/2026/03/02/hello-world/">
+<meta property="og:title" content="无列名注入">
+<meta property="og:url" content="https://yu9991n9.github.io/2026/07/03/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/">
 <meta property="og:site_name" content="Yu9991n9的博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="基础知识众所周知，information_schema作为一个记录了mysql中所有表的数据库，我们经常都会用它来查询信息，在部分题目里面，information_schema是会被ban掉的，那么这个时候我们就要考虑如何去绕过了 我们想要得到表名其实可以使用其他方法： innoDbmysql 5.5.8之后开始使用InnoDb作为默认引擎，mysql 5.6的InnoDb增加了innodb_in">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yu9991n9.github.io/images/avatar.jpg">
-<meta property="article:published_time" content="2026-03-02T14:47:24.826Z">
-<meta property="article:modified_time" content="2026-08-21T03:24:44.878Z">
+<meta property="article:published_time" content="2026-07-03T13:48:27.000Z">
+<meta property="article:modified_time" content="2026-08-21T04:02:21.069Z">
 <meta property="article:author" content="Yu9991n9">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://yu9991n9.github.io/images/avatar.jpg">
@@ -48,7 +48,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2026-03-02T22:47:24+08:00","dateModified":"2026-08-21T11:24:44+08:00","datePublished":"2026-03-02T22:47:24+08:00","description":"","headline":"Hello World","mainEntityOfPage":{"@type":"WebPage","@id":"https://yu9991n9.github.io/2026/03/02/hello-world/"},"publisher":{"@type":"Organization","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"https://yu9991n9.github.io/2026/03/02/hello-world/","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2026-07-03T21:48:27+08:00","dateModified":"2026-08-21T12:02:21+08:00","datePublished":"2026-07-03T21:48:27+08:00","description":"","headline":"无列名注入","mainEntityOfPage":{"@type":"WebPage","@id":"https://yu9991n9.github.io/2026/07/03/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/"},"publisher":{"@type":"Organization","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"https://yu9991n9.github.io/2026/07/03/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/","image":[]}</script>
   
 </head>
 <body>
@@ -80,30 +80,89 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/ctf/">CTF</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-03-02T14:47:24.826Z">2026-03-02</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-08-21T03:24:44.878Z">2026-08-21</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-07-03T13:48:27.000Z">2026-07-03</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-08-21T04:02:21.069Z">2026-08-21</time></span></div></div></div>
     
     <div class="bottom only-title">
       
       <div class="text-area">
-        <h1 class="text title"><span>Hello World</span></h1>
+        <h1 class="text title"><span>无列名注入</span></h1>
         
       </div>
     </div>
     
   </div>
-  </div><article class="md-text content"><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+  </div><article class="md-text content"><h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p>众所周知，information_schema作为一个记录了mysql中所有表的数据库，我们经常都会用它来查询信息，在部分题目里面，information_schema是会被ban掉的，那么这个时候我们就要考虑如何去绕过了</p>
+<p>我们想要得到表名其实可以使用其他方法：</p>
+<h2 id="innoDb"><a href="#innoDb" class="headerlink" title="innoDb"></a>innoDb</h2><p>mysql 5.5.8之后开始使用InnoDb作为默认引擎，<strong>mysql 5.6</strong>的InnoDb增加了<strong>innodb_index_stats</strong>和<strong>innodb_table_stats</strong>两张表</p>
+<p>这两张表存有数据库和列名，但是没有表名：</p>
+<p>select group_concat(database_name) from mysql.innodb_index_stats;<br>select group_concat(table_name) from mysql.innodb_table_stats where database_name&#x3D;database()</p>
+<p><img src="/images/ctf/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/image-20260305234155719-3085513.png" alt="image-20260305234155719"></p>
+<p>但是这里是没有列名的</p>
+<h2 id="sys"><a href="#sys" class="headerlink" title="sys"></a>sys</h2><p>我们不止可以利用innodb，还可以利用sys库，MySQL 5.7开始增加了sys库，这个库可以用于快速了解系统元数据信息。sys库通过视图的形式把information_schema和performance_schema结合起来，查询令人容易理解的数据</p>
+<p>使用这个库的时候就需要分一下下情况了</p>
+<p>-存在自增字段：<br>这个时候可以用sys.schema_auto_increment_columns，它保存了含有自增字段的数据库的信息，自增字段：就是 MySQL 自动帮你生成的、唯一递增的编号（比如 <code>id</code>）</p>
+<p>#查询数据库名<br>select table_schema from sys.schema_auto_increment_columns<br>#查询表名<br>select table_name from sys.schema_auto_increment_columns where table_schema&#x3D;databse()</p>
+<p>-而没有自增字段的时候就需要拿另外一个了schema_table_statistics_with_buffer</p>
+<p>查询数据库：</p>
+<p>select table_schema from sys.schema_table_statistics_with_buffer;<br>select table_schema from sys.x$schema_table_statistics_with_buffer;</p>
+<p>查询指定数据库的表：</p>
+<p>select table_name from sys.schema_table_statistics_with_buffer where table_schema&#x3D;database();<br>select table_name from sys.x$schema_table_statistics_with_buffer where table_schema&#x3D;database();</p>
+<hr>
+<h2 id="join-using"><a href="#join-using" class="headerlink" title="join using"></a>join using</h2><p>这是在无列名注入里面使用频率非常高的命令，详细的写在例题里面了</p>
+<p>在这里就简单概括一下：</p>
+<p>join用于合并两个表，而我们要做的就是利用其合并的特性，让临时表中存在相同名字的列，在进行查询时触发报错</p>
+<p>假设有个表叫user，它的结构如下：</p>
+<p>users</p>
+<p>id<br>username<br>password</p>
+<p>我们执行select * from users u1 join users u2</p>
+<p>那么就会有：</p>
+<p>u1.id<br>u1.username<br>u1.password<br>u2.id<br>u2.username<br>u2.password</p>
+<p>这个时候进行例如</p>
+<p>-1’ union select * from (select * from users u1 join users u2)u–+</p>
+<p>那么题目就会因为重复列名而报错，但是往往我们又不能一次就拿到全部的信息，这个时候就用using来进行排查了</p>
+<p>?id&#x3D;-1’ union select * from (select * from users u1 join users u2 using(id))u–+</p>
+<p>using就是把相同的连接起来，避免重名</p>
+<p>我们同样假设user表：</p>
+<p>SELECT * FROM users u1 JOIN users u2 USING(id)</p>
+<p>就会变成：</p>
+<p>id<br>username<br>password<br>username<br>password</p>
+<p>也就是说这里不会再爆id了，实现了我们继续查询的目的</p>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><p>这里的例题选的ezmysql</p>
+<p>进⼊题⽬，进⾏了简单的尝试，发现很多能够想到的查询词汇都被过滤了，包括database，并且union也被屏蔽；</p>
+<p>但是⻚⾯存在报错，这⾥可以使⽤报错注⼊；</p>
+<p>⾸先判断闭合⽅式，输⼊user&#x3D;admin显示密码错误，但是输⼊admin‘会报错，加上#注释符号正常，由此判断这</p>
+<p>⾥是单引号闭合；</p>
+<p>因为这⾥and也被屏蔽了，要使⽤报错注⼊就只有⽤｜｜来替换and；</p>
+<p>这⾥database是被禁⽌了，所以直接查库名是不⾏的，这⾥要⽤到⼀种新的⽅法，去查询⼀个不存在的数据库通过</p>
+<p>报错来得到库名：</p>
+<p>Select * from aa这⾥的*是通配符，意思是所有；</p>
+<p>这⾥我使⽤的是extrcatvalue来进⾏报错注⼊；</p>
+<p><img src="/images/ctf/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/image-20260306002006997-3086241.png" alt="image-20260306002006997"></p>
+<p>得到库名是sqlsql；</p>
+<p>接下来就是查表名，正常报错注⼊的查询，只是这⾥等号也被过滤所以⽤like替换；</p>
+<p><img src="/images/ctf/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/image-20260306002205635-3086256.png" alt="image-20260306002205635"></p>
+<p>然后就是想办法查列名,这⾥的column是被禁了的，必须想另外⼀种⽅法来绕过，这⾥⽤的是join，join是把两张表</p>
+<p>的列名相加，就导致有可能会产⽣相同的表名，但是jion不允许合并的两个表中有相同的列名，因此通过报错得到</p>
+<p>列名，using表示使⽤什么字段进⾏连接</p>
+<p>这⼀步的payload就是利⽤join‘来构造，其中abc是进⾏⼦查询的临时别名，可以任意进⾏更换，这⾥的核⼼逻辑就</p>
+<p>在于连接后的结果集会包含<strong>重复的列名</strong>。如果 output 表有 id 和 data 两列，那么 b join c 产⽣的临时表将拥</p>
+<p>有四列： b.id , b.data , c.id , c.data 。</p>
+<p>最外层的 select * from (…) a 试图从内层连接操作产⽣的临时表中选取所有列。</p>
+<p>然⽽，正是因为临时表中存在<strong>完全相同的列名</strong>（如两个 id 列），当数据库试图执⾏ select * 时，它⽆法明确 *</p>
+<p>到底指的是哪⼀个 id 或哪⼀个 data ，这种歧义会导致数据库报错。</p>
+<p>所以会导致报错</p>
+<p><img src="/images/ctf/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/image-20260306002240492-3086275.png" alt="image-20260306002240492">直接这么差只能查询到第⼀个，报错注⼊只会返回第⼀⾏数据，这⾥就要⽤其他⽅法，using();</p>
+<p>在最⾥层select的c后⾯加上⼀个using(id)，using的作⽤就是让两个表相关数据强制相等，也就是说这⾥的</p>
+<p>using(id)会让b.id和c.id强制相等，这样id列就被合并了，进⽽在报错时避开id⽽爆出下⼀项，假如有第三个，那么</p>
+<p>就是using(id,data)</p>
+<p><img src="/images/ctf/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/image-20260306002259726-3086298.png" alt="image-20260306002259726"></p>
+<p>然后后⾯就在Fal_flag⾥⾯找到了flag，查看⼀下，这⾥要⽤限制的命令来控制回显，不然超过⼀⾏了显示不出来。</p>
+<p>（）后⾯看了⼀下这⾥最后的0x7e占位置了，直接查是可以的）</p>
+<p><img src="/images/ctf/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/image-20260306002659146-3086359.png" alt="image-20260306002659146"></p>
+<p>或者这⾥⽤mid也⾏，⼀段⼀段截取flag</p>
+<p><img src="/images/ctf/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/image-20260306002716586-3086378.png" alt="image-20260306002716586"></p>
+<p><img src="/images/ctf/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/image-20260306002733487-3086392.png" alt="image-20260306002733487"></p>
+<p><img src="/images/ctf/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/image-20260306002808483-3086412.png" alt="image-20260306002808483"></p>
 </article>
 <div class="article-footer">
     <section id="license">
@@ -115,7 +174,7 @@
 
 </div>
 
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2026/03/02/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/">[CISCN2019 华北赛区 Day1 Web1]Dropbox</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/01/25/polar%E4%B8%AD%E7%AD%89/">Polar中等</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2026/07/04/%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">临时文件包含</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/06/29/java%E5%AE%89%E5%85%A8%E6%BC%AB%E8%B0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Java安全漫谈学习笔记</a></div></section></div>
 
 
 
@@ -129,7 +188,7 @@
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#innoDb"><span class="toc-text">innoDb</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sys"><span class="toc-text">sys</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#join-using"><span class="toc-text">join using</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98"><span class="toc-text">例题</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>

